@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+require('./routes')(app);
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -30,7 +31,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-require('./routes')(app);
+
 
 var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
@@ -81,6 +82,7 @@ function onError(error) {
       throw error;
   }
 }
+
 
 function onListening() {
   var addr = server.address();
