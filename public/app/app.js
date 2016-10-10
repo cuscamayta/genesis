@@ -10,10 +10,14 @@ app.config(function ($routeProvider) {
             controller: 'UserController',
             templateUrl: 'app/partials/security/user.html'
         })
+		.when('/role', {
+            controller: 'RoleController',
+            templateUrl: 'app/partials/security/role.html'
+        })	
 		.when('/route/:id', {
 		    controller: 'HomeController',
 			templateUrl: '/routepartial'
-		})		
+		})	
 
 	.otherwise({
 		redirectTo: '/'
