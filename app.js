@@ -8,6 +8,7 @@ var express = require('express'),
     models = require('./server/models'),
     routes = require('./server/routes/index'),
     users = require('./server/routes/users');
+    roles = require('./server/routes/roles');
 
 
 app.use(bodyParser.urlencoded({

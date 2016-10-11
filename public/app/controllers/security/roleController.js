@@ -25,21 +25,21 @@ app.controller('RoleController', function ($scope, RoleService) {
         if ($scope.editrole.id == 0) {
             var response = RoleService.saverole($scope.editrole);
             response.then(function (roles) {
-                $scope.roles = roles;
+               getroles();
             })
         } else {
             var response = RoleService.updaterole();
             response.then(function (roles) {
-                $scope.roles = roles;
+               getroles();
             })
         }
     };
 
     $scope.deleterole = function () {
-        $scope.editrole;
-        var response = RoleService.deleterole($scope.editrole.id);
+        var response = RoleService.deleterole($scope.editrole);
         response.then(function (roles) {
-            $scope.roles = roles;
+            datarole();
+            getroles();
         })
     };
 

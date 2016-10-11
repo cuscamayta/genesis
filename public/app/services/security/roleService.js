@@ -21,9 +21,9 @@ app.service('RoleService', function ($http, $q) {
         return defer.promise;
     };
 
-    this.deleterole = function (id) {
+    this.deleterole = function (role) {
         var defer = $q.defer();
-        $http.post('/roles:' + id + '/destroy').success(function (response) {
+        $http.post('/roles/destroy', role).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;
