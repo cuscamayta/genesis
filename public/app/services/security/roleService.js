@@ -13,6 +13,14 @@ app.service('RoleService', function ($http, $q) {
         return defer.promise;
     };
 
+    this.updaterole = function (role) {
+        var defer = $q.defer();
+        $http.post('/roles/update', role).success(function (response) {
+            defer.resolve(response);
+        });
+        return defer.promise;
+    };
+
     this.getroles = function () {
         var defer = $q.defer();
         $http.get('/roles').success(function (response) {

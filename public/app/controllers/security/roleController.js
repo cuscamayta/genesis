@@ -28,7 +28,7 @@ app.controller('RoleController', function ($scope, RoleService) {
                getroles();
             })
         } else {
-            var response = RoleService.updaterole();
+            var response = RoleService.updaterole($scope.editrole);
             response.then(function (roles) {
                getroles();
             })

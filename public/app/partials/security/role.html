@@ -1,72 +1,72 @@
 <div class="container">
-    <div class="col s12 m7">
-        <div class="card horizontal">
-            <div class="card-stacked">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s10">
-                            <h3 class="header">Roles registrados</h3>
-                        </div>
-                        <div class="col s2">
-                            <a class="modal-trigger waves-effect waves-light btn" ng-click="newrole()">
-                                <i class="material-icons center" title="Nuevo rol">playlist_add</i>
-                            </a>
-                        </div>                       
-                        <div class="row">
-                            <form class="col s12 minForm">
-                                <table class="responsive-table">
-                                    <colgroup>
-                                        <col style="width: 80%">
-                                        <col style="width: 10%">
-                                        <col style="width: 10%">
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>Descripción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="role in roles" ng-class="{selectelement:roleselected.id==role.id}">
-                                            <td>{{role.title}}</td>
-                                            <td ng-click="selectedrole(role,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
-                                            <td ng-click="selectedrole(role,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
-                </div>                
-            </div>
-        </div>
-    </div>
+	<div class="col s12 m7">
+		<div class="card horizontal">
+			<div class="card-stacked">
+				<div class="card-content">
+					<div class="row">
+						<div class="col s10">
+							<h3 class="header">Roles registrados</h3>
+						</div>
+						<div class="col s2">
+							<a class="modal-trigger waves-effect waves-light btn" ng-click="newrole()">
+								<i class="material-icons center" title="Nuevo rol">playlist_add</i>
+							</a>
+						</div>
+						<div class="row">
+							<form class="col s12 minForm">
+								<table class="responsive-table">
+									<colgroup>
+										<col style="width: 80%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>Descripción</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="role in roles" ng-class="{selectelement:roleselected.id==role.id}">
+											<td>{{role.title}}</td>
+											<td ng-click="selectedrole(role,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
+											<td ng-click="selectedrole(role,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div id="modaleditrole" class="modal modal-fixed-footer" style="height: 280px !important">
-    <div class="modal-content">
-      <h3>Registrar Rol</h3>
-      <div class="row">
-          <form class="col s12">
-              <input id="title" type="text" class="validate" ng-model="editrole.title">
-              <label for="title">Descripción</label>
-            </form>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-        <button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saverole()">Aceptar</button>
-    </div>
-  </div>
-  <div id="modaldeleterole" class="modal modal-fixed-footer" style="height: 200px !important">
-    <div class="modal-content">
-      <h3>Eliminar Rol</h3>
-      <div class="row">
-          <form class="col s12">
-              <label for="title">¿Esta seguro de eliminar el registro?</label>
-            </form>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-        <button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleterole()">Aceptar</button>
-    </div>
-  </div>
+	<div class="modal-content">
+		<h3>Registrar Rol</h3>
+		<div class="row">
+			<form class="col s12">
+				<input id="title" type="text" class="validate" ng-model="editrole.title">
+				<label for="title" class="active">Descripción</label>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saverole()">Aceptar</button>
+	</div>
+</div>
+<div id="modaldeleterole" class="modal modal-fixed-footer" style="height: 200px !important">
+	<div class="modal-content">
+		<h3>Eliminar Rol</h3>
+		<div class="row">
+			<form class="col s12">
+				<label for="title">¿Esta seguro de eliminar el registro?</label>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleterole()">Aceptar</button>
+	</div>
+</div>

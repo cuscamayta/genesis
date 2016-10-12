@@ -1,8 +1,8 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Role = sequelize.define("Role", {
-    title: DataTypes.STRING
+    title: { type: DataTypes.STRING, allowNull: false, unique: true },
   });
   return Role;
 };
