@@ -13,37 +13,53 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
             firstname: '',
             lastname: '',
             password: '',
-            email: '',
+            email: null,
             idrole: 0,
             state: 1
         };
+        $scope.selectedrole = null;
     };
 
     function getusers() {
         var response = UserService.getusers();
         response.then(function (users) {
-            $scope.users = users;
+            if (users.errors && users.errors.length > 0) {
+                Materialize.toast(users.message, 4000);
+            }
+            else { $scope.users = users; }
         })
     }
 
     function getroles() {
         var response = RoleService.getroles();
         response.then(function (roles) {
-            $scope.listrole = roles;
+            if (roles.errors && roles.errors.length > 0) {
+                Materialize.toast(roles.message, 4000);
+            }
+            else {
+                $scope.listrole = roles;
+            }
         })
     }
 
     $scope.saveuser = function () {
         $scope.edituser;
+        $scope.edituser.idrole = $scope.selectedrole.id;
         if ($scope.edituser.id == 0) {
             var response = UserService.saveuser($scope.edituser);
             response.then(function (users) {
-                getusers();
+                if (users.errors && users.errors.length > 0) {
+                    Materialize.toast(users.message, 4000);
+                }
+                else { getusers(); }
             })
         } else {
             var response = UserService.updateuser($scope.edituser);
             response.then(function (users) {
-                getusers();
+                if (users.errors && users.errors.length > 0) {
+                    Materialize.toast(users.message, 4000);
+                }
+                else { getusers(); }
             })
         }
     };
@@ -51,8 +67,13 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
     $scope.deleteuser = function () {
         var response = UserService.deleteuser($scope.edituser);
         response.then(function (users) {
-            datauser();
-            getusers();
+            if (users.errors && users.errors.length > 0) {
+                Materialize.toast(users.message, 4000);
+            }
+            else {
+                datauser();
+                getusers();
+            }
         })
     };
 
@@ -80,8 +101,8 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
             || $scope.edituser.password.length == 0;
     };
 
-    $scope.newuser = function () {        
+    $scope.newuser = function () {
         $('#modaledituser').openModal();
-        datauser();        
+        datauser();
     };
 });

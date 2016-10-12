@@ -10,8 +10,10 @@ router.post('/create', function (request, response) {
     password: request.body.password,
     email: request.body.email,
     idrole: request.body.idrole
-  }).then(function (a) {
-    response.send(a);
+  }).then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(err);
   });
 });
 
@@ -25,24 +27,28 @@ router.post('/update', function (request, response) {
     idrole: request.body.idrole
   }, {
       where: { id: request.body.id }
-    }).then(function (a) {
-      response.send(a);
+    }).then(function (res) {
+      response.send(res);
+    }).catch(function (err) {
+      response.send(err);
     });
 });
 
 router.get('/', function (request, response) {
-  models.User.findAll({
-    include: [Role]
-  }).then(function (users) {
+  models.User.findAll().then(function (users) {
     response.send(users);
+  }).catch(function (err) {
+    response.send(err);
   });
 });
 
 router.post('/destroy', function (request, response) {
   models.User.destroy({
     where: { id: request.body.id }
-  }).then(function (a) {
-    response.send(a);
+  }).then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(err);
   });
 });
 

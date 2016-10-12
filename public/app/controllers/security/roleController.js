@@ -16,7 +16,10 @@ app.controller('RoleController', function ($scope, RoleService) {
     function getroles() {
         var response = RoleService.getroles();
         response.then(function (roles) {
-            $scope.roles = roles;
+            if (roles.errors && roles.errors.length > 0) {
+                Materialize.toast(roles.message, 4000);
+            }
+            else { $scope.roles = roles; }
         })
     }
 
@@ -25,12 +28,18 @@ app.controller('RoleController', function ($scope, RoleService) {
         if ($scope.editrole.id == 0) {
             var response = RoleService.saverole($scope.editrole);
             response.then(function (roles) {
-               getroles();
+                if (roles.errors && roles.errors.length > 0) {
+                    Materialize.toast(roles.message, 4000);
+                }
+                else { getroles(); }
             })
         } else {
             var response = RoleService.updaterole($scope.editrole);
             response.then(function (roles) {
-               getroles();
+                if (roles.errors && roles.errors.length > 0) {
+                    Materialize.toast(roles.message, 4000);
+                }
+                else { getroles(); }
             })
         }
     };
@@ -38,8 +47,13 @@ app.controller('RoleController', function ($scope, RoleService) {
     $scope.deleterole = function () {
         var response = RoleService.deleterole($scope.editrole);
         response.then(function (roles) {
-            datarole();
-            getroles();
+            if (roles.errors && roles.errors.length > 0) {
+                Materialize.toast(roles.message, 4000);
+            }
+            else {
+                datarole();
+                getroles();
+            }
         })
     };
 
