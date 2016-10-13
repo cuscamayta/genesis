@@ -6,3 +6,7 @@ h3 {
 .minForm{
     min-height: 300px !important;
 }
+
+.textUpperCase{
+  text-transform: uppercase !important;
+}

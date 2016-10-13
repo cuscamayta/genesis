@@ -1,0 +1,96 @@
+<div class="container">
+	<div class="col s12 m7">
+		<div class="card horizontal">
+			<div class="card-stacked">
+				<div class="card-content">
+					<div class="row">
+						<div class="col s10">
+							<h3 class="header">Clientes registrados</h3>
+						</div>
+						<div class="col s2">
+							<a class="modal-trigger waves-effect waves-light btn" ng-click="newcustomer()">
+								<i class="material-icons center" title="Nuevo usuario">playlist_add</i>
+							</a>
+						</div>
+						<div class="row">
+							<form class="col s12 minForm">
+								<table class="responsive-table">
+									<colgroup>
+										<col style="width: 20%">
+										<col style="width: 30%">
+										<col style="width: 20%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>Número de Identidad</th>
+											<th>Nombre</th>
+											<th>Correo</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="customer in customers" ng-class="{selectelement:customerselected.id==customer.id}">
+											<td>{{customer.numberid}}</td>
+											<td>{{customer.fullName}}</td>
+											<td>{{customer.email}}</td>
+											<td ng-click="selectedcustomer(customer,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
+											<td ng-click="selectedcustomer(customer,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modaleditcustomer" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<h3>Registrar cliente</h3>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="customername" type="text" class="validate textUpperCase" ng-model="editcustomer.numberid">
+						<label for="customername" class="active">Número de Identidad</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="email" type="email" class="validate" ng-model="editcustomer.email">
+						<label for="email" data-error="wrong" data-success="right" class="active">Correo</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="firstname" type="text" class="validate" ng-model="editcustomer.firstname">
+						<label for="firstname" class="active">Nombre(s)</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="lastname" type="text" class="validate" ng-model="editcustomer.lastname">
+						<label for="lastname" class="active">Apellido</label>
+					</div>					
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="savecustomer()">Aceptar</button>
+	</div>
+</div>
+<div id="modaldeletecustomer" class="modal modal-fixed-footer" style="height: 200px !important">
+	<div class="modal-content">
+		<h3>Eliminar usuario</h3>
+		<div class="row">
+			<form class="col s12">
+				<label for="title">¿Esta seguro de eliminar el registro?</label>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deletecustomer()">Aceptar</button>
+	</div>
+</div>

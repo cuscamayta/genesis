@@ -48,7 +48,7 @@ app.controller('RoleController', function ($scope, RoleService) {
         var response = RoleService.deleterole($scope.editrole);
         response.then(function (roles) {
             if (roles.errors && roles.errors.length > 0) {
-                Materialize.toast(roles.message, 4000);
+                customer
             }
             else {
                 datarole();

@@ -1,14 +1,14 @@
 "use strict";
 
 module.exports = function (sequelize, DataTypes) {
-  var pisosname = sequelize.define("pisosname", {
+  var Drivertype = sequelize.define("Drivertype", {
     title: { type: DataTypes.STRING, allowNull: false, unique: true },
   }, {
       classMethods: {
         associate: function (models) {
-          pisosname.hasMany(models.bus, { foreignKey: 'idpisosname' });
+          Drivertype.hasMany(models.Driver, { foreignKey: 'iddrivertype' });
         }
       }
     });
-  return pisosname;
+  return Drivertype;
 };

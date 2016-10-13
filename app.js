@@ -9,6 +9,9 @@ var express = require('express'),
     routes = require('./server/routes/index'),
     users = require('./server/routes/users');
     roles = require('./server/routes/roles');
+    customers = require('./server/routes/customers');
+    drivertypes = require('./server/routes/drivertypes');
+    drivers = require('./server/routes/drivers');
 
 
 app.use(bodyParser.urlencoded({

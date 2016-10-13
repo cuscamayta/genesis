@@ -14,6 +14,18 @@ app.config(function ($routeProvider) {
             controller: 'RoleController',
             templateUrl: 'app/partials/security/role.html'
         })	
+		.when('/customer', {
+            controller: 'CustomerController',
+            templateUrl: 'app/partials/customer/customer.html'
+        })	
+		.when('/drivertype', {
+            controller: 'DrivertypeController',
+            templateUrl: 'app/partials/driver/drivertype.html'
+        })	
+		.when('/driver', {
+            controller: 'DriverController',
+            templateUrl: 'app/partials/driver/driver.html'
+        })
 		.when('/route/:id', {
 		    controller: 'HomeController',
 			templateUrl: '/routepartial'
