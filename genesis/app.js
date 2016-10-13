@@ -10,7 +10,6 @@ var express = require('express'),
     users = require('./server/routes/users');
     roles = require('./server/routes/roles');
 
-//roberto esto es un comentario
 app.use(bodyParser.urlencoded({
   extended: false
 }));
