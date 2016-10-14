@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Bus.belongsTo(models.Role, { foreignKey: "idbustype" });
+          Bus.belongsTo(models.Bustype, { foreignKey: "idbustype" });
         }
       }
     }
