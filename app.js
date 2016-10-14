@@ -12,7 +12,10 @@ var express = require('express'),
     customers = require('./server/routes/customers');
     drivertypes = require('./server/routes/drivertypes');
     drivers = require('./server/routes/drivers');
-
+    bustypes = require('./server/routes/bustypes');
+    buses = require('./server/routes/buses');
+    destinations = require('./server/routes/destinations');
+    courses = require('./server/routes/courses');
 
 app.use(bodyParser.urlencoded({
   extended: false

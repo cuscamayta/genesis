@@ -1,14 +1,14 @@
 "use strict";
 
 module.exports = function (sequelize, DataTypes) {
-  var Role = sequelize.define("Role", {
+  var Bustype = sequelize.define("Bustype", {
     title: { type: DataTypes.STRING, allowNull: false, unique: true },
   }, {
       classMethods: {
         associate: function (models) {
-          Role.hasMany(models.User, { foreignKey: 'idrole' });
+          Bustype.hasMany(models.Bus, { foreignKey: 'idbustype' });
         }
       }
     });
-  return Role;
+  return Bustype;
 };

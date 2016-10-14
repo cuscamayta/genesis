@@ -26,6 +26,18 @@ app.config(function ($routeProvider) {
             controller: 'DriverController',
             templateUrl: 'app/partials/driver/driver.html'
         })
+        .when('/bustype', {
+            controller: 'BustypeController',
+            templateUrl: 'app/partials/bus/bustype.html'
+        })
+        .when('/bus', {
+            controller: 'BusController',
+            templateUrl: 'app/partials/bus/bus.html'
+        })
+        .when('/destination', {
+            controller: 'DestinationController',
+            templateUrl: 'app/partials/course/destination.html'
+        })
 		.when('/route/:id', {
 		    controller: 'HomeController',
 			templateUrl: '/routepartial'

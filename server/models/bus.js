@@ -1,43 +1,28 @@
 "use strict";
 
 module.exports = function (sequelize, DataTypes) {
-  var Bus = sequelize.define("bus", {
-    Placaname: { type: DataTypes.STRING, allowNull: false, unique: true },
-    colorname: { type: DataTypes.STRING, allowNull: false },
-    pisosname: { type: DataTypes.STRING, allowNull: false },
-    sofacama: { type: DataTypes.STRING, allowNull: false },
- 
-  }, {
-      getterMethods: {
-        fullBus: function () { return this.placaname + " " + this.colorname + this.pisosname + this.sofacama}
-      },
-
-      setterMethods: {
-        fullBus: function (value) {
-          var names = value.split(" ");
-
-          this.setDataValue("placaname", names.slice(0, -1).join(" "));
-          this.setDataValue("colorname", names.slice(-1).join(" "));
-          this.setDataValue("pisosname", names.slice(-1).join(" "));
-          this.setDataValue("sofacama", names.slice(-1).join(" "));
-        },
+  var Bus = sequelize.define("Bus", {
+    numberid: {
+      type: DataTypes.STRING, allowNull: false, unique: true,
+      set: function (val) {
+        this.setDataValue('numberid', val.toUpperCase());
       }
     },
+    numberseats: { type: DataTypes.INTEGER, allowNull: false },
+    numberrows: { type: DataTypes.INTEGER, allowNull: false },
+    numberfloors: { type: DataTypes.INTEGER, allowNull: false },
+    color: { type: DataTypes.STRING, allowNull: false },
+    model: { type: DataTypes.STRING, allowNull: false },
+    make: { type: DataTypes.STRING, allowNull: false },
+    detail: { type: DataTypes.STRING, allowNull: true }
+  },
     {
       classMethods: {
         associate: function (models) {
-          User.belongsTo(models.placaname, { foreignKey: "idplacaname" });
-          {
-          User.belongsTo(models.colorname, { foreignKey: "idcolorname" });
-          {
-          User.belongsTo(models.pisosname, { foreignKey: "idpisosname" });
+          Bus.belongsTo(models.Role, { foreignKey: "idbustype" });
         }
-        {
-          User.belongsTo(models.sofacama, { foreignKey: "idsofacama" });
-      }
       }
     }
-    }
-  });
+  );
   return Bus;
 };

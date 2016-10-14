@@ -2,7 +2,12 @@
 
 module.exports = function (sequelize, DataTypes) {
   var Driver = sequelize.define("Driver", {
-    numberid: { type: DataTypes.STRING, allowNull: false, unique: true },
+    numberid: {
+      type: DataTypes.STRING, allowNull: false, unique: true,
+      set: function (val) {
+        this.setDataValue('numberid', val.toUpperCase());
+      }
+    },
     firstname: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
     birthdate: { type: DataTypes.DATE, allowNull: true },

@@ -27,7 +27,12 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
             if (drivers.errors && drivers.errors.length > 0) {
                 Materialize.toast(drivers.message, 4000);
             }
-            else { $scope.drivers = drivers; }
+            else {                
+                $scope.drivers = drivers;
+                /*if($scope.drivers[0].birthdate){
+                    $scope.drivers[0].birthdate = moment($scope.drivers.birthdate).format('DD/MM/YYYY');
+                }*/
+            }
         })
     }
 
