@@ -1,4 +1,4 @@
-﻿app.service('UserService', function ($http, $q) {
+﻿app.service('CourseService', function ($http, $q) {
 
     init();
 
