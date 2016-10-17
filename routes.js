@@ -10,4 +10,6 @@ module.exports = function (app) {
 	app.use('/buses', require('./server/routes/buses'));
 	app.use('/destinations', require('./server/routes/destinations'));
 	app.use('/courses', require('./server/routes/courses'));
+	app.use('/orderbooks', require('./server/routes/orderbooks'));
+	app.use('/salesbooks', require('./server/routes/salesbooks'));
 };

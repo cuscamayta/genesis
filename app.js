@@ -16,6 +16,8 @@ var express = require('express'),
     buses = require('./server/routes/buses');
     destinations = require('./server/routes/destinations');
     courses = require('./server/routes/courses');
+    orderbooks = require('./server/routes/orderbooks');
+    salesbooks = require('./server/routes/salesbooks');
 
 app.use(bodyParser.urlencoded({
   extended: false
