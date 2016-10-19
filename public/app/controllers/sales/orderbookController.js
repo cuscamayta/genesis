@@ -3,6 +3,9 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
     function init() {
         getorderbooks();
         dataorderbook();
+         $('select').material_select();
+         $("#dateofissue").datepicker({ dateFormat: "dd/mm/yy" });
+         $("#deadline").datepicker({ dateFormat: "dd/mm/yy" });
     }
 
     function dataorderbook() {
@@ -34,6 +37,10 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
 
     $scope.saveorderbook = function () {
         $scope.editorderbook;
+        $scope.editorderbook.type = $("#type").val();
+        $scope.editorderbook.status = $("#status").val();
+        $scope.editorderbook.dateofissue = $("#dateofissue").val();
+        $scope.editorderbook.deadline = $("#deadline").val();
         if ($scope.editorderbook.id == 0) {
             var response = OrderbookService.saveorderbook($scope.editorderbook);
             response.then(function (orderbooks) {
@@ -89,12 +96,12 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editorderbook == null || $scope.editorderbook.type.length == 0
-            || $scope.editorderbook.status.length == 0 || $scope.editorderbook.numberorder.length == 0
+        return $scope.editorderbook == null || $("#type").val() == 0
+            || $("#status").val() == 0 || $scope.editorderbook.numberorder.length == 0
             || $scope.editorderbook.numberid.length == 0 || $scope.editorderbook.controlkey.length == 0
             || $scope.editorderbook.numberinit.length == 0 || $scope.editorderbook.numberend.length == 0
-            || $scope.editorderbook.numberinvoice.length == 0 || $scope.editorderbook.dateofissue.length == 0
-            || $scope.editorderbook.deadline.length == 0;
+            || $scope.editorderbook.numberinvoice.length == 0 || $("#dateofissue").val().length == 0
+            || $("#deadline").val().length == 0;
     };
 
     $scope.neworderbook = function () {
