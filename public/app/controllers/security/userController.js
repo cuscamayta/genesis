@@ -4,6 +4,7 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
         getroles();
         getusers();
         datauser();
+        $('select').material_select();
     }
 
     function datauser() {

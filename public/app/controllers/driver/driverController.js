@@ -4,7 +4,7 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
         getdrivertypes();
         getdrivers();
         datadriver();
-
+        $('select').material_select();
         $("#birthdate").datepicker({ dateFormat: "dd/mm/yy", });
     }
 
@@ -27,7 +27,7 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
             if (drivers.errors && drivers.errors.length > 0) {
                 Materialize.toast(drivers.message, 4000);
             }
-            else {                
+            else {
                 $scope.drivers = drivers;
                 /*if($scope.drivers[0].birthdate){
                     $scope.drivers[0].birthdate = moment($scope.drivers.birthdate).format('DD/MM/YYYY');

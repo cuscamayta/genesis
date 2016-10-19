@@ -4,6 +4,7 @@ app.controller('BusController', function ($scope, BusService, BustypeService) {
         getbustypes();
         getbuses();
         databus();
+        $('select').material_select();
     }
 
     function databus() {

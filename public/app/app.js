@@ -42,6 +42,10 @@ app.config(function ($routeProvider) {
             controller: 'OrderbookController',
             templateUrl: 'app/partials/sales/orderbook.html'
         })
+        .when('/invoice', {
+            controller: 'InvoiceController',
+            templateUrl: 'app/partials/sales/invoice.html'
+        })
 		.when('/route/:id', {
 		    controller: 'HomeController',
 			templateUrl: '/routepartial'

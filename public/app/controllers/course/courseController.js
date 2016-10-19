@@ -4,6 +4,7 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
         getroles();
         getcourses();
         datacourse();
+        $('select').material_select();
     }
 
     function datacourse() {
