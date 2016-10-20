@@ -4,9 +4,10 @@ var router = express.Router();
 
 router.post('/create', function (request, response) {
   models.Course.create({
-    username: request.body.username,
-    email: request.body.email,
-    idrole: request.body.idrole
+    numberid: request.body.numberid,
+    detail: request.body.detail,
+    iddrivertype: request.body.iddrivertype,
+    idorigin: request.body.idorigin
   }).then(function (res) {
     response.send(res);
   }).catch(function (err) {
@@ -16,9 +17,10 @@ router.post('/create', function (request, response) {
 
 router.post('/update', function (request, response) {
   models.Course.update({
-    username: request.body.username,
-    email: request.body.email,
-    idrole: request.body.idrole
+    numberid: request.body.numberid,
+    detail: request.body.detail,
+    iddrivertype: request.body.iddrivertype,
+    idorigin: request.body.idorigin
   }, {
       where: { id: request.body.id }
     }).then(function (res) {

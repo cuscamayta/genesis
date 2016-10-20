@@ -1,7 +1,7 @@
 app.controller('CourseController', function ($scope, CourseService, DestinationService) {
     init();
     function init() {
-        getroles();
+        getdestinations();
         getcourses();
         datacourse();
         $('select').material_select();
@@ -10,12 +10,14 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
     function datacourse() {
         $scope.editcourse = {
             id: 0,
-            coursename: '',
-            email: null,
-            idrole: 0,
+            numberid: "",
+            detail: "",
+            iddestination: 0,
+            idorigin: 0,
             state: 1
         };
-        $scope.selectedrole = null;
+        $scope.selecteddestination = null;
+        $scope.selectedorigin = null;
     };
 
     function getcourses() {
@@ -28,21 +30,22 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
         })
     }
 
-    function getroles() {
-        var response = DestinationService.getroles();
-        response.then(function (roles) {
-            if (roles.errors && roles.errors.length > 0) {
-                Materialize.toast(roles.message, 4000);
+    function getdestinations() {
+        var response = DestinationService.getdestinations();
+        response.then(function (destinations) {
+            if (destinations.errors && destinations.errors.length > 0) {
+                Materialize.toast(destinations.message, 4000);
             }
             else {
-                $scope.listrole = roles;
+                $scope.listdestination = destinations;
             }
         })
     }
 
     $scope.savecourse = function () {
         $scope.editcourse;
-        $scope.editcourse.idrole = $scope.selectedrole.id;
+        $scope.editcourse.iddestination = $scope.selecteddestination.id;
+        $scope.editcourse.idorigin = $scope.selectedorigin.id;
         if ($scope.editcourse.id == 0) {
             var response = CourseService.savecourse($scope.editcourse);
             response.then(function (courses) {
@@ -82,16 +85,19 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
 
         if (option == 1) {
             $('#modaleditcourse').openModal();
-            $('#coursename').val($scope.editcourse.coursename);
-            $('#email').val($scope.editcourse.email);
-            $('#idrole').val($scope.editcourse.idrole);
+            $('#numberid').val($scope.editcourse.numberid);
+            $('#detail').val($scope.editcourse.detail);
+            $('#iddestination').val($scope.editcourse.iddestination);
+            $('#idorigin').val($scope.editcourse.idorigin);
         } else {
             $('#modaldeletecourse').openModal();
         }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editcourse == null || $scope.editcourse.coursename.length < 4;
+        return $scope.editcourse == null || $scope.editcourse.numberid.length < 4
+            || $scope.editcourse.detail.length == 0 || $('#iddestination').val().length == 0
+            || $('#idorigin').val().length == 0;
     };
 
     $scope.newcourse = function () {
