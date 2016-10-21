@@ -19,6 +19,7 @@ var express = require('express'),
     orderbooks = require('./server/routes/orderbooks');
     salesbooks = require('./server/routes/salesbooks');
     invoices = require('./server/routes/invoices');
+    offices = require('./server/routes/offices');
 
 app.use(bodyParser.urlencoded({
   extended: false

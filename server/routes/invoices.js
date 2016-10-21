@@ -17,8 +17,6 @@ router.post('/generate', function (request, response) {
 
 });
 
-
-
 function generateControlCode(authorizationnumber, invoicenumber, nitci,
     transactiondate, transactionamount, controlkey) {
 

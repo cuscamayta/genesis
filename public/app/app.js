@@ -42,6 +42,10 @@ app.config(function ($routeProvider) {
             controller: 'CourseController',
             templateUrl: 'app/partials/course/course.html'
         })
+        .when('/office', {
+            controller: 'OfficeController',
+            templateUrl: 'app/partials/course/office.html'
+        })
         .when('/orderbook', {
             controller: 'OrderbookController',
             templateUrl: 'app/partials/sales/orderbook.html'
