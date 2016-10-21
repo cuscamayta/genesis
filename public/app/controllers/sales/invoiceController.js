@@ -34,10 +34,10 @@ app.controller('InvoiceController', function ($scope, InvoiceService) {
         $scope.editinvoice.numberorder = 7904006306693;
         $scope.editinvoice.numberinvoice = 876814;
         $scope.editinvoice.numberid = 1665979;
-        $scope.editinvoice.amount = 10321;
+        $scope.editinvoice.amount = 35958.6;
         $scope.editinvoice.date = "20080519";
         $scope.editinvoice.limit = "20100101"
-        $scope.editinvoice.controlkey = "CE+=pmvvH4z8xJzNENv[W{Lp]xM7Uw]LHn@IC+)v]xkwPS])nj{ieVy5]7-3Sp2Y";
+        $scope.editinvoice.controlkey = "zZ7Z]xssKqkEf_6K9uH(EcV+%x+u[Cca9T%+_$kiLjT8(zr3T9b5Fx2xG-D+_EBS";
 
         var response = InvoiceService.generatecodecontrol($scope.editinvoice);
 
