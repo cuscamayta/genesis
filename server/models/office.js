@@ -9,6 +9,7 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: function (models) {
           Office.belongsTo(models.Destination, { foreignKey: "idorigin" });
+          Office.hasMany(models.Travel, { foreignKey: 'idoffice' });
         }
       }
     }
