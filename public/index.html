@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="genesisApp">
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
@@ -14,29 +13,50 @@
 
 <body>
 	<!-- Dropdown Structure -->
-	<ul id="dropdown1" class="dropdown-content">
+	<ul id="menusecurity" class="dropdown-content">
+		<li><a href="#/role">Rol</a></li>
 		<li><a href="#/user">Usuario</a></li>
-		<li><a href="#!">submenu 2</a></li>
-		<li class="divider"></li>
-		<li><a href="#!">submenu 3</a></li>
 	</ul>
-	<ul id="dropdown2" class="dropdown-content">
-		<li><a href="#!">submenu 1</a></li>
-		<li><a href="#!">submenu 2</a></li>
+	<ul id="menuconfig" class="dropdown-content">
+		<li><a href="#/bustype">Tipo de bus</a></li>
+		<li><a href="#/bus">Buses</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">submenu 3</a></li>
+		<li><a href="#/drivertype">Tipo chofer</a></li>
+		<li><a href="#/drive">Chofer</a></li>
+		<li class="divider"></li>
+		<li><a href="#/destination">Destinos</a></li>
+		<li><a href="#/course">Rutas</a></li>
+	</ul>
+	<ul id="menumanagement" class="dropdown-content">
+		<li><a href="#/orderbook">Dosificación</a></li>
+		<li><a href="#/invoice">Factura</a></li>
+	</ul>
+	<ul id="menusales" class="dropdown-content">
+		<li><a href="#/customer">Pasajero</a></li>
+		<li class="divider"></li>
+		<li><a href="#!">Reserva</a></li>
+		<li><a href="#!">Pasaje</a></li>
+		<li><a href="#!">Venta</a></li>
+	</ul>
+	<ul id="menumanifest" class="dropdown-content">
+		<li><a href="#!">Manifiestos de equipajes </a></li>
+		<li><a href="#!">Manifiestos de pasajeros </a></li>
+	</ul>
+	<ul id="menureport" class="dropdown-content">
+		<li><a href="#!">Ventas diarias</a></li>
+		<li><a href="#!">Arqueo de caja</a></li>
 	</ul>
 	<nav class="light-blue lighten-1 navbar-fixed" role="navigation">
 		<div class="nav-wrapper">
 			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>TicketBus</a>
 			<ul class="right hide-on-med-and-down">
-				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Menu 1<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Menu 2<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
-				<li><a href="badges.html"><i class="material-icons right">view_module</i>Link with Right Icon</a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="menusecurity">Seguridad<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="menuconfig">Configuración<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="menumanagement">Administración<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="menusales">Ventas<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="menumanifest">Manifiestos<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="menureport">Reportes<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a href="#!"><i class="material-icons">more_vert</i></a></li>
 			</ul>
 		</div>
 	</nav>
@@ -45,27 +65,7 @@
 	</div>
 	<footer class="page-footer orange">
 		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">EngineersWorking S.A.</h5>
-					<p class="grey-text text-lighten-4">A team of developers, focused on quality.</p>
-
-				</div>
-				<div class="col l3 s12">
-					<h5 class="white-text">Settings</h5>
-					<ul>
-						<li><a class="white-text" href="#!">Web Site</a></li>
-						<li><a class="white-text" href="#!">Contactos</a></li>
-					</ul>
-				</div>
-				<div class="col l3 s12">
-					<h5 class="white-text">Connect</h5>
-					<ul>
-						<li><a class="white-text" href="#!">Clients</a></li>
-						<li><a class="white-text" href="#!">System Performance</a></li>
-					</ul>
-				</div>
-			</div>
+			
 		</div>
 		<div class="footer-copyright">
 			<div class="container">
