@@ -12,4 +12,5 @@ module.exports = function (app) {
 	app.use('/courses', require('./server/routes/courses'));
 	app.use('/orderbooks', require('./server/routes/orderbooks'));
 	app.use('/salesbooks', require('./server/routes/salesbooks'));
+	app.use('/invoices', require('./server/routes/invoices'));
 };
