@@ -3,11 +3,13 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/create', function (request, response) {
-  models.Course.create({
-    numberid: request.body.numberid,
+  models.Schedule.create({
+    dateregister: request.body.dateregister,
+    arrival: request.body.arrival,
+    departure: request.body.departure,
     detail: request.body.detail,
-    iddrivertype: request.body.iddrivertype,
-    idorigin: request.body.idorigin
+    iddriver: request.body.iddriver,
+    idtravel: request.body.idtravel
   }).then(function (res) {
     response.send(res);
   }).catch(function (err) {
@@ -16,11 +18,13 @@ router.post('/create', function (request, response) {
 });
 
 router.post('/update', function (request, response) {
-  models.Course.update({
-    numberid: request.body.numberid,
+  models.Schedule.update({
+    dateregister: request.body.dateregister,
+    arrival: request.body.arrival,
+    departure: request.body.departure,
     detail: request.body.detail,
-    iddrivertype: request.body.iddrivertype,
-    idorigin: request.body.idorigin
+    iddriver: request.body.iddriver,
+    idtravel: request.body.idtravel
   }, {
       where: { id: request.body.id }
     }).then(function (res) {
@@ -31,15 +35,15 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Course.findAll().then(function (res) {
-    response.send(res);
+  models.Schedule.findAll().then(function (schedules) {
+    response.send(schedules);
   }).catch(function (err) {
     response.send(err);
   });
 });
 
 router.post('/destroy', function (request, response) {
-  models.Course.destroy({
+  models.Schedule.destroy({
     where: { id: request.body.id }
   }).then(function (res) {
     response.send(res);

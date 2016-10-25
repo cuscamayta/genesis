@@ -14,6 +14,7 @@ router.post('/create', function (request, response) {
     numberinvoice: request.body.numberinvoice,
     dateofissue: request.body.dateofissue,
     deadline: request.body.deadline,
+    idofficeorder: request.body.idoffice,
   }).then(function (res) {
     response.send(res);
   }).catch(function (err) {
@@ -33,6 +34,7 @@ router.post('/update', function (request, response) {
     numberinvoice: request.body.numberinvoice,
     dateofissue: request.body.dateofissue,
     deadline: request.body.deadline,
+    idofficeorder: request.body.idoffice,
   }, {
       where: { id: request.body.id }
     }).then(function (res) {

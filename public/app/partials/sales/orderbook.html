@@ -100,18 +100,22 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<input id="numberinit" type="text" class="validate" ng-model="editorderbook.numberinit">
 						<label for="numberinit" class="active">Nro Inicial</label>
 					</div>
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<input id="numberend" type="text" class="validate" ng-model="editorderbook.numberend">
 						<label for="numberend" class="active">Nro Final</label>
 					</div>
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<input id="numberinvoice" type="text" class="validate" ng-model="editorderbook.numberinvoice">
 						<label for="numberinvoice" class="active">Nro Actual</label>
 					</div>
+					 <div class="input-field col s3">
+						<select id="idoffice" class="browser-default" ng-options="office.title for office in listoffice" ng-model="selectedoffice">
+                        </select>
+					</div>	
 				</div>
 				<div class="row">
 					<div class="input-field col s12">

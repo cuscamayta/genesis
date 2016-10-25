@@ -20,6 +20,8 @@ var express = require('express'),
     salesbooks = require('./server/routes/salesbooks');
     invoices = require('./server/routes/invoices');
     offices = require('./server/routes/offices');
+    travels = require('./server/routes/travels');
+    schedules = require('./server/routes/schedules');
 
 app.use(bodyParser.urlencoded({
   extended: false
