@@ -29,6 +29,14 @@
         return defer.promise;
     };
 
+    this.getdriversforselect = function () {
+        var defer = $q.defer();
+        $http.get('/drivers/forselect').success(function (response) {
+            defer.resolve(response);
+        });
+        return defer.promise;
+    };
+
     this.deletedriver = function (driver) {
         var defer = $q.defer();
         $http.post('/drivers/destroy', driver).success(function (response) {

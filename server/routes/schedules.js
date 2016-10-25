@@ -8,7 +8,7 @@ router.post('/create', function (request, response) {
     arrival: request.body.arrival,
     departure: request.body.departure,
     detail: request.body.detail,
-    iddriver: request.body.iddriver,
+    idbus: request.body.idbus,
     idtravel: request.body.idtravel
   }).then(function (res) {
     response.send(res);
@@ -23,7 +23,7 @@ router.post('/update', function (request, response) {
     arrival: request.body.arrival,
     departure: request.body.departure,
     detail: request.body.detail,
-    iddriver: request.body.iddriver,
+    idbus: request.body.idbus,
     idtravel: request.body.idtravel
   }, {
       where: { id: request.body.id }
@@ -35,7 +35,9 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Schedule.findAll().then(function (schedules) {
+  models.Schedule.findAll({
+    include: [{ model: Scheduledetail, as: "details" }]
+  }).then(function (schedules) {
     response.send(schedules);
   }).catch(function (err) {
     response.send(err);

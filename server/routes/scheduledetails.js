@@ -3,12 +3,10 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/create', function (request, response) {
-  models.Travel.create({
-    numberid: request.body.numberid,
-    arrival: request.body.arrival,
-    departure: request.body.departure,
-    detail: request.body.detail,
-    idcourse: request.body.idcourse
+  models.Scheduledetail.create({
+    drivertype: request.body.drivertype,
+    iddriver: request.body.iddriver,
+    idschedule: request.body.idschedule
   }).then(function (res) {
     response.send(res);
   }).catch(function (err) {
@@ -17,12 +15,10 @@ router.post('/create', function (request, response) {
 });
 
 router.post('/update', function (request, response) {
-  models.Travel.update({
-    numberid: request.body.numberid,
-    arrival: request.body.arrival,
-    departure: request.body.departure,
-    detail: request.body.detail,
-    idcourse: request.body.idcourse
+  models.Scheduledetail.update({
+    drivertype: request.body.drivertype,
+    iddriver: request.body.iddriver,
+    idschedule: request.body.idschedule
   }, {
       where: { id: request.body.id }
     }).then(function (res) {
@@ -33,15 +29,15 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Travel.findAll().then(function (travels) {
-    response.send(travels);
+  models.Scheduledetail.findAll().then(function (schedules) {
+    response.send(schedules);
   }).catch(function (err) {
     response.send(err);
   });
 });
 
 router.post('/destroy', function (request, response) {
-  models.Travel.destroy({
+  models.Scheduledetail.destroy({
     where: { id: request.body.id }
   }).then(function (res) {
     response.send(res);

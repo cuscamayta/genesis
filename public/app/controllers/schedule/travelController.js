@@ -1,7 +1,6 @@
-app.controller('TravelController', function ($scope, TravelService, BusService, CourseService) {
+app.controller('TravelController', function ($scope, TravelService, CourseService) {
     init();
     function init() {
-        getbuses();
         getcourses();
         gettravels();
         datatravel();
@@ -11,12 +10,13 @@ app.controller('TravelController', function ($scope, TravelService, BusService, 
     function datatravel() {
         $scope.edittravel = {
             id: 0,
-            numberid: '',
-            detail: null,
-            idbus: 0,
+            numberid: "",
+            arrival: "",
+            departure: "",
+            detail: "",
+            idcourse: 0,
             state: 1
         };
-        $scope.selectedbus = null;
         $scope.selectedcourse = null;
     };
 
@@ -27,18 +27,6 @@ app.controller('TravelController', function ($scope, TravelService, BusService, 
                 Materialize.toast(travels.message, 4000);
             }
             else { $scope.travels = travels; }
-        })
-    }
-
-    function getbuses() {
-        var response = BusService.getbuses();
-        response.then(function (buses) {
-            if (buses.errors && buses.errors.length > 0) {
-                Materialize.toast(buses.message, 4000);
-            }
-            else {
-                $scope.listbus = buses;
-            }
         })
     }
 
@@ -56,7 +44,6 @@ app.controller('TravelController', function ($scope, TravelService, BusService, 
 
     $scope.savetravel = function () {
         $scope.edittravel;
-        $scope.edittravel.idbus = $scope.selectedbus.id;
         $scope.edittravel.idcourse = $scope.selectedcourse.id;
         if ($scope.edittravel.id == 0) {
             var response = TravelService.savetravel($scope.edittravel);
@@ -98,10 +85,10 @@ app.controller('TravelController', function ($scope, TravelService, BusService, 
         if (option == 1) {
             $('#modaledittravel').openModal();
             $('#numberid').val($scope.edittravel.numberid);
+            $('#arrival').val($scope.edittravel.arrival);
+            $('#departure').val($scope.edittravel.departure);
             $('#detail').val($scope.edittravel.detail);
-            $('#idbus').val($scope.edittravel.idbus);
             $('#idcourse').val($scope.edittravel.idcourse);
-            $('#idbus').val($scope.edittravel.idbus);
         } else {
             $('#modaldeletetravel').openModal();
         }
@@ -109,7 +96,8 @@ app.controller('TravelController', function ($scope, TravelService, BusService, 
 
     $scope.validatecontrols = function () {
         return $scope.edittravel == null || $scope.edittravel.numberid.length == 0
-            || $('#idbus').val().length == 0 || $('#idcourse').val().length == 0;
+            || $scope.edittravel.arrival.length == 0 || $scope.edittravel.departure.length == 0
+            || $('#idcourse').val().length == 0;
     };
 
     $scope.newtravel = function () {

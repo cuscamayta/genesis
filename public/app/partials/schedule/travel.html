@@ -16,7 +16,9 @@
 							<form class="col s12 minForm">
 								<table class="responsive-table">
 									<colgroup>
-										<col style="width: 30%">
+										<col style="width: 20%">
+										<col style="width: 15%">
+										<col style="width: 15%">
 										<col style="width: 30%">
 										<col style="width: 10%">
 										<col style="width: 10%">
@@ -24,12 +26,16 @@
 									<thead>
 										<tr>
 											<th>Nombre</th>
+											<th>Hora salida</th>
+											<th>Hora llegada</th>
 											<th>Detalle</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="travel in travels" ng-class="{selectelement:travelselected.id==travel.id}">
 											<td>{{travel.numberid}}</td>
+											<td>{{travel.arrival}}</td>
+											<td>{{travel.departure}}</td>
 											<td>{{travel.detail}}</td>
 											<td ng-click="selectedtravel(travel,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
 											<td ng-click="selectedtravel(travel,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
@@ -55,18 +61,24 @@
 						<label for="numberid" class="active">Nombre</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="detail" type="text" class="validate" ng-model="edittravel.detail">
-						<label for="detail" class="active">Detalle</label>
-					</div>					
-				</div>
-				<div class="row">
-                    <div class="input-field col s6">
-						<select id="idbus" class="browser-default" ng-options="bus.numberid for bus in listbus" ng-model="selectedbus">
-                        </select>
-					</div>
-                    <div class="input-field col s6">
 						<select id="idcourse" class="browser-default" ng-options="course.numberid for course in listcourse" ng-model="selectedcourse">
                         </select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="arrival" type="text" class="validate" ng-model="edittravel.arrival">
+						<label for="arrival" class="active">Hora salida</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="departure" type="text" class="validate" ng-model="edittravel.departure">
+						<label for="departure" class="active">Hora llegada</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="detail" type="text" class="validate" ng-model="edittravel.detail">
+						<label for="detail" class="active">Detalle</label>
 					</div>
 				</div>
 			</form>

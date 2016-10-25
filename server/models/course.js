@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Course.belongsTo(models.Destination, { foreignKey: "iddrivertype" });
+          Course.belongsTo(models.Destination, { foreignKey: "iddestination" });
           Course.belongsTo(models.Destination, { foreignKey: "idorigin" });
           Course.hasMany(models.Travel, { foreignKey: 'idcourse' });
         }

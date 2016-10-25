@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
   }, {
       classMethods: {
         associate: function (models) {
-          Orderbook.belongsTo(models.Office, { foreignKey: "idofficeorder" });
+          Orderbook.belongsTo(models.Office, { foreignKey: "idoffice" });
           Orderbook.hasMany(models.Salesbook, { foreignKey: 'idorderbook' });
         }
       }

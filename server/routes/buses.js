@@ -48,6 +48,16 @@ router.get('/', function (request, response) {
   });
 });
 
+router.get('/forselect', function (request, response) {
+  models.Office.findAll({
+    attributes: ["id", "numberid"]
+  }).then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(err);
+  });
+});
+
 router.post('/destroy', function (request, response) {
   models.Bus.destroy({
     where: { id: request.body.id }
