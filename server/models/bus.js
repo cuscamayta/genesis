@@ -20,6 +20,7 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: function (models) {
           Bus.belongsTo(models.Bustype, { foreignKey: "idbustype" });
+          Bus.hasMany(models.Travel, { foreignKey: 'idbus' });
         }
       }
     }
