@@ -35,8 +35,8 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.User.findAll().then(function (users) {
-    response.send(users);
+  models.User.findAll().then(function (res) {
+    response.send(res);
   }).catch(function (err) {
     response.send(err);
   });

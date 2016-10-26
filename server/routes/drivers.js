@@ -40,6 +40,16 @@ router.get('/', function (request, response) {
   });
 });
 
+router.get('/forselect', function (request, response) {
+  models.Office.findAll({
+    attributes: ["id", "fullName"]
+  }).then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(err);
+  });
+});
+
 router.post('/destroy', function (request, response) {
   models.Driver.destroy({
     where: { id: request.body.id }

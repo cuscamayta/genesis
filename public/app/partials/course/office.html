@@ -16,21 +16,27 @@
 							<form class="col s12 minForm">
 								<table class="responsive-table">
 									<colgroup>
+										<col style="width: 15%">
+										<col style="width: 15%">
+										<col style="width: 30%">
 										<col style="width: 20%">
-										<col style="width: 40%">
 										<col style="width: 10%">
 										<col style="width: 10%">
 									</colgroup>
 									<thead>
 										<tr>
 											<th>Sucursal</th>
+											<th>Teléfono</th>
 											<th>Dirección</th>
+											<th>Detalles</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="office in offices" ng-class="{selectelement:officeselected.id==office.id}">
 											<td>{{office.title}}</td>
+											<td>{{office.phone}}</td>
 											<td>{{office.address}}</td>
+											<td>{{office.detail}}</td>
 											<td ng-click="selectedoffice(office,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
 											<td ng-click="selectedoffice(office,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
 										</tr>
@@ -50,11 +56,15 @@
 		<div class="row">
 			<form class="col s12">
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s4">
 						<input id="title" type="text" class="validate" ng-model="editoffice.title">
 						<label for="title" class="active">Nombre</label>
-					</div>					
-                    <div class="input-field col s6">
+					</div>
+					<div class="input-field col s4">
+						<input id="phone" type="text" class="validate" ng-model="editoffice.phone">
+						<label for="phone" class="active">Teléfono</label>
+					</div>						
+                    <div class="input-field col s4">
 						<select id="idorigin" class="browser-default" ng-options="destination.title for destination in listdestination" ng-model="selectedorigin">
                         </select>
 					</div>				
@@ -63,6 +73,12 @@
 					<div class="input-field col s12">
 						<input id="address" type="text" class="validate" ng-model="editoffice.address">
 						<label for="address" class="active">Dirección</label>
+					</div>					
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="detail" type="text" class="validate" ng-model="editoffice.detail">
+						<label for="detail" class="active">Detalles</label>
 					</div>					
 				</div>
 			</form>

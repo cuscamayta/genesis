@@ -12,6 +12,8 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
             id: 0,
             title: "",
             address: "",
+            phone: "",
+            detail: "",
             idorigin: 0,
             state: 1
         };
@@ -83,6 +85,8 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
         if (option == 1) {
             $('#modaleditoffice').openModal();
             $('#title').val($scope.editoffice.title);
+            $('#phone').val($scope.editoffice.phone);
+            $('#detail').val($scope.editoffice.detail);
             $('#address').val($scope.editoffice.address);
             $('#idorigin').val($scope.editoffice.idorigin);
         } else {
@@ -92,7 +96,8 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
 
     $scope.validatecontrols = function () {
         return $scope.editoffice == null || $scope.editoffice.title.length == 0
-            || $scope.editoffice.address.length == 0 || $('#idorigin').val().length == 0;
+            || $scope.editoffice.address.length == 0 || $('#idorigin').val().length == 0
+            || $scope.editoffice.phone.length == 0 || $scope.editoffice.detail.length == 0 ;
     };
 
     $scope.newoffice = function () {

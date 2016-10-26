@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: function (models) {
           Driver.belongsTo(models.Typedriver, { foreignKey: "iddrivertype" });
-          Driver.hasMany(models.Schedule, { foreignKey: 'iddriver' });
+          Driver.hasMany(models.Scheduledetail, { foreignKey: 'iddriver' });
         }
       }
     }

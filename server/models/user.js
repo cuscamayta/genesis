@@ -25,6 +25,7 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: function (models) {
           User.belongsTo(models.Role, { foreignKey: "idrole" });
+          User.hasMany(models.UserOffice, { foreignKey: 'iduser' });
         }
       }
     }

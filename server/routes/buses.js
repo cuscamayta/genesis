@@ -41,8 +41,18 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Bus.findAll().then(function (users) {
-    response.send(users);
+  models.Bus.findAll().then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(err);
+  });
+});
+
+router.get('/forselect', function (request, response) {
+  models.Office.findAll({
+    attributes: ["id", "numberid"]
+  }).then(function (res) {
+    response.send(res);
   }).catch(function (err) {
     response.send(err);
   });

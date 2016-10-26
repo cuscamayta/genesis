@@ -1,11 +1,12 @@
-app.controller('OrderbookController', function ($scope, OrderbookService) {
+app.controller('OrderbookController', function ($scope, OrderbookService, OfficeService) {
     init();
     function init() {
+        getoffices();
         getorderbooks();
         dataorderbook();
-         $('select').material_select();
-         $("#dateofissue").datepicker({ dateFormat: "dd/mm/yy" });
-         $("#deadline").datepicker({ dateFormat: "dd/mm/yy" });
+        $('select').material_select();
+        $("#dateofissue").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#deadline").datepicker({ dateFormat: "dd/mm/yy" });
     }
 
     function dataorderbook() {
@@ -21,6 +22,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
             numberinvoice: 0,
             dateofissue: "",
             deadline: "",
+            idoffice: 0,
             state: 1
         };
     };
@@ -35,12 +37,26 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
         })
     }
 
+    function getoffices() {
+        var response = OfficeService.getofficesforselect();
+        response.then(function (offices) {
+            if (offices.errors && offices.errors.length > 0) {
+                Materialize.toast(offices.message, 4000);
+            }
+            else {
+                $scope.listoffice = offices;
+            }
+        })
+    }
+
     $scope.saveorderbook = function () {
         $scope.editorderbook;
+        $scope.editorderbook.idoffice = $("#office").val();
         $scope.editorderbook.type = $("#type").val();
         $scope.editorderbook.status = $("#status").val();
         $scope.editorderbook.dateofissue = $("#dateofissue").val();
         $scope.editorderbook.deadline = $("#deadline").val();
+        $scope.editorderbook.idoffice = $("#office").val();
         if ($scope.editorderbook.id == 0) {
             var response = OrderbookService.saveorderbook($scope.editorderbook);
             response.then(function (orderbooks) {
@@ -80,6 +96,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
 
         if (option == 1) {
             $('#modaleditorderbook').openModal();
+            $('#office').val($scope.editorderbook.idoffice);
             $('#type').val($scope.editorderbook.type);
             $('#status').val($scope.editorderbook.status);
             $('#numberorder').val($scope.editorderbook.numberorder);
@@ -101,7 +118,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService) {
             || $scope.editorderbook.numberid.length == 0 || $scope.editorderbook.controlkey.length == 0
             || $scope.editorderbook.numberinit.length == 0 || $scope.editorderbook.numberend.length == 0
             || $scope.editorderbook.numberinvoice.length == 0 || $("#dateofissue").val().length == 0
-            || $("#deadline").val().length == 0;
+            || $("#deadline").val().length == 0 || $("#office").val() == 0;
     };
 
     $scope.neworderbook = function () {
