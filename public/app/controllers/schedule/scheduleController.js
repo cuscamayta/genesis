@@ -7,6 +7,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         getschedules();
         dataschedule();
         $('select').material_select();
+        $("#dateregister").datepicker({ dateFormat: "dd/mm/yy", });
     }
 
     function dataschedule() {
@@ -16,6 +17,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
             arrival: '',
             departure: '',
             detail: '',
+            price: 0,
             idtravel: 0,
             idbus: 0,
             state: 1,
@@ -32,17 +34,16 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         }
     };
 
-    $scope.add = function (editdetail) {
-        $scope.editschedule.details.push(editdetail);
-    }
-
     function getschedules() {
         var response = ScheduleService.getschedules();
         response.then(function (schedules) {
             if (schedules.errors && schedules.errors.length > 0) {
                 Materialize.toast(schedules.message, 4000);
             }
-            else { $scope.schedules = schedules; }
+            else {
+                $scope.schedules = schedules;
+                $scope.schedulesdetails = schedules[0].Scheduledetails;
+            }
         })
     }
 
@@ -126,6 +127,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         if (option == 1) {
             $('#modaleditschedule').openModal();
             $('#dateregister').val($scope.editschedule.dateregister);
+            $('#price').val($scope.editschedule.price);
             $('#arrival').val($scope.editschedule.arrival);
             $('#departure').val($scope.editschedule.departure);
             $('#detail').val($scope.editschedule.detail);
@@ -139,11 +141,30 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     $scope.validatecontrols = function () {
         return $scope.editschedule == null || $scope.editschedule.dateregister.length < 10
             || $scope.editschedule.arrival.length == 0 || $scope.editschedule.departure.length == 0
-            || $('#idbus').val() == 0 || $('#idtravel').val() == 0;
+            || $('#idbus').val() == 0 || $('#idtravel').val() == 0 || $scope.editschedule.price == 0;
     };
 
     $scope.newschedule = function () {
         $('#modaleditschedule').openModal();
         dataschedule();
+    };
+
+    $scope.newscheduledetail = function () {
+        $scope.editdetail.drivertype = $("#type").val();
+        $scope.editdetail.iddriver = $scope.selecteddriver.id;
+        $scope.schedulesdetails.push($scope.editdetail);
+    }
+
+    $scope.deletescheduledetail = function () {
+        if ($scope.editdetail.id) {
+            var response = ScheduleService.deletescheduledetail($scope.editdetail);
+            response.then(function (details) {
+                if (details.errors && details.errors.length > 0) {
+                    Materialize.toast(details.message, 4000);
+                }
+            })
+        }else{
+            
+        }
     };
 });

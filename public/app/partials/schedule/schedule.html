@@ -1,0 +1,158 @@
+<div class="container">
+	<div class="col s12 m7">
+		<div class="card horizontal">
+			<div class="card-stacked">
+				<div class="card-content">
+					<div class="row">
+						<div class="col s10">
+							<h3 class="header">Programación diaria registrados</h3>
+						</div>
+						<div class="col s2">
+							<a class="modal-trigger waves-effect waves-light btn" ng-click="newschedule()">
+								<i class="material-icons center" title="Nuevo itinerario">playlist_add</i>
+							</a>
+						</div>
+						<div class="row">
+							<form class="col s12 minForm">
+								<table class="responsive-table">
+									<colgroup>
+										<col style="width: 15%">
+										<col style="width: 15%">
+										<col style="width: 15%">
+										<col style="width: 30%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>Fecha</th>
+											<th>Hora salida</th>
+											<th>Hora llegada</th>
+											<th>Detalle</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="schedule in schedules" ng-class="{selectelement:scheduleselected.id==schedule.id}">
+											<td>{{schedule.numberid}}</td>
+											<td>{{schedule.arrival}}</td>
+											<td>{{schedule.departure}}</td>
+											<td>{{schedule.detail}}</td>
+											<td ng-click="selectedschedule(schedule,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
+											<td ng-click="selectedschedule(schedule,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modaleditschedule" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<h3>Registrar programación diaria</h3>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="dateregister" type="text" class="validate" ng-model="editschedule.dateregister">
+						<label for="dateregister" class="active">Fecha</label>
+					</div>
+					<div class="input-field col s4">
+						<input id="price" type="text" class="validate" ng-model="editschedule.price">
+						<label for="price" class="active">Hora llegada</label>
+					</div>					
+				</div>
+				<div class="row">
+                    <div class="input-field col s6">
+						<select id="idtravel" class="browser-default" ng-options="travel.numberid for travel in listtravel" ng-model="selectedtravel">
+                        </select>
+					</div>
+                    <div class="input-field col s6">
+						<select id="idbus" class="browser-default" ng-options="bus.numberid for bus in listbus" ng-model="selectedbus">
+                        </select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="arrival" type="text" class="validate" ng-model="editschedule.arrival">
+						<label for="arrival" class="active">Hora salida</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="departure" type="text" class="validate" ng-model="editschedule.departure">
+						<label for="departure" class="active">Hora llegada</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="detail" type="text" class="validate" ng-model="editschedule.detail">
+						<label for="detail" class="active">Detalle</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s5">
+						<select id="iddriver" class="browser-default" ng-options="driver.fullName for driver in listdriver" ng-model="selecteddriver">
+                        </select>
+					</div>
+					<div class="input-field col s5">
+						<select id="type">
+							<option value="" disabled selected>Elija un tipo</option>
+							<option value="Chofer">Chofer</option>
+							<option value="Relevo">Relevo</option>
+						</select>
+					</div>
+					<div class="input-field col s2">
+						<a class="btn-floating" ng-click="newscheduledetail()">
+							<i class="material-icons" title="Nuevo conductor">add</i>
+						</a>
+					</div>
+				</div>
+				<div class="row">                    
+					<div class="col s6 offset-s3">
+						<table class="responsive-table">
+							<colgroup>
+								<col style="width: 20%">
+								<col style="width: 20%">
+								<col style="width: 10%">
+								<col style="width: 10%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>Tipo</th>
+									<th>Conductor</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="scheduledetail in schedulesdetails" ng-class="{selectelement:scheduledetailselected.id==scheduledetail.id}">
+											<td>{{scheduledetail.drivertype}}</td>
+											<td>{{scheduledetail.iddriver}}</td>
+											<td ng-click="deletescheduledetail(scheduledetail)"><i class="material-icons center" title="Eliminar">delete</i></td>
+										</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saveschedule()">Aceptar</button>
+	</div>
+</div>
+<div id="modaldeleteschedule" class="modal modal-fixed-footer" style="height: 200px !important">
+	<div class="modal-content">
+		<h3>Eliminar programación diaria</h3>
+		<div class="row">
+			<form class="col s12">
+				<label for="title">¿Esta seguro de eliminar el registro?</label>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
+		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleteschedule()">Aceptar</button>
+	</div>
+</div>

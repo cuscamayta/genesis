@@ -49,7 +49,7 @@ router.get('/', function (request, response) {
 });
 
 router.get('/forselect', function (request, response) {
-  models.Office.findAll({
+  models.Bus.findAll({
     attributes: ["id", "numberid"]
   }).then(function (res) {
     response.send(res);

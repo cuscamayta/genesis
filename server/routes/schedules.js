@@ -5,6 +5,7 @@ var router = express.Router();
 router.post('/create', function (request, response) {
   models.Schedule.create({
     dateregister: request.body.dateregister,
+    price: request.body.price,
     arrival: request.body.arrival,
     departure: request.body.departure,
     detail: request.body.detail,
@@ -20,6 +21,7 @@ router.post('/create', function (request, response) {
 router.post('/update', function (request, response) {
   models.Schedule.update({
     dateregister: request.body.dateregister,
+    price: request.body.price,
     arrival: request.body.arrival,
     departure: request.body.departure,
     detail: request.body.detail,
@@ -36,7 +38,7 @@ router.post('/update', function (request, response) {
 
 router.get('/', function (request, response) {
   models.Schedule.findAll({
-    include: [{ model: Scheduledetail, as: "details" }]
+    include: [models.Scheduledetail]
   }).then(function (schedules) {
     response.send(schedules);
   }).catch(function (err) {

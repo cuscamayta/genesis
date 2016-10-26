@@ -41,8 +41,9 @@ router.get('/', function (request, response) {
 });
 
 router.get('/forselect', function (request, response) {
-  models.Office.findAll({
-    attributes: ["id", "fullName"]
+  models.Driver.findAll({
+    attributes: ["id", "firstname" , "lastname"],
+    order: [["firstname","ASC"]]
   }).then(function (res) {
     response.send(res);
   }).catch(function (err) {

@@ -46,4 +46,14 @@ router.post('/destroy', function (request, response) {
   });
 });
 
+router.post('/destroybyheader', function (request, response) {
+  models.Scheduledetail.destroy({
+    where: { idschedule: request.body.id }
+  }).then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(err);
+  });
+});
+
 module.exports = router;
