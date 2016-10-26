@@ -103,7 +103,6 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
     };
 
     $scope.newuser = function () {
-        $('#modaledituser').openModal();
         datauser();
     };
 });

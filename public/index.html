@@ -33,14 +33,13 @@
 	<link href="../resources/css/custom.min.css" rel="stylesheet">
 </head>
 
-<<<<<<< HEAD
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Ticket System</span></a>
+						<a href="#" class="site_title"><i class="fa fa-bars"></i> <span>Ticket System</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -131,70 +130,6 @@
 					</div>
 					<!-- /menu footer buttons -->
 				</div>
-=======
-<body>
-	<!-- Dropdown Structure -->
-	<ul id="menusecurity" class="dropdown-content">
-		<li><a href="#/role">Rol</a></li>
-		<li><a href="#/user">Usuario</a></li>
-	</ul>
-	<ul id="menuconfig" class="dropdown-content">
-		<li><a href="#/bustype">Tipo de bus</a></li>
-		<li><a href="#/bus">Buses</a></li>
-		<li class="divider"></li>
-		<li><a href="#/drivertype">Tipo chofer</a></li>
-		<li><a href="#/driver">Chofer</a></li>				
-		<li class="divider"></li>
-		<li><a href="#/destination">Destinos</a></li>
-		<li><a href="#/office">Sucursal</a></li>
-		<li><a href="#/course">Rutas</a></li>
-	</ul>
-	<ul id="menumanagement" class="dropdown-content">
-		<li><a href="#/orderbook">Dosificación</a></li>
-		<li><a href="#/invoice">Factura</a></li>
-		<li class="divider"></li>
-		<li><a href="#/travel">Itinerario</a></li>
-		<li><a href="#/schedule">Programación diaria</a></li>
-	</ul>
-	<ul id="menusales" class="dropdown-content">
-		<li><a href="#/customer">Pasajero</a></li>
-		<li class="divider"></li>
-		<li><a href="#!">Pasaje</a></li>
-		<li><a href="#!">Venta</a></li>
-	</ul>
-	<ul id="menumanifest" class="dropdown-content">
-		<li><a href="#!">Manifiestos de equipajes </a></li>
-		<li><a href="#!">Manifiestos de pasajeros </a></li>
-	</ul>
-	<ul id="menureport" class="dropdown-content">
-		<li><a href="#!">Ventas diarias</a></li>
-		<li><a href="#!">Arqueo de caja</a></li>
-	</ul>
-	<nav class="light-blue lighten-1 navbar-fixed" role="navigation">
-		<div class="nav-wrapper">
-			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>BUSTICKETS</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a class="dropdown-button" href="#!" data-activates="menusecurity">Seguridad<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="menuconfig">Configuración<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="menumanagement">Administración<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="menusales">Ventas<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="menumanifest">Manifiestos<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="menureport">Reportes<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a href="#!"><i class="material-icons">more_vert</i></a></li>
-			</ul>
-		</div>
-	</nav>
-	<div data-ng-view="">
-		content here
-	</div>
-	<footer class="page-footer orange">
-		<div class="container">
-			
-		</div>
-		<div class="footer-copyright">
-			<div class="container">
-				Developed by <a class="orange-text text-lighten-3" href="http://materializecss.com">EngineersWorking</a>
->>>>>>> d3bf779e8c948251e734ae797864203c06ccdca5
 			</div>
 
 			<!-- top navigation -->
@@ -378,10 +313,13 @@
 	<script src="app/services/sales/orderbookService.js"></script>
 	<script src="app/controllers/sales/orderbookController.js"></script>
 	<script src="app/services/sales/salesbookService.js"></script>
-	<script src="app/controllers/sales/invoiceController.js"></script>	
+	<script src="app/controllers/sales/invoiceController.js"></script>
 	<script src="app/services/sales/invoiceService.js"></script>
-<<<<<<< HEAD
+		<script src="app/controllers/schedule/travelController.js"></script>	
+	<script src="app/services/schedule/travelService.js"></script>
 
+	<script src="app/controllers/schedule/scheduleController.js"></script>	
+	<script src="app/services/schedule/scheduleService.js"></script>
 
 	<!-- bootstrap-daterangepicker -->
 	<script>
@@ -594,15 +532,6 @@
       });
     </script>
 	<!-- /Starrr -->
-=======
-	<script src="app/controllers/schedule/travelController.js"></script>	
-	<script src="app/services/schedule/travelService.js"></script>
-<<<<<<< HEAD
-	<script src="app/controllers/schedule/scheduleController.js"></script>	
-	<script src="app/services/schedule/scheduleService.js"></script>
-=======
->>>>>>> d3bf779e8c948251e734ae797864203c06ccdca5
->>>>>>> 58e4bb0e88eb972d5f3e3f63d9bf3994882a6da8
 </body>
 
 </html>
