@@ -1,4 +1,36 @@
-<div class="container">
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Roles de usuario</h2>
+		<ul class="nav navbar-right panel_toolbox">
+			<button type="button" class="btn btn-primary" ng-click="newrole()">Nuevo</button>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	<div class="x_content">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>					
+					<th>#</th>
+					<th>Descripción</th>
+					<th></th>
+					<th></th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="role in roles" ng-class="{selectelement:roleselected.id==role.id}">
+					<td>{{$index}}</td>
+					<td>{{role.title}}</td>
+					<td ng-click="selectedrole(role,1)"><a href="#"><i class="fa fa-edit"></i><span class="text-muted"></span></a></td>
+					<td ng-click="selectedrole(role,2)"><a href="#"><i class="fa fa-remove"></i><span class="text-muted"></span></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
+
+<!--<div class="container">
 	<div class="col s12 m7">
 		<div class="card horizontal">
 			<div class="card-stacked">
@@ -40,7 +72,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>-->
 <div id="modaleditrole" class="modal modal-fixed-footer" style="height: 280px !important">
 	<div class="modal-content">
 		<h3>Registrar Rol</h3>
