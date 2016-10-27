@@ -1,85 +1,93 @@
-﻿<div class="x_panel">
-	<div class="x_title">
-		<h2>Roles de usuario</h2>
-		<ul class="nav navbar-right panel_toolbox">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="newuser()" >Nuevo</button>
-		</ul>
-		<div class="clearfix"></div>
+﻿<div class="row">
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Usuarios registrados</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action">
+						<thead class="headings">
+							<tr>
+								<th>#</th>
+								<th>Usuario</th>
+								<th>Nombre</th>
+								<th>Correo</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" ng-repeat="user in users" ng-class="{selectelement:userselected.id==user.id}">
+								<td>{{$index}}</td>
+								<td>{{user.username}}</td>
+								<td>{{user.fullName}}</td>
+								<td>{{user.email}}</td>
+								<td ng-click="selecteduser(user,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
+								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selecteduser(user,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="x_content">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Usuario</th>
-					<th>Nombre</th>
-					<th>Correo</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="user in users" ng-class="{selectelement:userselected.id==user.id}">
-					<td>{{user.username}}</td>
-					<td>{{user.fullName}}</td>
-					<td>{{user.email}}</td>
-					<td ng-click="selecteduser(user,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
-					<td ng-click="selecteduser(user,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Registrar usuario</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<form class="form-horizontal form-label-left" novalidate>
+					<p></p>
+					<div class="item form-group bad"></div>
+					<label for="username">Usuario <span class="required">*</span></label>
+					<input type="text" id="username" class="form-control" name="username" required="required" ng-model="edituser.username">
 
-	</div>
-</div>
-<div id="modaledituser" class="modal fade bs-example-modal-lg">
-	<div class="modal-content">
-		<h3>Registrar usuario</h3>
-		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s4">
-						<input id="username" type="text" class="validate" ng-model="edituser.username">
-						<label for="username" class="active">Usuario</label>
-					</div>
-					<div class="input-field col s4">
-						<input id="password" type="password" class="validate" ng-model="edituser.password">
-						<label for="password" class="active">Contraseña</label>
-					</div>
-					<div class="input-field col s4">
-						<select id="idrole" class="browser-default" ng-options="role.title for role in listrole" ng-model="selectedrole">
+					<label for="password">Contraseña <span class="required">*</span></label>
+					<input type="password" id="password" class="form-control" name="password" required="required" ng-model="edituser.password">
+
+					<label for="firstname">Nombres (s) <span class="required">*</span></label>
+					<input type="text" id="firstname" class="form-control" name="firstname" required="required" ng-model="edituser.firstname">
+
+					<label for="lastname">Apellidos <span class="required">*</span></label>
+					<input type="text" id="lastname" class="form-control" name="lastname" required="required" ng-model="edituser.lastname">
+
+					<label for="email">Correo <span class="required">*</span></label>
+					<input type="email" id="email" class="form-control" name="email" required="required" ng-model="edituser.email">
+
+					<p>
+						<label for="idrole">Rol <span class="required">*</span></label>
+						<select id="idrole" class="form-control" required="" ng-options="role.title for role in listrole" ng-model="selectedrole">                            
                         </select>
+					</p>
+
+					<div class="ln_solid"></div>
+					<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+						<button type="button" class="btn btn-default" ng-click="newuser()" title="Limpiar controles">Cancel</button>
+						<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveuser()" title="Guardar">Guardar</button>
 					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s4">
-						<input id="firstname" type="text" class="validate" ng-model="edituser.firstname">
-						<label for="firstname" class="active">Nombre(s)</label>
-					</div>
-					<div class="input-field col s4">
-						<input id="lastname" type="text" class="validate" ng-model="edituser.lastname">
-						<label for="lastname" class="active">Apellido</label>
-					</div>
-					<div class="input-field col s4">
-						<input id="email" type="email" class="validate" ng-model="edituser.email">
-						<label for="email" data-error="wrong" data-success="right" class="active">Correo</label>
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saveuser()">Aceptar</button>
 	</div>
 </div>
-<div id="modaldeleteuser" class="modal modal-fixed-footer" style="height: 200px !important">
-	<div class="modal-content">
-		<h3>Eliminar usuario</h3>
-		<div class="row">
-			<form class="col s12">
-				<label for="title">¿Esta seguro de eliminar el registro?</label>
-			</form>
+<div id="modaldeleteuser" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Eliminar usuario</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Esta seguro de eliminar el registro?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+				<button type="button" class="btn btn-danger" ng-click="deleteuser()" title="Eliminar">Aceptar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleteuser()">Aceptar</button>
 	</div>
 </div>

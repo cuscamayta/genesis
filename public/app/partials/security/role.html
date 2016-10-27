@@ -1,108 +1,87 @@
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Roles de usuario</h2>
-		<ul class="nav navbar-right panel_toolbox">
-			<button type="button" class="btn btn-primary" ng-click="newrole()">Nuevo</button>
-		</ul>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-
-		<table class="table table-striped">
-			<thead>
-				<tr>					
-					<th>#</th>
-					<th>Descripción</th>
-					<th></th>
-					<th></th>					
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="role in roles" ng-class="{selectelement:roleselected.id==role.id}">
-					<td>{{$index}}</td>
-					<td>{{role.title}}</td>
-					<td ng-click="selectedrole(role,1)"><a href="#"><i class="fa fa-edit"></i><span class="text-muted"></span></a></td>
-					<td ng-click="selectedrole(role,2)"><a href="#"><i class="fa fa-remove"></i><span class="text-muted"></span></a></td>
-				</tr>
-			</tbody>
-		</table>
-
-	</div>
-</div>
-
-<!--<div class="container">
-	<div class="col s12 m7">
-		<div class="card horizontal">
-			<div class="card-stacked">
-				<div class="card-content">
-					<div class="row">
-						<div class="col s10">
-							<h3 class="header">Roles registrados</h3>
-						</div>
-						<div class="col s2">
-							<a class="modal-trigger waves-effect waves-light btn" ng-click="newrole()">
-								<i class="material-icons center" title="Nuevo rol">playlist_add</i>
-							</a>
-						</div>
-						<div class="row">
-							<form class="col s12 minForm">
-								<table class="responsive-table">
-									<colgroup>
-										<col style="width: 80%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th>Descripción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="role in roles" ng-class="{selectelement:roleselected.id==role.id}">
-											<td>{{role.title}}</td>
-											<td ng-click="selectedrole(role,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
-											<td ng-click="selectedrole(role,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
+<div class="row">
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Roles registrados</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action">
+						<thead class="headings">
+							<tr>
+								<th>#</th>
+								<th>Descripción</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" ng-repeat="role in roles | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" ng-class="{selectelement:roleselected.id==role.id}">
+								<td>{{$index}}</td>
+								<td>{{role.title}}</td>
+								<td ng-click="selectedrole(role,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
+								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selectedrole(role,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">{{currentPage+1}}/{{numberOfPages()}}</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="dataTables_paginate paging_simple_numbers">
+							<ul class="pagination">
+								<li class="paginate_button previous disabled">
+									<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button></li>
+								<li class="paginate_button next">
+									<button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">        Next    </button>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>-->
-<div id="modaleditrole" class="modal modal-fixed-footer" style="height: 280px !important">
-	<div class="modal-content">
-		<h3>Registrar Rol</h3>
-		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s12">
-						<input id="title" type="text" class="validate" ng-model="editrole.title">
-						<label for="title" class="active">Descripción</label>
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Registrar rol</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<form class="form-horizontal form-label-left">
+					<p></p>
+					<div class="item form-group bad"></div>
+					<label for="title">Rol<span class="required">*</span></label>
+					<input type="text" id="title" class="form-control" name="title" required="required" ng-model="editrole.title">
+
+					<div class="ln_solid"></div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<button type="button" class="btn btn-default" ng-click="newrole()" title="Limpiar controles">Cancel</button>
+						<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saverole()" title="Guardar">Guardar</button>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saverole()">Aceptar</button>
 	</div>
 </div>
-<div id="modaldeleterole" class="modal modal-fixed-footer" style="height: 200px !important">
-	<div class="modal-content">
-		<h3>Eliminar Rol</h3>
-		<div class="row">
-			<form class="col s12">
-				<label for="title">¿Esta seguro de eliminar el registro?</label>
-			</form>
+<div id="modaldeleterole" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Eliminar rol</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Esta seguro de eliminar el registro?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+				<button type="button" class="btn btn-danger" ng-click="deleterole()" title="Eliminar">Aceptar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleterole()">Aceptar</button>
 	</div>
 </div>
