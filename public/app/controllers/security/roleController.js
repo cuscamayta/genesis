@@ -20,7 +20,7 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
                 toastr.error(res.message);
             }
             else { $scope.roles = res; }
-        })
+        });
     }
 
     $scope.saverole = function () {
@@ -28,19 +28,21 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
         if ($scope.editrole.id == 0) {
             var response = RoleService.saverole($scope.editrole);
             response.then(function (res) {
-                if (!res.isSuccess) {
-                    toastr.error(res.message);
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getroles();
+                    toastr.success(res.message);
                 }
-                else { getroles(); }
-            })
+            });
         } else {
             var response = RoleService.updaterole($scope.editrole);
             response.then(function (res) {
-                if (!res.isSuccess) {
-                    toastr.error(res.message);
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getroles();
+                    toastr.success(res.message);
                 }
-                else { getroles(); }
-            })
+            });
         }
     };
 
@@ -56,7 +58,7 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
                 datarole();
                 getroles();
             }
-        })
+        });
     };
 
     $scope.selectedrole = function (role, option) {

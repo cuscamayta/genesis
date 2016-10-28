@@ -1,6 +1,7 @@
 var models = require('./../models');
 var express = require('express');
 var router = express.Router();
+var common = require('./common');
 
 router.post('/generate', function (request, response) {
 
@@ -10,9 +11,9 @@ router.post('/generate', function (request, response) {
     );
 
     try {
-        response.send(result)
+        response.send(result);
     } catch (ex) {
-        response.send(ex)
+        response.send(common.response("", ex.message, false));
     }
 
 });

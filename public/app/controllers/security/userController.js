@@ -21,7 +21,7 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
                 toastr.error(res.message);
             }
             else { $scope.users = res; }
-        })
+        });
     }
 
     function getroles() {
@@ -33,7 +33,7 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
             else {
                 $scope.listrole = res;
             }
-        })
+        });
     }
 
     $scope.saveuser = function () {
@@ -42,25 +42,21 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
         if ($scope.edituser.id == 0) {
             var response = UserService.saveuser($scope.edituser);
             response.then(function (res) {
-                if (!res.isSuccess) {
-                    toastr.error(res.message);
-                }
+                if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getusers();
                     toastr.success(res.message);
                 }
-            })
+            });
         } else {
             var response = UserService.updateuser($scope.edituser);
             response.then(function (res) {
-                if (!res.isSuccess) {
-                    toastr.error(res.message);
-                }
+                if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getusers();
                     toastr.success(res.message);
                 }
-            })
+            });
         }
         datauser();
     };
@@ -68,16 +64,14 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
     $scope.deleteuser = function () {
         var response = UserService.deleteuser($scope.edituser);
         response.then(function (res) {
-            if (!res.isSuccess) {
-                toastr.error(res.message);
-            }
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeleteuser").modal("hide");
                 toastr.success(res.message);
                 datauser();
                 getusers();
             }
-        })
+        });
     };
 
     $scope.selecteduser = function (user, option) {

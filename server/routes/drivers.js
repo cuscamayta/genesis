@@ -1,6 +1,7 @@
 var models = require('./../models');
 var express = require('express');
 var router = express.Router();
+var common = require('./common');
 
 router.post('/create', function (request, response) {
   models.Driver.create({
@@ -10,9 +11,9 @@ router.post('/create', function (request, response) {
     birthdate: request.body.birthdate,
     iddrivertype: request.body.iddrivertype
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
@@ -26,9 +27,9 @@ router.post('/update', function (request, response) {
   }, {
       where: { id: request.body.id }
     }).then(function (res) {
-      response.send(res);
+      response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(err);
+      response.send(common.response(err.code, err.message, false));
     });
 });
 
@@ -36,28 +37,28 @@ router.get('/', function (request, response) {
   models.Driver.findAll().then(function (drivers) {
     response.send(drivers);
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
 router.get('/forselect', function (request, response) {
   models.Driver.findAll({
-    attributes: ["id", "firstname" , "lastname"],
-    order: [["firstname","ASC"]]
+    attributes: ["id", "firstname", "lastname"],
+    order: [["firstname", "ASC"]]
   }).then(function (res) {
     response.send(res);
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
 router.post('/destroy', function (request, response) {
   models.Driver.destroy({
     where: { id: request.body.id }
-  }).then(function (res) {
-    response.send(res);
+  }).then(function () {
+    response.send(common.response("", "Se elimino correctamente"));
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 

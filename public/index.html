@@ -31,6 +31,7 @@
 
 	<!-- Custom Theme Style -->
 	<link href="../resources/css/custom.min.css" rel="stylesheet">
+	<link href="../resources/css/site.css" rel="stylesheet">
 	<link href="../resources/css/toastr.css" rel="stylesheet">
 </head>
 
@@ -278,15 +279,15 @@
 	<script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 	<!-- starrr -->
 	<script src="../vendors/starrr/dist/starrr.js"></script>
-	<script src="../vendors/validator/validator.js"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script src="../resources/js/custom.min.js"></script>
+	<script src="../resources/js/custom.min.js"></script>	
 
 	<!--angularJS resources-->
-	<script src="app/libs/angular.js"></script>
+	<script src="app/libs/angular.js"></script>	
 	<script src="app/libs/toastr.js"></script>
 	<script src="app/app.js"></script>
+	<script src="app/libs/validation.js"></script>
 	<script src="app/controllers/home/homeController.js"></script>
 	<script src="app/services/home/homeService.js"></script>
 	<script src="app/services/security/userService.js"></script>
@@ -530,37 +531,6 @@
       });
     </script>
 	<!-- /Starrr -->
-	<!-- validator -->
-	<script>
-      // initialize the validator function
-      validator.message.date = 'not a real date';
-
-      // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
-      $('form')
-        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
-        .on('change', 'select.required', validator.checkField)
-        .on('keypress', 'input[required][pattern]', validator.keypress);
-
-      $('.multi.required').on('keyup blur', 'input', function() {
-        validator.checkField.apply($(this).siblings().last()[0]);
-      });
-
-      $('form').submit(function(e) {
-        e.preventDefault();
-        var submit = true;
-
-        // evaluate the form using generic validaing
-        if (!validator.checkAll($(this))) {
-          submit = false;
-        }
-
-        if (submit)
-          this.submit();
-
-        return false;
-      });
-    </script>
-	<!-- /validator -->
 </body>
 
 </html>

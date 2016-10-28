@@ -1,14 +1,15 @@
 var models = require('./../models');
 var express = require('express');
 var router = express.Router();
+var common = require('./common');
 
 router.post('/create', function (request, response) {
   models.Bustype.create({
     title: request.body.title
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
@@ -18,9 +19,9 @@ router.post('/update', function (request, response) {
   }, {
       where: { id: request.body.id }
     }).then(function (res) {
-      response.send(res);
+      response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(err);
+      response.send(common.response(err.code, err.message, false));
     });
 });
 
@@ -28,17 +29,17 @@ router.get('/', function (request, response) {
   models.Bustype.findAll().then(function (roles) {
     response.send(roles);
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
 router.post('/destroy', function (request, response) {
   models.Bustype.destroy({
     where: { id: request.body.id }
-  }).then(function (res) {
-    response.send(res);
+  }).then(function () {
+    response.send(common.response("", "Se elimino correctamente"));
   }).catch(function (err) {
-    response.send(err);
+    response.send(common.response(err.code, err.message, false));
   });
 });
 

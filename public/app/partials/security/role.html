@@ -54,9 +54,8 @@
 			<div class="x_content">
 				<form class="form-horizontal form-label-left">
 					<p></p>
-					<div class="item form-group bad"></div>
 					<label for="title">Rol<span class="required">*</span></label>
-					<input type="text" id="title" class="form-control" name="title" required="required" ng-model="editrole.title">
+					<input type="text" id="title" class="form-control" required ng-model="editrole.title" validate="text-number" required>
 
 					<div class="ln_solid"></div>
 					<div class="col-md-12 col-sm-12 col-xs-12">
@@ -80,7 +79,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
-				<button type="button" class="btn btn-danger" ng-click="deleterole()" title="Eliminar">Aceptar</button>
+				<button type="button" class="btn btn-danger" ng-click="deleterole()" title="Eliminar">Eliminar</button>
 			</div>
 		</div>
 	</div>

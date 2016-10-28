@@ -40,32 +40,31 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form class="form-horizontal form-label-left" novalidate>
+				<form class="form-horizontal form-label-left">
 					<p></p>
-					<div class="item form-group bad"></div>
 					<label for="username">Usuario <span class="required">*</span></label>
-					<input type="text" id="username" class="form-control" name="username" required="required" ng-model="edituser.username">
+					<input type="text" id="username" class="form-control" ng-model="edituser.username" validate="user" required>
 
 					<label for="password">Contraseña <span class="required">*</span></label>
-					<input type="password" id="password" class="form-control" name="password" required="required" ng-model="edituser.password">
+					<input type="password" id="password" class="form-control" ng-model="edituser.password" validate="password" required>
 
 					<label for="firstname">Nombres (s) <span class="required">*</span></label>
-					<input type="text" id="firstname" class="form-control" name="firstname" required="required" ng-model="edituser.firstname">
+					<input type="text" id="firstname" class="form-control" ng-model="edituser.firstname" validate="text-number" required>
 
 					<label for="lastname">Apellidos <span class="required">*</span></label>
-					<input type="text" id="lastname" class="form-control" name="lastname" required="required" ng-model="edituser.lastname">
+					<input type="text" id="lastname" class="form-control" ng-model="edituser.lastname" validate="text-number" required>
 
 					<label for="email">Correo <span class="required">*</span></label>
-					<input type="email" id="email" class="form-control" name="email" required="required" ng-model="edituser.email">
+					<input type="email" id="email" class="form-control" ng-model="edituser.email" validate="mail" required>
 
 					<p>
 						<label for="idrole">Rol <span class="required">*</span></label>
-						<select id="idrole" class="form-control" required="" ng-options="role.title for role in listrole" ng-model="selectedrole">                            
+						<select id="idrole" class="form-control" ng-options="role.title for role in listrole" ng-model="selectedrole" required>                            
                         </select>
 					</p>
 
 					<div class="ln_solid"></div>
-					<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<button type="button" class="btn btn-default" ng-click="newuser()" title="Limpiar controles">Cancel</button>
 						<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveuser()" title="Guardar">Guardar</button>
 					</div>
@@ -86,7 +85,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
-				<button type="button" class="btn btn-danger" ng-click="deleteuser()" title="Eliminar">Aceptar</button>
+				<button type="button" class="btn btn-danger" ng-click="deleteuser()" title="Eliminar">Eliminar</button>
 			</div>
 		</div>
 	</div>
