@@ -2,7 +2,7 @@
 	<div class="col-md-6 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>Usuarios registrados</h2>
+				<h2>Buses registrados</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -21,7 +21,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="bus in buss" ng-class="{selectelement:busselected.id==bus.id}">
+							<tr class="even pointer" ng-repeat="bus in buses" ng-class="{selectelement:buseselected.id==bus.id}">
 								<td>{{$index}}</td>
 								<td>{{bus.numberid}}</td>
 								<td>{{bus.make}}</td>
@@ -40,12 +40,11 @@
 	<div class="col-md-6 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>Registrar usuario</h2>
+				<h2>Registrar de bus</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
 				<form class="form-horizontal form-label-left">
-					<p></p>
 					<label for="numberid">Placa <span class="required">*</span></label>
 					<input type="text" id="numberid" class="form-control textUpperCase" ng-model="editbus.numberid" validate="text-number" required>
 
@@ -87,12 +86,12 @@
 		</div>
 	</div>
 </div>
-<div id="modaldeletebus" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div id="modaldeletebus" class="modal fade bs-example-modal-sm" tabindex="-1" bus="dialog" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title">Eliminar usuario</h4>
+				<h4 class="modal-title">Eliminar bus</h4>
 			</div>
 			<div class="modal-body">
 				<p>¿Esta seguro de eliminar el registro?</p>

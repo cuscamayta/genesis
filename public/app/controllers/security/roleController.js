@@ -8,7 +8,6 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
     function datarole() {
         $scope.editrole = {
             id: 0,
-            title: '',
             state: 1
         };
     };
@@ -31,6 +30,7 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getroles();
+                    datarole();
                     toastr.success(res.message);
                 }
             });
@@ -39,7 +39,8 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
             response.then(function (res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
-                    getroles();
+                    getroles(); 
+                    datarole();
                     toastr.success(res.message);
                 }
             });
@@ -53,10 +54,10 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
                 toastr.error(res.message);
             }
             else {
-                $("#modaldeleterole").modal("hide");
-                toastr.success(res.message);
+                $("#modaldeleterole").modal("hide");                
                 datarole();
                 getroles();
+                toastr.success(res.message);
             }
         });
     };

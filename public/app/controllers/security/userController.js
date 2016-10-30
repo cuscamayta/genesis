@@ -45,6 +45,7 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getusers();
+                    datauser();
                     toastr.success(res.message);
                 }
             });
@@ -54,6 +55,7 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getusers();
+                    datauser();
                     toastr.success(res.message);
                 }
             });
@@ -66,10 +68,10 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
         response.then(function (res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
-                $("#modaldeleteuser").modal("hide");
-                toastr.success(res.message);
+                $("#modaldeleteuser").modal("hide");                
                 datauser();
                 getusers();
+                toastr.success(res.message);
             }
         });
     };

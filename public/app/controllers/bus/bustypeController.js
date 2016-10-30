@@ -30,7 +30,11 @@ app.controller('BustypeController', function ($scope, BustypeService) {
                 if (!res.isSuccess) {
                     toastr.error(res.message);
                 }
-                else { getbustypes(); }
+                else {
+                    getbustypes();
+                    databustype();
+                    toastr.success(res.message);
+                }
             });
         } else {
             var response = BustypeService.updatebustype($scope.editbustype);
@@ -38,7 +42,11 @@ app.controller('BustypeController', function ($scope, BustypeService) {
                 if (!res.isSuccess) {
                     toastr.error(res.message);
                 }
-                else { getbustypes(); }
+                else {
+                    getbustypes();
+                    databustype();
+                    toastr.success(res.message);
+                }
             });
         }
     };
@@ -49,9 +57,9 @@ app.controller('BustypeController', function ($scope, BustypeService) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeletebustype").modal("hide");
-                toastr.success(res.message);
                 databustype();
                 getbustypes();
+                toastr.success(res.message);
             }
         })
     };

@@ -18,3 +18,7 @@
 .validateInput{
   border: 1px solid #CE5454;
 }
+
+.textUpperCase{
+  text-transform: uppercase;
+}
