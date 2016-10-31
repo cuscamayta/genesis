@@ -4,89 +4,96 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
         getoffices();
         getorderbooks();
         dataorderbook();
-        $('select').material_select();
-        $("#dateofissue").datepicker({ dateFormat: "dd/mm/yy" });
-        $("#deadline").datepicker({ dateFormat: "dd/mm/yy" });
+
+        $('#dateofissue').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+
+        $('#deadline').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
     }
 
     function dataorderbook() {
         $scope.editorderbook = {
             id: 0,
-            type: 0,
-            status: 0,
-            numberorder: 0,
-            numberid: 0,
-            controlkey: "",
-            numberinit: 0,
-            numberend: 0,
-            numberinvoice: 0,
-            dateofissue: "",
-            deadline: "",
-            idoffice: 0,
             state: 1
         };
+        $scope.selectedoffice = null;
     };
 
     function getorderbooks() {
         var response = OrderbookService.getorderbooks();
-        response.then(function (orderbooks) {
-            if (orderbooks.errors && orderbooks.errors.length > 0) {
-                Materialize.toast(orderbooks.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else { $scope.orderbooks = orderbooks; }
-        })
+            else { $scope.orderbooks = res; }
+        });
     }
 
     function getoffices() {
-        var response = OfficeService.getofficesforselect();
-        response.then(function (offices) {
-            if (offices.errors && offices.errors.length > 0) {
-                Materialize.toast(offices.message, 4000);
+        var response = OfficeService.getoffices();
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
             else {
-                $scope.listoffice = offices;
+                $scope.listoffice = res;
             }
-        })
+        });
     }
 
     $scope.saveorderbook = function () {
         $scope.editorderbook;
-        $scope.editorderbook.idoffice = $("#office").val();
+        $scope.editorderbook.idoffice = $scope.selectedoffice.id;
         $scope.editorderbook.type = $("#type").val();
         $scope.editorderbook.status = $("#status").val();
         $scope.editorderbook.dateofissue = $("#dateofissue").val();
         $scope.editorderbook.deadline = $("#deadline").val();
-        $scope.editorderbook.idoffice = $("#office").val();
+
         if ($scope.editorderbook.id == 0) {
             var response = OrderbookService.saveorderbook($scope.editorderbook);
-            response.then(function (orderbooks) {
-                if (orderbooks.errors && orderbooks.errors.length > 0) {
-                    Materialize.toast(orderbooks.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getorderbooks();
+                    dataorderbook();
+                    toastr.success(res.message);
                 }
-                else { getorderbooks(); }
-            })
+            });
         } else {
             var response = OrderbookService.updateorderbook($scope.editorderbook);
-            response.then(function (orderbooks) {
-                if (orderbooks.errors && orderbooks.errors.length > 0) {
-                    Materialize.toast(orderbooks.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getorderbooks();
+                    dataorderbook();
+                    toastr.success(res.message);
                 }
-                else { getorderbooks(); }
-            })
+            });
         }
+        $("#modaleditorderbook").modal("hide");
+        dataorderbook();
     };
 
     $scope.deleteorderbook = function () {
         var response = OrderbookService.deleteorderbook($scope.editorderbook);
-        response.then(function (orderbooks) {
-            if (orderbooks.errors && orderbooks.errors.length > 0) {
-                customer
-            }
+        response.then(function (res) {
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
+                $("#modaldeleteorderbook").modal("hide");
                 dataorderbook();
                 getorderbooks();
+                toastr.success(res.message);
             }
-        })
+        });
     };
 
     $scope.selectedorderbook = function (orderbook, option) {
@@ -94,35 +101,29 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
         $scope.editorderbook = angular.copy($scope.orderbookselected);
         $scope.editorderbook.state = 2;
 
-        if (option == 1) {
-            $('#modaleditorderbook').openModal();
-            $('#office').val($scope.editorderbook.idoffice);
-            $('#type').val($scope.editorderbook.type);
-            $('#status').val($scope.editorderbook.status);
-            $('#numberorder').val($scope.editorderbook.numberorder);
-            $('#numberid').val($scope.editorderbook.numberid);
-            $('#controlkey').val($scope.editorderbook.controlkey);
-            $('#numberinit').val($scope.editorderbook.numberinit);
-            $('#numberend').val($scope.editorderbook.numberend);
-            $('#numberinvoice').val($scope.editorderbook.numberinvoice);
-            $('#dateofissue').val($scope.editorderbook.dateofissue);
-            $('#deadline').val($scope.editorderbook.deadline);
-        } else {
-            $('#modaldeleteorderbook').openModal();
+        $("#type").val($scope.editorderbook.type);
+        $("#status").val($scope.editorderbook.status);
+
+        if ($scope.listoffice) {
+            for (var i = 0; i < $scope.listoffice.length; i++) {
+                if ($scope.listoffice[i].id == $scope.editorderbook.idoffice) {
+                    $scope.selectedoffice = $scope.listoffice[i];
+                }
+            }
         }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editorderbook == null || $("#type").val() == 0
-            || $("#status").val() == 0 || $scope.editorderbook.numberorder.length == 0
-            || $scope.editorderbook.numberid.length == 0 || $scope.editorderbook.controlkey.length == 0
-            || $scope.editorderbook.numberinit.length == 0 || $scope.editorderbook.numberend.length == 0
-            || $scope.editorderbook.numberinvoice.length == 0 || $("#dateofissue").val().length == 0
-            || $("#deadline").val().length == 0 || $("#office").val() == 0;
+        return $scope.editorderbook == null || $scope.editorderbook.numberorder == null
+            || ($scope.editorderbook.numberorder != null && $scope.editorderbook.numberorder.length < 4)
+            || $scope.editorderbook.controlkey == null || $scope.editorderbook.numberinit == null
+            || $scope.editorderbook.numberend == null || $scope.editorderbook.numberinvoice == null
+            || $scope.editorderbook.numberid == null || $scope.selectedoffice == null
+            || $("#deadline").val() == null || $("#dateofissue").val() == null
+            || $("#type").val() == null || $("#status").val() == null;
     };
 
     $scope.neworderbook = function () {
-        $('#modaleditorderbook').openModal();
         dataorderbook();
     };
 });

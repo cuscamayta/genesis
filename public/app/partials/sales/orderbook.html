@@ -1,147 +1,147 @@
-<div class="container">
-	<div class="col s12 m7">
-		<div class="card horizontal">
-			<div class="card-stacked">
-				<div class="card-content">
-					<div class="row">
-						<div class="col s10">
-							<h3 class="header">Libro de ordenes registrados</h3>
-						</div>
-						<div class="col s2">
-							<a class="modal-trigger waves-effect waves-light btn" ng-click="neworderbook()">
-								<i class="material-icons center" numberid="Nuevo rol">playlist_add</i>
-							</a>
-						</div>
-						<div class="row">
-							<form class="col s12 minForm">
-								<table class="responsive-table">
-									<colgroup>
-										<col style="width: 10%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-										<col style="width: 15%">
-										<col style="width: 15%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th>Nro Orden</th>
-											<th>NIT</th>
-											<th>Nro. Inicio</th>
-											<th>Nro. Final</th>
-											<th>Nro. Factura</th>
-											<th>Fecha de emisión</th>
-											<th>Límite emisión</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="orderbook in orderbooks" ng-class="{selectelement:orderbookselected.id==orderbook.id}">
-											<td>{{orderbook.numberorder}}</td>
-											<td>{{orderbook.numberid}}</td>
-											<td>{{orderbook.numberinit}}</td>
-											<td>{{orderbook.numberend}}</td>
-											<td>{{orderbook.numberinvoice}}</td>
-											<td>{{orderbook.dateofissue}}</td>
-											<td>{{orderbook.deadline}}</td>
-											<td ng-click="selectedorderbook(orderbook,1)"><i class="material-icons center" numberid="Editar">mode_edit</i></td>
-											<td ng-click="selectedorderbook(orderbook,2)"><i class="material-icons center" numberid="Eliminar">delete</i></td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-						</div>
-					</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Libros de orden registrados</h2>
+				<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="neworderbook()"><i class="fa fa-plus-square"></i> Nuevo</button>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action">
+						<thead class="headings">
+							<tr>
+								<th>#</th>
+								<th>Nro Orden</th>
+								<th>NIT</th>
+								<th>Nro. Inicio</th>
+								<th>Nro. Final</th>
+								<th>Nro. Factura</th>
+								<th>Fecha de emisión</th>
+								<th>Límite emisión</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" ng-repeat="orderbook in orderbooks" ng-class="{selectelement:orderbookselected.id==orderbook.id}">
+								<td>{{$index}}</td>
+								<td>{{orderbook.numberorder}}</td>
+								<td>{{orderbook.numberid}}</td>
+								<td>{{orderbook.numberinit}}</td>
+								<td>{{orderbook.numberend}}</td>
+								<td>{{orderbook.numberinvoice}}</td>
+								<td>{{orderbook.dateofissue}}</td>
+								<td>{{orderbook.deadline}}</td>
+								<td data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="selectedorderbook(orderbook,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
+								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selectedorderbook(orderbook,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div id="modaleditorderbook" class="modal modal-fixed-footer">
-	<div class="modal-content">
-		<h3>Registrar libro de ordenes</h3>
-		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s4">
-						<input id="numberorder" type="text" class="validate" ng-model="editorderbook.numberorder">
-						<label for="numberorder" class="active">Nro de Orden</label>
+<div id="modaleditorderbook" class="modal fade bs-example-modal-lg" tabindex="-1" office="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Registrar libro de orden</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal form-label-left">
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberid">Nro de NIT <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="numberid" class="form-control" ng-model="editorderbook.numberid" validate="number" required>
 					</div>
-					<div class="input-field col s4">
-						<select id="type">
-							<option value="" disabled selected>Elija un tipo de factura</option>
-							<option value="1">Manual</option>
-							<option value="2">Electronica</option>
-						</select>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberorder">Nro de orden <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="numberorder" class="form-control" ng-model="editorderbook.numberorder" validate="number" required>
 					</div>
-					<div class="input-field col s4">
-						<select id="status">
-							<option value="" disabled selected>Elija un estado</option>
-							<option value="1">Disponible</option>
-							<option value="2">En uso</option>
-							<option value="3">Lleno</option>
-						</select>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="controlkey">Llave de control <span class="required">*</span></label>
+					<div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
+						<textarea id="controlkey" class="form-control" ng-model="editorderbook.controlkey" required rows="2"></textarea>
 					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s4">
-						<input id="numberid" type="text" class="validate" ng-model="editorderbook.numberid">
-						<label for="numberid" class="active">NIT</label>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="dateofissue">Fecha emisión <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="dateofissue" class="form-control date-picker" ng-model="editorderbook.dateofissue" validate="date" required data-inputmask="'mask': '99/99/9999'">
 					</div>
-					<div class="input-field col s4">
-						<input id="dateofissue" type="text" class="validate" ng-model="editorderbook.dateofissue">
-						<label for="dateofissue" class="active">Fecha emisión</label>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="deadline">Fecha límite <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="deadline" class="form-control date-picker" ng-model="editorderbook.deadline" validate="date" required
+							data-inputmask="'mask': '99/99/9999'">
 					</div>
-					<div class="input-field col s4">
-						<input id="deadline" type="text" class="validate" ng-model="editorderbook.deadline">
-						<label for="deadline" class="active">Fecha límite de emisión</label>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberinit">Nro inicio <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="number" id="numberinit" class="form-control" ng-model="editorderbook.numberinit" validate="number" required
+							data-validate-minmax="1,10">
 					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s3">
-						<input id="numberinit" type="text" class="validate" ng-model="editorderbook.numberinit">
-						<label for="numberinit" class="active">Nro Inicial</label>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberend">Nro final <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="number" id="numberend" class="form-control" ng-model="editorderbook.numberend" validate="number" required data-validate-minmax="1,10">
 					</div>
-					<div class="input-field col s3">
-						<input id="numberend" type="text" class="validate" ng-model="editorderbook.numberend">
-						<label for="numberend" class="active">Nro Final</label>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberinvoice">Nro actual <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="number" id="numberinvoice" class="form-control" ng-model="editorderbook.numberinvoice" validate="number" required
+							data-validate-minmax="1,10">
 					</div>
-					<div class="input-field col s3">
-						<input id="numberinvoice" type="text" class="validate" ng-model="editorderbook.numberinvoice">
-						<label for="numberinvoice" class="active">Nro Actual</label>
-					</div>
-					 <div class="input-field col s3">
-						<select id="idoffice" class="browser-default" ng-options="office.title for office in listoffice" ng-model="selectedoffice">
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="idoffice">Sucursal <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<select id="idoffice" class="form-control" ng-options="office.title for office in listoffice" ng-model="selectedoffice" required>                            
                         </select>
-					</div>	
-				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<textarea id="controlkey" class="materialize-textarea" ng-model="editorderbook.controlkey"></textarea>
-						<label for="controlkey" class="active">Llave</label>
 					</div>
-				</div>
-			</form>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="status">Estado <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<select id="status" class="form-control" required>
+								<option value="" disabled selected>Elija un estado</option>
+								<option value="1">Disponible</option>
+								<option value="2">En uso</option>
+								<option value="3">Lleno</option>
+							</select>
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="type">Tipo <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<select id="type" class="form-control" required>
+								<option value="" disabled selected>Elija un tipo de factura</option>
+								<option value="1">Manual</option>
+								<option value="2">Electronica</option>
+							</select>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Limpiar controles">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveorderbook()" title="Guardar">Guardar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saveorderbook()">Aceptar</button>
 	</div>
 </div>
-<div id="modaldeleteorderbook" class="modal modal-fixed-footer" style="height: 200px !important">
-	<div class="modal-content">
-		<h3>Eliminar Rol</h3>
-		<div class="row">
-			<form class="col s12">
-				<label for="numberid">¿Esta seguro de eliminar el registro?</label>
-			</form>
+<div id="modaldeleteorderbook" class="modal fade bs-example-modal-sm" tabindex="-1" office="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Eliminar libro de orden</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Esta seguro de eliminar el registro?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+				<button type="button" class="btn btn-danger" ng-click="deleteorderbook()" title="Eliminar">Eliminar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleteorderbook()">Aceptar</button>
 	</div>
 </div>

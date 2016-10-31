@@ -9,7 +9,7 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
             singleDatePicker: true,
             calender_style: "picker_4"
         }, function (start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
+            //console.log(start.toISOString(), end.toISOString(), label);
         });
     }
 
@@ -46,6 +46,8 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
     $scope.savedriver = function () {
         $scope.editdriver;
         $scope.editdriver.iddrivertype = $scope.selecteddrivertype.id;
+        $scope.editdriver.birthdate = $("#birthdate").val();
+
         if ($scope.editdriver.id == 0) {
             var response = DriverService.savedriver($scope.editdriver);
             response.then(function (res) {
@@ -101,7 +103,7 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
         return $scope.editdriver == null || $scope.editdriver.numberid == null
             || ($scope.editdriver.numberid != null && $scope.editdriver.numberid.length < 4)
             || $scope.editdriver.firstname == null || $scope.editdriver.lastname == null
-            || $scope.selecteddrivertype == null;
+            || $scope.selecteddrivertype == null || $("#birthdate").val() == null;
     };
 
     $scope.newdriver = function () {
