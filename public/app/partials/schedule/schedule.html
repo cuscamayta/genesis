@@ -1,158 +1,149 @@
-<div class="container">
-	<div class="col s12 m7">
-		<div class="card horizontal">
-			<div class="card-stacked">
-				<div class="card-content">
-					<div class="row">
-						<div class="col s10">
-							<h3 class="header">Programación diaria registrados</h3>
-						</div>
-						<div class="col s2">
-							<a class="modal-trigger waves-effect waves-light btn" ng-click="newschedule()">
-								<i class="material-icons center" title="Nuevo itinerario">playlist_add</i>
-							</a>
-						</div>
-						<div class="row">
-							<form class="col s12 minForm">
-								<table class="responsive-table">
-									<colgroup>
-										<col style="width: 15%">
-										<col style="width: 15%">
-										<col style="width: 15%">
-										<col style="width: 30%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th>Fecha</th>
-											<th>Hora salida</th>
-											<th>Hora llegada</th>
-											<th>Detalle</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="schedule in schedules" ng-class="{selectelement:scheduleselected.id==schedule.id}">
-											<td>{{schedule.numberid}}</td>
-											<td>{{schedule.arrival}}</td>
-											<td>{{schedule.departure}}</td>
-											<td>{{schedule.detail}}</td>
-											<td ng-click="selectedschedule(schedule,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
-											<td ng-click="selectedschedule(schedule,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-						</div>
-					</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Libros de orden registrados</h2>
+				<button type="button" class="btn btn-default pull-right btnborderless" data-toggle="modal" data-target=".bs-example-modal-lg"
+					ng-click="newschedule()" title="Nuevo registro"><i class="fa fa-plus-square"></i> Nuevo</button>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action">
+						<thead class="headings">
+							<tr>
+								<th>#</th>
+								<th>Nro Orden</th>
+								<th>NIT</th>
+								<th>Nro. Inicio</th>
+								<th>Nro. Final</th>
+								<th>Nro. Factura</th>
+								<th>Fecha de emisión</th>
+								<th>Límite emisión</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" ng-repeat="schedule in schedules" ng-class="{selectelement:scheduleselected.id==schedule.id}">
+								<td>{{$index}}</td>
+								<td>{{schedule.numberorder}}</td>
+								<td>{{schedule.numberid}}</td>
+								<td>{{schedule.numberinit}}</td>
+								<td>{{schedule.numberend}}</td>
+								<td>{{schedule.numberinvoice}}</td>
+								<td>{{schedule.dateofissue}}</td>
+								<td>{{schedule.deadline}}</td>
+								<td data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="selectedschedule(schedule,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
+								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selectedschedule(schedule,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div id="modaleditschedule" class="modal modal-fixed-footer">
-	<div class="modal-content">
-		<h3>Registrar programación diaria</h3>
-		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s6">
-						<input id="dateregister" type="text" class="validate" ng-model="editschedule.dateregister">
-						<label for="dateregister" class="active">Fecha</label>
+<div id="modaleditschedule" class="modal fade bs-example-modal-lg" tabindex="-1" office="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Registrar libro de orden</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal form-label-left">
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberid">Nro de NIT <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="numberid" class="form-control" ng-model="editschedule.numberid" validate="number" required>
 					</div>
-					<div class="input-field col s4">
-						<input id="price" type="text" class="validate" ng-model="editschedule.price">
-						<label for="price" class="active">Hora llegada</label>
-					</div>					
-				</div>
-				<div class="row">
-                    <div class="input-field col s6">
-						<select id="idtravel" class="browser-default" ng-options="travel.numberid for travel in listtravel" ng-model="selectedtravel">
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberorder">Nro de orden <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="numberorder" class="form-control" ng-model="editschedule.numberorder" validate="number" required>
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="controlkey">Llave de control <span class="required">*</span></label>
+					<div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
+						<textarea id="controlkey" class="form-control" ng-model="editschedule.controlkey" required rows="2"></textarea>
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="dateofissue">Fecha emisión <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="dateofissue" class="form-control date-picker" ng-model="editschedule.dateofissue" validate="date"
+							required data-inputmask="'mask': '99/99/9999'">
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="deadline">Fecha límite <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="text" id="deadline" class="form-control date-picker" ng-model="editschedule.deadline" validate="date" required
+							data-inputmask="'mask': '99/99/9999'">
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberinit">Nro inicio <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="number" id="numberinit" class="form-control" ng-model="editschedule.numberinit" validate="number" required
+							data-validate-minmax="1,10">
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberend">Nro final <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="number" id="numberend" class="form-control" ng-model="editschedule.numberend" validate="number" required data-validate-minmax="1,10">
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberinvoice">Nro actual <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<input type="number" id="numberinvoice" class="form-control" ng-model="editschedule.numberinvoice" validate="number" required
+							data-validate-minmax="1,10">
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="idoffice">Sucursal <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<select id="idoffice" class="form-control" ng-options="office.title for office in listoffice" ng-model="selectedoffice" required>                            
                         </select>
 					</div>
-                    <div class="input-field col s6">
-						<select id="idbus" class="browser-default" ng-options="bus.numberid for bus in listbus" ng-model="selectedbus">
-                        </select>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="status">Estado <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<select id="status" class="form-control" required>
+								<option value="" disabled selected>Elija un estado</option>
+								<option value="1">Disponible</option>
+								<option value="2">En uso</option>
+								<option value="3">Lleno</option>
+							</select>
 					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s6">
-						<input id="arrival" type="text" class="validate" ng-model="editschedule.arrival">
-						<label for="arrival" class="active">Hora salida</label>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="type">Tipo <span class="required">*</span></label>
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+						<select id="type" class="form-control" required>
+								<option value="" disabled selected>Elija un tipo de factura</option>
+								<option value="1">Manual</option>
+								<option value="2">Electronica</option>
+							</select>
 					</div>
-					<div class="input-field col s6">
-						<input id="departure" type="text" class="validate" ng-model="editschedule.departure">
-						<label for="departure" class="active">Hora llegada</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<input id="detail" type="text" class="validate" ng-model="editschedule.detail">
-						<label for="detail" class="active">Detalle</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s5">
-						<select id="iddriver" class="browser-default" ng-options="driver.fullName for driver in listdriver" ng-model="selecteddriver">
-                        </select>
-					</div>
-					<div class="input-field col s5">
-						<select id="type">
-							<option value="" disabled selected>Elija un tipo</option>
-							<option value="Chofer">Chofer</option>
-							<option value="Relevo">Relevo</option>
-						</select>
-					</div>
-					<div class="input-field col s2">
-						<a class="btn-floating" ng-click="newscheduledetail()">
-							<i class="material-icons" title="Nuevo conductor">add</i>
-						</a>
-					</div>
-				</div>
-				<div class="row">                    
-					<div class="col s6 offset-s3">
-						<table class="responsive-table">
-							<colgroup>
-								<col style="width: 20%">
-								<col style="width: 20%">
-								<col style="width: 10%">
-								<col style="width: 10%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th>Tipo</th>
-									<th>Conductor</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="scheduledetail in schedulesdetails" ng-class="{selectelement:scheduledetailselected.id==scheduledetail.id}">
-											<td>{{scheduledetail.drivertype}}</td>
-											<td>{{scheduledetail.iddriver}}</td>
-											<td ng-click="deletescheduledetail(scheduledetail)"><i class="material-icons center" title="Eliminar">delete</i></td>
-										</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Limpiar controles y cerrar">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveschedule()" title="Guardar">Guardar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saveschedule()">Aceptar</button>
 	</div>
 </div>
-<div id="modaldeleteschedule" class="modal modal-fixed-footer" style="height: 200px !important">
-	<div class="modal-content">
-		<h3>Eliminar programación diaria</h3>
-		<div class="row">
-			<form class="col s12">
-				<label for="title">¿Esta seguro de eliminar el registro?</label>
-			</form>
+<div id="modaldeleteschedule" class="modal fade bs-example-modal-sm" tabindex="-1" office="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Eliminar libro de orden</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Esta seguro de eliminar el registro?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+				<button type="button" class="btn btn-danger" ng-click="deleteschedule()" title="Eliminar">Eliminar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deleteschedule()">Aceptar</button>
 	</div>
 </div>

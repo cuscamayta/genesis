@@ -22,3 +22,7 @@
 .textUpperCase{
   text-transform: uppercase;
 }
+
+.btnborderless{
+  border-color: transparent !important;
+}

@@ -4,17 +4,11 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         getcourses();
         gettravels();
         datatravel();
-        $('select').material_select();
     }
 
     function datatravel() {
         $scope.edittravel = {
             id: 0,
-            numberid: "",
-            arrival: "",
-            departure: "",
-            detail: "",
-            idcourse: 0,
             state: 1
         };
         $scope.selectedcourse = null;
@@ -22,24 +16,24 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
 
     function gettravels() {
         var response = TravelService.gettravels();
-        response.then(function (travels) {
-            if (travels.errors && travels.errors.length > 0) {
-                Materialize.toast(travels.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else { $scope.travels = travels; }
-        })
+            else { $scope.travels = res; }
+        });
     }
 
     function getcourses() {
         var response = CourseService.getcourses();
-        response.then(function (course) {
-            if (course.errors && course.errors.length > 0) {
-                Materialize.toast(course.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
             else {
-                $scope.listcourse = course;
+                $scope.listcourse = res;
             }
-        })
+        });
     }
 
     $scope.savetravel = function () {
@@ -47,34 +41,39 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         $scope.edittravel.idcourse = $scope.selectedcourse.id;
         if ($scope.edittravel.id == 0) {
             var response = TravelService.savetravel($scope.edittravel);
-            response.then(function (travels) {
-                if (travels.errors && travels.errors.length > 0) {
-                    Materialize.toast(travels.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    gettravels();
+                    datatravel();
+                    toastr.success(res.message);
                 }
-                else { gettravels(); }
-            })
+            });
         } else {
             var response = TravelService.updatetravel($scope.edittravel);
-            response.then(function (travels) {
-                if (travels.errors && travels.errors.length > 0) {
-                    Materialize.toast(travels.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    gettravels();
+                    datatravel();
+                    toastr.success(res.message);
                 }
-                else { gettravels(); }
-            })
+            });
         }
+        datatravel();
     };
 
     $scope.deletetravel = function () {
         var response = TravelService.deletetravel($scope.edittravel);
-        response.then(function (travels) {
-            if (travels.errors && travels.errors.length > 0) {
-                Materialize.toast(travels.message, 4000);
-            }
+        response.then(function (res) {
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
+                $("#modaldeletetravel").modal("hide");                
                 datatravel();
                 gettravels();
+                toastr.success(res.message);
             }
-        })
+        });
     };
 
     $scope.selectedtravel = function (travel, option) {
@@ -82,26 +81,23 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         $scope.edittravel = angular.copy($scope.travelselected);
         $scope.edittravel.state = 2;
 
-        if (option == 1) {
-            $('#modaledittravel').openModal();
-            $('#numberid').val($scope.edittravel.numberid);
-            $('#arrival').val($scope.edittravel.arrival);
-            $('#departure').val($scope.edittravel.departure);
-            $('#detail').val($scope.edittravel.detail);
-            $('#idcourse').val($scope.edittravel.idcourse);
-        } else {
-            $('#modaldeletetravel').openModal();
+        if ($scope.listcourse) {
+            for (var i = 0; i < $scope.listcourse.length; i++) {
+                if ($scope.listcourse[i].id == $scope.edittravel.idcourse) {
+                    $scope.selectedcourse = $scope.listcourse[i];
+                }
+            }
         }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.edittravel == null || $scope.edittravel.numberid.length == 0
-            || $scope.edittravel.arrival.length == 0 || $scope.edittravel.departure.length == 0
-            || $('#idcourse').val().length == 0;
+        return $scope.edittravel == null || $scope.edittravel.numberid == null
+            || ($scope.edittravel.numberid != null && $scope.edittravel.numberid.length < 4)
+            || $scope.edittravel.arrival == null || $scope.edittravel.departure == null
+            || $scope.edittravel.detail == null || $scope.selectedcourse == null;
     };
 
     $scope.newtravel = function () {
-        $('#modaledittravel').openModal();
         datatravel();
     };
 });

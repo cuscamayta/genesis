@@ -3,7 +3,8 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Libros de orden registrados</h2>
-				<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="neworderbook()"><i class="fa fa-plus-square"></i> Nuevo</button>
+				<button type="button" class="btn btn-default pull-right btnborderless" data-toggle="modal" data-target=".bs-example-modal-lg"
+					ng-click="neworderbook()" title="Nuevo registro"><i class="fa fa-plus-square"></i> Nuevo</button>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -69,7 +70,8 @@
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="dateofissue">Fecha emisión <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="dateofissue" class="form-control date-picker" ng-model="editorderbook.dateofissue" validate="date" required data-inputmask="'mask': '99/99/9999'">
+						<input type="text" id="dateofissue" class="form-control date-picker" ng-model="editorderbook.dateofissue" validate="date"
+							required data-inputmask="'mask': '99/99/9999'">
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="deadline">Fecha límite <span class="required">*</span></label>
@@ -122,7 +124,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" title="Limpiar controles">Cancelar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Limpiar controles y cerrar">Cancelar</button>
 				<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveorderbook()" title="Guardar">Guardar</button>
 			</div>
 		</div>

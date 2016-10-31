@@ -22,6 +22,10 @@
                         message = "Solo se permite letras y numeros";
                         validateRE = /^[A-Za-z\s0-9]*$/;
                         break;
+                    case 'text-number-hour':
+                        message = "Solo se permite letras y numeros";
+                        validateRE = /^[A-Za-z\s0-9:]*$/;
+                        break;
                     case 'number':
                         message = "No es un número válido";
                         validateRE = /^[0-9]*$/;
@@ -99,7 +103,7 @@
                         }
                         return undefined;
                     }
-                    
+
                 $("#" + nameinput).removeClass("validateInput");
                 return viewValue;
             });
