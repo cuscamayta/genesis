@@ -4,75 +4,75 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
         getdestinations();
         getoffices();
         dataoffice();
-        $('select').material_select();
     }
 
     function dataoffice() {
         $scope.editoffice = {
             id: 0,
-            title: "",
-            address: "",
-            phone: "",
-            detail: "",
-            idorigin: 0,
             state: 1
         };
-        $scope.selectedorigin = null;
+        $scope.selecteddestination = null;
     };
 
     function getoffices() {
         var response = OfficeService.getoffices();
-        response.then(function (offices) {
-            if (offices.errors && offices.errors.length > 0) {
-                Materialize.toast(offices.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else { $scope.offices = offices; }
-        })
+            else { $scope.offices = res; }
+        });
     }
 
     function getdestinations() {
         var response = DestinationService.getdestinations();
-        response.then(function (destinations) {
-            if (destinations.errors && destinations.errors.length > 0) {
-                Materialize.toast(destinations.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else {
-                $scope.listdestination = destinations;
-            }
-        })
+            else { $scope.listdestination = res; }
+        });
     }
 
     $scope.saveoffice = function () {
         $scope.editoffice;
-        $scope.editoffice.idorigin = $scope.selectedorigin.id;
+        $scope.editoffice.idorigin = $scope.selecteddestination.id;
         if ($scope.editoffice.id == 0) {
             var response = OfficeService.saveoffice($scope.editoffice);
-            response.then(function (offices) {
-                if (offices.errors && offices.errors.length > 0) {
-                    Materialize.toast(offices.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
                 }
-                else { getoffices(); }
-            })
+                else {
+                    getoffices();
+                    dataoffice();
+                    toastr.success(res.message);
+                }
+            });
         } else {
             var response = OfficeService.updateoffice($scope.editoffice);
-            response.then(function (offices) {
-                if (offices.errors && offices.errors.length > 0) {
-                    Materialize.toast(offices.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
                 }
-                else { getoffices(); }
-            })
+                else {
+                    getoffices();
+                    dataoffice();
+                    toastr.success(res.message);
+                }
+            });
         }
     };
 
     $scope.deleteoffice = function () {
         var response = OfficeService.deleteoffice($scope.editoffice);
-        response.then(function (offices) {
-            if (offices.errors && offices.errors.length > 0) {
-                Materialize.toast(offices.message, 4000);
-            }
+        response.then(function (res) {
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
+                $("#modaldeleteoffice").modal("hide");                
                 dataoffice();
                 getoffices();
+                toastr.success(res.message);
             }
         })
     };
@@ -82,26 +82,22 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
         $scope.editoffice = angular.copy($scope.officeselected);
         $scope.editoffice.state = 2;
 
-        if (option == 1) {
-            $('#modaleditoffice').openModal();
-            $('#title').val($scope.editoffice.title);
-            $('#phone').val($scope.editoffice.phone);
-            $('#detail').val($scope.editoffice.detail);
-            $('#address').val($scope.editoffice.address);
-            $('#idorigin').val($scope.editoffice.idorigin);
-        } else {
-            $('#modaldeleteoffice').openModal();
+        if ($scope.listdestination) {
+            for (var i = 0; i < $scope.listdestination.length; i++) {
+                if ($scope.listdestination[i].id == $scope.editoffice.idorigin) {
+                    $scope.selecteddestination = $scope.listdestination[i];
+                }
+            }
         }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editoffice == null || $scope.editoffice.title.length == 0
-            || $scope.editoffice.address.length == 0 || $('#idorigin').val().length == 0
-            || $scope.editoffice.phone.length == 0 || $scope.editoffice.detail.length == 0 ;
+        return $scope.editoffice == null || $scope.editoffice.title == null
+            || $scope.editoffice.phone == null || $scope.editoffice.address == null
+            || $scope.editoffice.detail == null || $scope.selecteddestination == null;
     };
 
     $scope.newoffice = function () {
-        $('#modaleditoffice').openModal();
         dataoffice();
     };
 });

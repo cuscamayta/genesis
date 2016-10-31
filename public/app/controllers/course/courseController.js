@@ -4,16 +4,11 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
         getdestinations();
         getcourses();
         datacourse();
-        $('select').material_select();
     }
 
     function datacourse() {
         $scope.editcourse = {
             id: 0,
-            numberid: "",
-            detail: "",
-            iddestination: 0,
-            idorigin: 0,
             state: 1
         };
         $scope.selecteddestination = null;
@@ -22,58 +17,66 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
 
     function getcourses() {
         var response = CourseService.getcourses();
-        response.then(function (courses) {
-            if (courses.errors && courses.errors.length > 0) {
-                Materialize.toast(courses.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else { $scope.courses = courses; }
-        })
+            else { $scope.courses = res; }
+        });
     }
 
     function getdestinations() {
         var response = DestinationService.getdestinations();
-        response.then(function (destinations) {
-            if (destinations.errors && destinations.errors.length > 0) {
-                Materialize.toast(destinations.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
             else {
-                $scope.listdestination = destinations;
+                $scope.listdestination = res;
             }
-        })
+        });
     }
 
     $scope.savecourse = function () {
         $scope.editcourse;
-        $scope.editcourse.iddestination = $scope.selecteddestination.id;
         $scope.editcourse.idorigin = $scope.selectedorigin.id;
+        $scope.editcourse.iddestination = $scope.selecteddestination.id;
         if ($scope.editcourse.id == 0) {
             var response = CourseService.savecourse($scope.editcourse);
-            response.then(function (courses) {
-                if (courses.errors && courses.errors.length > 0) {
-                    Materialize.toast(courses.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
                 }
-                else { getcourses(); }
-            })
+                else {
+                    getcourses();
+                    datacourse();
+                    toastr.success(res.message);
+                }
+            });
         } else {
             var response = CourseService.updatecourse($scope.editcourse);
-            response.then(function (courses) {
-                if (courses.errors && courses.errors.length > 0) {
-                    Materialize.toast(courses.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
                 }
-                else { getcourses(); }
-            })
+                else {
+                    getcourses();
+                    datacourse();
+                    toastr.success(res.message);
+                }
+            });
         }
     };
 
     $scope.deletecourse = function () {
         var response = CourseService.deletecourse($scope.editcourse);
-        response.then(function (courses) {
-            if (courses.errors && courses.errors.length > 0) {
-                Materialize.toast(courses.message, 4000);
-            }
+        response.then(function (res) {
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
+                $("#modaldeletecourse").modal("hide");
                 datacourse();
                 getcourses();
+                toastr.success(res.message);
             }
         })
     };
@@ -83,25 +86,30 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
         $scope.editcourse = angular.copy($scope.courseselected);
         $scope.editcourse.state = 2;
 
-        if (option == 1) {
-            $('#modaleditcourse').openModal();
-            $('#numberid').val($scope.editcourse.numberid);
-            $('#detail').val($scope.editcourse.detail);
-            $('#iddestination').val($scope.editcourse.iddestination);
-            $('#idorigin').val($scope.editcourse.idorigin);
-        } else {
-            $('#modaldeletecourse').openModal();
+        if ($scope.listdestination) {
+            for (var i = 0; i < $scope.listdestination.length; i++) {
+                if ($scope.listdestination[i].id == $scope.editcourse.iddestination) {
+                    $scope.selecteddestination = $scope.listdestination[i];
+                }
+            }
+        }
+
+        if ($scope.listdestination) {
+            for (var i = 0; i < $scope.listdestination.length; i++) {
+                if ($scope.listdestination[i].id == $scope.editcourse.idorigin) {
+                    $scope.selectedorigin = $scope.listdestination[i];
+                }
+            }
         }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editcourse == null || $scope.editcourse.numberid.length < 4
-            || $scope.editcourse.detail.length == 0 || $('#iddestination').val().length == 0
-            || $('#idorigin').val().length == 0;
+        return $scope.editcourse == null || $scope.editcourse.numberid == null
+            || $scope.editcourse.detail == null || $scope.selecteddestination == null
+            || $scope.selectedorigin == null;
     };
 
     $scope.newcourse = function () {
-        $('#modaleditcourse').openModal();
         datacourse();
     };
 });

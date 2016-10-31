@@ -7,8 +7,8 @@ router.post('/create', function (request, response) {
   models.Course.create({
     numberid: request.body.numberid,
     detail: request.body.detail,
-    iddrivertype: request.body.iddrivertype,
-    idorigin: request.body.idorigin
+    iddestination: request.body.iddestination,
+    idorigin: request.body.idorigin    
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
@@ -20,7 +20,7 @@ router.post('/update', function (request, response) {
   models.Course.update({
     numberid: request.body.numberid,
     detail: request.body.detail,
-    iddrivertype: request.body.iddrivertype,
+    iddestination: request.body.iddestination,
     idorigin: request.body.idorigin
   }, {
       where: { id: request.body.id }
