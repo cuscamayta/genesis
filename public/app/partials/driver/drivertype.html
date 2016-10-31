@@ -1,76 +1,70 @@
-<div class="container">
-	<div class="col s12 m7">
-		<div class="card horizontal">
-			<div class="card-stacked">
-				<div class="card-content">
-					<div class="row">
-						<div class="col s10">
-							<h3 class="header">Tipo de conductor registrados</h3>
-						</div>
-						<div class="col s2">
-							<a class="modal-trigger waves-effect waves-light btn" ng-click="newdrivertype()">
-								<i class="material-icons center" title="Nuevo rol">playlist_add</i>
-							</a>
-						</div>
-						<div class="row">
-							<form class="col s12 minForm">
-								<table class="responsive-table">
-									<colgroup>
-										<col style="width: 80%">
-										<col style="width: 10%">
-										<col style="width: 10%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th>Descripción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="drivertype in drivertypes" ng-class="{selectelement:drivertypeselected.id==drivertype.id}">
-											<td>{{drivertype.title}}</td>
-											<td ng-click="selecteddrivertype(drivertype,1)"><i class="material-icons center" title="Editar">mode_edit</i></td>
-											<td ng-click="selecteddrivertype(drivertype,2)"><i class="material-icons center" title="Eliminar">delete</i></td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-						</div>
-					</div>
+<div class="row">
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Tipos de chofer registrados</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action">
+						<thead class="headings">
+							<tr>
+								<th>#</th>
+								<th>Descripción</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" ng-repeat="drivertype in drivertypes" ng-class="{selectelement:drivertypeselected.id==drivertype.id}">
+								<td>{{$index}}</td>
+								<td>{{drivertype.title}}</td>
+								<td ng-click="selecteddrivertype(drivertype,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
+								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selecteddrivertype(drivertype,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div id="modaleditdrivertype" class="modal modal-fixed-footer" style="height: 280px !important">
-	<div class="modal-content">
-		<h3>Registrar tipo de conductor</h3>
-		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s12">
-						<input id="title" type="text" class="validate" ng-model="editdrivertype.title">
-						<label for="title" class="active">Descripción</label>
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Registrar tipo de chofer</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<form class="form-horizontal form-label-left">
+					<p></p>
+					<label for="title">Descripción<span class="required">*</span></label>
+					<input type="text" id="title" class="form-control" ng-model="editdrivertype.title" validate="text-number" required>
+
+					<div class="ln_solid"></div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<button type="button" class="btn btn-default" ng-click="newdrivertype()" title="Limpiar contdrivertypes">Cancel</button>
+						<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="savedrivertype()" title="Guardar">Guardar</button>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="savedrivertype()">Aceptar</button>
 	</div>
 </div>
-<div id="modaldeletedrivertype" class="modal modal-fixed-footer" style="height: 200px !important">
-	<div class="modal-content">
-		<h3>Eliminar Rol</h3>
-		<div class="row">
-			<form class="col s12">
-				<label for="title">¿Esta seguro de eliminar el registro?</label>
-			</form>
+<div id="modaldeletedrivertype" class="modal fade bs-example-modal-sm" tabindex="-1" drivertype="dialog" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Eliminar tipo de chofer</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Esta seguro de eliminar el registro?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+				<button type="button" class="btn btn-danger" ng-click="deletedrivertype()" title="Eliminar">Eliminar</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-		<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="deletedrivertype()">Aceptar</button>
 	</div>
 </div>

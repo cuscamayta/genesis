@@ -8,51 +8,58 @@ app.controller('DrivertypeController', function ($scope, DrivertypeService) {
     function datadrivertype() {
         $scope.editdrivertype = {
             id: 0,
-            title: '',
             state: 1
         };
     };
 
     function getdrivertypes() {
         var response = DrivertypeService.getdrivertypes();
-        response.then(function (drivertypes) {
-            if (drivertypes.errors && drivertypes.errors.length > 0) {
-                Materialize.toast(drivertypes.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else { $scope.drivertypes = drivertypes; }
-        })
+            else { $scope.drivertypes = res; }
+        });
     }
 
     $scope.savedrivertype = function () {
         $scope.editdrivertype;
         if ($scope.editdrivertype.id == 0) {
             var response = DrivertypeService.savedrivertype($scope.editdrivertype);
-            response.then(function (drivertypes) {
-                if (drivertypes.errors && drivertypes.errors.length > 0) {
-                    Materialize.toast(drivertypes.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
                 }
-                else { getdrivertypes(); }
-            })
+                else {
+                    getdrivertypes();
+                    datadrivertype();
+                    toastr.success(res.message);
+                }
+            });
         } else {
             var response = DrivertypeService.updatedrivertype($scope.editdrivertype);
-            response.then(function (drivertypes) {
-                if (drivertypes.errors && drivertypes.errors.length > 0) {
-                    Materialize.toast(drivertypes.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
                 }
-                else { getdrivertypes(); }
-            })
+                else {
+                    getdrivertypes();
+                    datadrivertype();
+                    toastr.success(res.message);
+                }
+            });
         }
     };
 
     $scope.deletedrivertype = function () {
         var response = DrivertypeService.deletedrivertype($scope.editdrivertype);
-        response.then(function (drivertypes) {
-            if (drivertypes.errors && drivertypes.errors.length > 0) {
-                customer
-            }
+        response.then(function (res) {
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
+                $("#modaldeletedrivertype").modal("hide");
                 datadrivertype();
                 getdrivertypes();
+                toastr.success(res.message);
             }
         })
     };
@@ -61,21 +68,14 @@ app.controller('DrivertypeController', function ($scope, DrivertypeService) {
         $scope.drivertypeselected = drivertype;
         $scope.editdrivertype = angular.copy($scope.drivertypeselected);
         $scope.editdrivertype.state = 2;
-
-        if (option == 1) {
-            $('#modaleditdrivertype').openModal();
-            $('#title').val($scope.editdrivertype.title);
-        } else {
-            $('#modaldeletedrivertype').openModal();
-        }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editdrivertype == null || $scope.editdrivertype.title.length < 3;
+        return $scope.editdrivertype == null || $scope.editdrivertype.title == null
+            || ($scope.editdrivertype.title != null && $scope.editdrivertype.title.length < 4)
     };
 
     $scope.newdrivertype = function () {
-        $('#modaleditdrivertype').openModal();
         datadrivertype();
     };
 });
