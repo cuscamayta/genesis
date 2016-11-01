@@ -9,14 +9,14 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
             singleDatePicker: true,
             calender_style: "picker_4"
         }, function (start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
+            //console.log(start.toISOString(), end.toISOString(), label);
         });
 
         $('#deadline').daterangepicker({
             singleDatePicker: true,
             calender_style: "picker_4"
         }, function (start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
+            //console.log(start.toISOString(), end.toISOString(), label);
         });
     }
 

@@ -2,121 +2,120 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     init();
     function init() {
         getbuses();
-        getdrivers();
         gettravels();
+        getdrivers();
         getschedules();
         dataschedule();
-        $('select').material_select();
-        $("#dateregister").datepicker({ dateFormat: "dd/mm/yy", });
+
+        $('#dateregister').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function (start, end, label) {
+            //console.log(start.toISOString(), end.toISOString(), label);
+        });
     }
 
     function dataschedule() {
         $scope.editschedule = {
             id: 0,
-            dateregister: '',
-            arrival: '',
-            departure: '',
-            detail: '',
-            price: 0,
-            idtravel: 0,
-            idbus: 0,
             state: 1,
             details: []
         };
         $scope.selectedbus = null;
         $scope.selectedtravel = null;
         $scope.selecteddriver = null;
+        $scope.schedulesdetails = [];
 
-        $scope.editdetail = {
-            drivertype: "",
-            iddriver: 0,
-            idschedule: 0
-        }
+        $scope.editdetail = {}
     };
 
     function getschedules() {
         var response = ScheduleService.getschedules();
-        response.then(function (schedules) {
-            if (schedules.errors && schedules.errors.length > 0) {
-                Materialize.toast(schedules.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
-            else {
-                $scope.schedules = schedules;
-                $scope.schedulesdetails = schedules[0].Scheduledetails;
-            }
-        })
-    }
-
-    function getbuses() {
-        var response = BusService.getbusesforselect();
-        response.then(function (buses) {
-            if (buses.errors && buses.errors.length > 0) {
-                Materialize.toast(buses.message, 4000);
-            }
-            else {
-                $scope.listbus = buses;
-            }
-        })
+            else { $scope.schedules = res; }
+        });
     }
 
     function gettravels() {
         var response = TravelService.gettravels();
-        response.then(function (travels) {
-            if (travels.errors && travels.errors.length > 0) {
-                Materialize.toast(travels.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
             else {
-                $scope.listtravel = travels;
+                $scope.listtravel = res;
             }
-        })
+        });
     }
 
     function getdrivers() {
         var response = DriverService.getdriversforselect();
-        response.then(function (drivers) {
-            if (drivers.errors && drivers.errors.length > 0) {
-                Materialize.toast(drivers.message, 4000);
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
             }
             else {
-                $scope.listdriver = drivers;
+                $scope.listdriver = res;
             }
-        })
+        });
+    }
+
+    function getbuses() {
+        var response = BusService.getbusesforselect();
+        response.then(function (res) {
+            if (res.isSuccess && !res.isSuccess) {
+                toastr.error(res.message);
+            }
+            else {
+                $scope.listbus = res;
+            }
+        });
     }
 
     $scope.saveschedule = function () {
         $scope.editschedule;
+        $scope.editschedule.dateregister = $("#dateregister").val();
         $scope.editschedule.idbus = $scope.selectedbus.id;
         $scope.editschedule.idtravel = $scope.selectedtravel.id;
         if ($scope.editschedule.id == 0) {
             var response = ScheduleService.saveschedule($scope.editschedule);
-            response.then(function (schedules) {
-                if (schedules.errors && schedules.errors.length > 0) {
-                    Materialize.toast(schedules.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getschedules();
+                    dataschedule();
+                    toastr.success(res.message);
                 }
-                else { getschedules(); }
-            })
+            });
         } else {
             var response = ScheduleService.updateschedule($scope.editschedule);
-            response.then(function (schedules) {
-                if (schedules.errors && schedules.errors.length > 0) {
-                    Materialize.toast(schedules.message, 4000);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getschedules();
+                    dataschedule();
+                    toastr.success(res.message);
                 }
-                else { getschedules(); }
-            })
+            });
         }
+        $("#modaleditschedule").modal("hide");
+        dataschedule();
     };
 
     $scope.deleteschedule = function () {
         var response = ScheduleService.deleteschedule($scope.editschedule);
-        response.then(function (schedules) {
-            if (schedules.errors && schedules.errors.length > 0) {
-                Materialize.toast(schedules.message, 4000);
-            }
+        response.then(function (res) {
+            if (!res.isSuccess) { toastr.error(res.message); }
             else {
+                $("#modaldeleteschedule").modal("hide");
                 dataschedule();
                 getschedules();
+                toastr.success(res.message);
             }
-        })
+        });
     };
 
     $scope.selectedschedule = function (schedule, option) {
@@ -124,34 +123,35 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         $scope.editschedule = angular.copy($scope.scheduleselected);
         $scope.editschedule.state = 2;
 
-        if (option == 1) {
-            $('#modaleditschedule').openModal();
-            $('#dateregister').val($scope.editschedule.dateregister);
-            $('#price').val($scope.editschedule.price);
-            $('#arrival').val($scope.editschedule.arrival);
-            $('#departure').val($scope.editschedule.departure);
-            $('#detail').val($scope.editschedule.detail);
-            $('#idtravel').val($scope.editschedule.idtravel);
-            $('#idbus').val($scope.editschedule.idbus);
-        } else {
-            $('#modaldeleteschedule').openModal();
+        if ($scope.listtravel) {
+            for (var i = 0; i < $scope.listtravel.length; i++) {
+                if ($scope.listtravel[i].id == $scope.editschedule.idtravel) {
+                    $scope.selectedtravel = $scope.listtravel[i];
+                }
+            }
         }
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editschedule == null || $scope.editschedule.dateregister.length < 10
-            || $scope.editschedule.arrival.length == 0 || $scope.editschedule.departure.length == 0
-            || $('#idbus').val() == 0 || $('#idtravel').val() == 0 || $scope.editschedule.price == 0;
+        return $scope.editschedule == null || $("#dateregister").val() == null
+            || $scope.editschedule.arrival == null || $scope.editschedule.departure == null
+            || $scope.editschedule.price == null || $scope.selectedtravel == null
+            || $scope.selectedbus == null;
+    };
+
+    $scope.validatecontrolsdetail = function () {
+        return $scope.editdetail == null || $("#type").val() == null
+            || $scope.selecteddriver == null;
     };
 
     $scope.newschedule = function () {
-        $('#modaleditschedule').openModal();
         dataschedule();
     };
 
     $scope.newscheduledetail = function () {
         $scope.editdetail.drivertype = $("#type").val();
         $scope.editdetail.iddriver = $scope.selecteddriver.id;
+        $scope.editdetail.fullName = $scope.selecteddriver.fullName;
         $scope.schedulesdetails.push($scope.editdetail);
     }
 
@@ -163,8 +163,13 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
                     Materialize.toast(details.message, 4000);
                 }
             })
-        }else{
-            
+        } else {
+
         }
     };
+
+    $scope.selectedtravelchange = function () {
+        $scope.editschedule.arrival = $scope.selectedtravel.arrival;
+        $scope.editschedule.departure = $scope.selectedtravel.departure;
+    }
 });
