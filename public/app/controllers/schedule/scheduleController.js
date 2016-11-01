@@ -35,7 +35,10 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
             if (res.isSuccess && !res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.schedules = res; }
+            else {
+                $scope.schedules = res;
+                $scope.schedulesdetails = res[0].Scheduledetails;
+            }
         });
     }
 
@@ -149,23 +152,22 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     };
 
     $scope.newscheduledetail = function () {
-        $scope.editdetail.drivertype = $("#type").val();
-        $scope.editdetail.iddriver = $scope.selecteddriver.id;
-        $scope.editdetail.fullName = $scope.selecteddriver.fullName;
-        $scope.schedulesdetails.push($scope.editdetail);
+        $scope.editdetail = {};
+
+        var n = $scope.schedulesdetails.where(function (item) {
+            return item.iddriver == $scope.selecteddriver.id && item.drivertype == $("#type").val();
+        });
+
+        if (n.length == 0) {
+            $scope.editdetail.drivertype = $("#type").val();
+            $scope.editdetail.iddriver = $scope.selecteddriver.id;
+            $scope.editdetail.fullName = $scope.selecteddriver.fullName;
+            $scope.schedulesdetails.push($scope.editdetail);
+        }
     }
 
-    $scope.deletescheduledetail = function () {
-        if ($scope.editdetail.id) {
-            var response = ScheduleService.deletescheduledetail($scope.editdetail);
-            response.then(function (details) {
-                if (details.errors && details.errors.length > 0) {
-                    Materialize.toast(details.message, 4000);
-                }
-            })
-        } else {
-
-        }
+    $scope.deletescheduledetail = function (item) {
+        $scope.schedulesdetails.remove(item);
     };
 
     $scope.selectedtravelchange = function () {

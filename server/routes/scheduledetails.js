@@ -37,16 +37,6 @@ router.get('/', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
-  models.Scheduledetail.destroy({
-    where: { id: request.body.id }
-  }).then(function () {
-    response.send(common.response("", "Se elimino correctamente"));
-  }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
-  });
-});
-
 router.post('/destroybyheader', function (request, response) {
   models.Scheduledetail.destroy({
     where: { idschedule: request.body.id }

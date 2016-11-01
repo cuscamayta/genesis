@@ -50,6 +50,9 @@ router.get('/', function (request, response) {
 router.post('/destroy', function (request, response) {
   models.Schedule.destroy({
     where: { id: request.body.id }
+  })
+  models.Scheduledetail.destroy({
+    where: { idschedule: request.body.id }
   }).then(function () {
     response.send(common.response("", "Se elimino correctamente"));
   }).catch(function (err) {
