@@ -26,3 +26,11 @@
 .btnborderless{
   border-color: transparent !important;
 }
+
+.pagination a{
+  cursor: pointer !important;
+}
+
+.pagination{
+      margin-top: 0px !important;
+}

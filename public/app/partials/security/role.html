@@ -9,16 +9,14 @@
 				<div class="table-responsive">
 					<table class="table table-striped jambo_table bulk_action">
 						<thead class="headings">
-							<tr>
-								<th>#</th>
+							<tr>								
 								<th>Descripción</th>
 								<th></th>
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr class="even pointer" ng-repeat="role in roles | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" ng-class="{selectelement:roleselected.id==role.id}">
-								<td>{{$index}}</td>
+						<tbody>							
+							<tr class="even pointer" ng-repeat="role in roles | paginate" ng-class="{selectelement:roleselected.id==role.id}">								
 								<td>{{role.title}}</td>
 								<td ng-click="selectedrole(role,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
 								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selectedrole(role,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
@@ -27,20 +25,7 @@
 					</table>
 				</div>
 				<div class="row">
-					<div class="col-sm-6">
-						<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">{{currentPage+1}}/{{numberOfPages()}}</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="dataTables_paginate paging_simple_numbers">
-							<ul class="pagination">
-								<li class="paginate_button previous disabled">
-									<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button></li>
-								<li class="paginate_button next">
-									<button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">        Next    </button>
-								</li>
-							</ul>
-						</div>
-					</div>
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

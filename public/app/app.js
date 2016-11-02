@@ -1,6 +1,6 @@
-var app = angular.module('genesisApp', []);
+var app = angular.module('genesisApp', ['uitls.paginate']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider) {    
 	$routeProvider
 		.when('/', {
 		    controller: 'HomeController',

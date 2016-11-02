@@ -5,10 +5,13 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
         datarole();
     }
 
+    $scope.currentPage = 1;
+    $scope.pageSize = 10;
     function datarole() {
         $scope.editrole = {
             id: 0,
-            state: 1
+            state: 1,
+            title: ''
         };
     };
 
@@ -39,7 +42,7 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
             response.then(function (res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
-                    getroles(); 
+                    getroles();
                     datarole();
                     toastr.success(res.message);
                 }
@@ -54,7 +57,7 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
                 toastr.error(res.message);
             }
             else {
-                $("#modaldeleterole").modal("hide");                
+                $("#modaldeleterole").modal("hide");
                 datarole();
                 getroles();
                 toastr.success(res.message);
@@ -80,23 +83,25 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
         datarole();
     };
 
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
-    $scope.q = '';
+    // $scope.currentPage = 0;
+    // $scope.pageSize = 10;
+    // $scope.q = '';
 
-    $scope.getData = function () {
-        return $filter('filter')($scope.roles, $scope.q)
-    }
+    // $scope.getData = function () {
+    //     return $filter('filter')($scope.roles, $scope.q)
+    // }
 
-    $scope.numberOfPages = function () {
-        return Math.ceil($scope.getData().length / $scope.pageSize);
-    }
+    // $scope.numberOfPages = function () {
+    //     return Math.ceil($scope.getData().length / $scope.pageSize);
+    // }
 });
 
 
-app.filter('startFrom', function () {
-    return function (input, start) {
-        start = +start;
-        return input.slice(start);
-    }
-});
+// app.filter('startFrom', function () {
+//     return function (input, start) {
+//         start = +start;
+//         if (input)
+//             return input.slice(start);
+//         return [];
+//     }
+// });
