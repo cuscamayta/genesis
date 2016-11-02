@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 .validationerror{
-  float: right;
-  margin: 0 0 0 20px;
+  /*float: right;*/
+  /*margin: 0 0 0 20px;
   padding: 0px 10px;
   color: #FFF;
   border-radius: 3px 4px 4px 3px;
@@ -12,11 +12,13 @@
   position: relative;
   left: 0px;
   z-index: 1;
-  transition: 0.15s ease-out;
+  transition: 0.15s ease-out;*/
+  color: #CE5454;
+    font-weight: bold;
 }
 
 .validateInput{
-  border: 1px solid #CE5454;
+  border: 1px solid #CE5454 !important;
 }
 
 .textUpperCase{

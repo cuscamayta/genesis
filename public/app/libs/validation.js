@@ -73,7 +73,7 @@
                 var ngShow = "<span class='error validationerror' id='" + name + "'>&nbsp;" + message + "</span>";
 
                 $(elm).focusout(function () {
-                    $("#" + name).fadeOut();
+                    // $("#" + name).fadeOut();
                 });
 
                 if ($(elm).attr("required") && $(elm).val() === '') {
@@ -82,7 +82,7 @@
                     if (!$("#" + name).length) {
                         $(elm).after(ngShow);
                     }
-                    $("#" + name).text(message);
+                    $("#" + name).css('display','block').text(message);
                     $("#" + name).fadeIn();
 
                 } else
@@ -98,7 +98,7 @@
                             $(elm).after(ngShow);
                         } else {
                             $("#" + nameinput).addClass("validateInput");
-                            $("#" + name).text(message);
+                            $("#" + name).css('display','block').text(message);
                             $("#" + name).fadeIn();
                         }
                         return undefined;
