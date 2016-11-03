@@ -22,7 +22,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="schedule in schedules" ng-class="{selectelement:scheduleselected.id==schedule.id}">
+							<tr class="even pointer" ng-repeat="schedule in schedules | paginate" ng-class="{selectelement:scheduleselected.id==schedule.id}">
 								<td>{{$index}}</td>
 								<td>{{schedule.numberid}}</td>
 								<td>{{schedule.arrival}}</td>
@@ -33,6 +33,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>
@@ -130,7 +133,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="scheduledetail in schedulesdetails | paginate" ng-class="{selectelement:scheduledetailselected.id==scheduledetail.id}">
+										<tr ng-repeat="scheduledetail in schedulesdetails | filterDeleteGrid" ng-class="{selectelement:scheduledetailselected.id==scheduledetail.id}">
 											<td>{{$index+1}}</td>
 											<td>{{scheduledetail.drivertype}}</td>
 											<td>{{scheduledetail.fullName}}</td>
@@ -138,9 +141,6 @@
 										</tr>
 									</tbody>
 								</table>
-							</div>
-							<div class="row">
-								<paginator></paginator>
 							</div>
 						</div>
 					</div>

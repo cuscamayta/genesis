@@ -36,28 +36,4 @@ app.service('ScheduleService', function ($http, $q) {
         });
         return defer.promise;
     };
-
-    this.savescheduledetail = function (schedule) {
-        var defer = $q.defer();
-        $http.post('/scheduledetails/create', schedule).success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };    
-
-    this.getscheduledetails = function () {
-        var defer = $q.defer();
-        $http.get('/scheduledetails').success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
-
-    this.deletescheduledetailbyheader = function (schedule) {
-        var defer = $q.defer();
-        $http.post('/scheduledetails/destroybyheader', schedule).success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
 });
