@@ -17,7 +17,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="destination in destinations" ng-class="{selectelement:destinationselected.id==destination.id}">
+							<tr class="even pointer" ng-repeat="destination in destinations | paginate" ng-class="{selectelement:destinationselected.id==destination.id}">
 								<td>{{$index}}</td>
 								<td>{{destination.title}}</td>
 								<td ng-click="selecteddestination(destination,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
@@ -25,6 +25,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

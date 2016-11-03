@@ -19,7 +19,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="driver in drivers" ng-class="{selectelement:driverselected.id==driver.id}">
+							<tr class="even pointer" ng-repeat="driver in drivers | paginate" ng-class="{selectelement:driverselected.id==driver.id}">
 								<td>{{$index}}</td>
 								<td>{{driver.numberid}}</td>
 								<td>{{driver.fullName}}</td>
@@ -29,6 +29,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

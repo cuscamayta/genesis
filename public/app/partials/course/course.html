@@ -18,7 +18,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="course in courses" ng-class="{selectelement:courseselected.id==course.id}">
+							<tr class="even pointer" ng-repeat="course in courses | paginate" ng-class="{selectelement:courseselected.id==course.id}">
 								<td>{{$index}}</td>
 								<td>{{course.numberid}}</td>
 								<td>{{course.detail}}</td>
@@ -27,6 +27,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

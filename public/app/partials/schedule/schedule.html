@@ -130,7 +130,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="scheduledetail in schedulesdetails" ng-class="{selectelement:scheduledetailselected.id==scheduledetail.id}">
+										<tr ng-repeat="scheduledetail in schedulesdetails | paginate" ng-class="{selectelement:scheduledetailselected.id==scheduledetail.id}">
 											<td>{{$index+1}}</td>
 											<td>{{scheduledetail.drivertype}}</td>
 											<td>{{scheduledetail.fullName}}</td>
@@ -138,6 +138,9 @@
 										</tr>
 									</tbody>
 								</table>
+							</div>
+							<div class="row">
+								<paginator></paginator>
 							</div>
 						</div>
 					</div>

@@ -81,27 +81,5 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
 
     $scope.newrole = function () {
         datarole();
-    };
-
-    // $scope.currentPage = 0;
-    // $scope.pageSize = 10;
-    // $scope.q = '';
-
-    // $scope.getData = function () {
-    //     return $filter('filter')($scope.roles, $scope.q)
-    // }
-
-    // $scope.numberOfPages = function () {
-    //     return Math.ceil($scope.getData().length / $scope.pageSize);
-    // }
+    };  
 });
-
-
-// app.filter('startFrom', function () {
-//     return function (input, start) {
-//         start = +start;
-//         if (input)
-//             return input.slice(start);
-//         return [];
-//     }
-// });

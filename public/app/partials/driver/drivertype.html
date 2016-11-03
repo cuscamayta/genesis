@@ -17,7 +17,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="drivertype in drivertypes" ng-class="{selectelement:drivertypeselected.id==drivertype.id}">
+							<tr class="even pointer" ng-repeat="drivertype in drivertypes | paginate" ng-class="{selectelement:drivertypeselected.id==drivertype.id}">
 								<td>{{$index}}</td>
 								<td>{{drivertype.title}}</td>
 								<td ng-click="selecteddrivertype(drivertype,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
@@ -25,6 +25,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

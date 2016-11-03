@@ -20,7 +20,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="office in offices" ng-class="{selectelement:officeselected.id==office.id}">
+							<tr class="even pointer" ng-repeat="office in offices | paginate" ng-class="{selectelement:officeselected.id==office.id}">
 								<td>{{$index}}</td>
 								<td>{{office.title}}</td>
 								<td>{{office.phone}}</td>
@@ -31,6 +31,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

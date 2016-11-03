@@ -20,7 +20,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="travel in travels" ng-class="{selectelement:travelselected.id==travel.id}">
+							<tr class="even pointer" ng-repeat="travel in travels | paginate" ng-class="{selectelement:travelselected.id==travel.id}">
 								<td>{{$index}}</td>
 								<td>{{travel.numberid}}</td>
 								<td>{{travel.arrival}}</td>
@@ -31,6 +31,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>

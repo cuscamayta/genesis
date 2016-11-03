@@ -17,7 +17,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" ng-repeat="bustype in bustypes" ng-class="{selectelement:bustypeselected.id==bustype.id}">
+							<tr class="even pointer" ng-repeat="bustype in bustypes | paginate" ng-class="{selectelement:bustypeselected.id==bustype.id}">
 								<td>{{$index}}</td>
 								<td>{{bustype.title}}</td>
 								<td ng-click="selectedbustype(bustype,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
@@ -25,6 +25,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="row">
+					<paginator></paginator>
 				</div>
 			</div>
 		</div>
