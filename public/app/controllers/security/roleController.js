@@ -10,8 +10,7 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
     function datarole() {
         $scope.editrole = {
             id: 0,
-            state: 1,
-            title: ''
+            state: 1
         };
     };
 
@@ -76,10 +75,11 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editrole == null || $scope.editrole.title.length < 3;
+        return $scope.editrole == null || $scope.editrole.title == null
+            || ($scope.editrole.title != null && $scope.editrole.title.length < 3);
     };
 
     $scope.newrole = function () {
         datarole();
-    };  
+    };
 });
