@@ -118,7 +118,7 @@
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="type">Tipo <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<select id="type" class="form-control" required>
+						<select id="type" class="form-control" required ng-enter="saveorderbook()">
 								<option value="" disabled selected>Elija un tipo de factura</option>
 								<option value="1">Manual</option>
 								<option value="2">Electronica</option>

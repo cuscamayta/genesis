@@ -1,0 +1,21 @@
+"use strict";
+
+module.exports = function (sequelize, DataTypes) {
+    var Sale = sequelize.define("Sale", {
+        dateregister: { type: DataTypes.DATE, allowNull: false },
+        arrival: { type: DataTypes.STRING, allowNull: false },
+        departure: { type: DataTypes.STRING, allowNull: false },
+        detail: { type: DataTypes.STRING, allowNull: true }
+    },
+        {
+            classMethods: {
+                associate: function (models) {
+                    Sale.belongsTo(models.Salesbook, { foreignKey: "idsalesbook" });
+                    Sale.belongsTo(models.Schedule, { foreignKey: "idschedule" });
+                    Sale.hasMany(models.Salesdetail, { foreignKey: "idsale" });
+                }
+            }
+        }
+    );
+    return Sale;
+};

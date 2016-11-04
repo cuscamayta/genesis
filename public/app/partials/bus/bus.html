@@ -75,7 +75,7 @@
 					<p>
 						<label for="idbustype">Tipo de bus <span class="required">*</span></label>
 						<select id="idbustype" class="form-control" ng-options="bustype.title for bustype in listbustype" ng-model="selectedbustype"
-							required>                            
+							required ng-enter="savebus()">                            
                         </select>
 					</p>
 

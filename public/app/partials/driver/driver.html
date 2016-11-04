@@ -60,7 +60,7 @@
 
 					<p>
 						<label for="iddrivertype">Tipo chofer <span class="required">*</span></label>
-						<select id="iddrivertype" class="form-control" ng-options="drivertype.title for drivertype in listdrivertype" ng-model="selecteddrivertype" required>                            
+						<select id="iddrivertype" class="form-control" ng-options="drivertype.title for drivertype in listdrivertype" ng-model="selecteddrivertype" required ng-enter="savedriver()">                            
                         </select>
 					</p>
 

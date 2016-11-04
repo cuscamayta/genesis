@@ -11,7 +11,15 @@ module.exports = function (sequelize, DataTypes) {
     firstname: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, validate: { isEmail: true } },
-  }, {
+  },
+    {
+      classMethods: {
+        associate: function (models) {
+          Customer.hasMany(models.Ticket, { foreignKey: "idcustomer" });
+        }
+      }
+    },
+    {
       getterMethods: {
         fullName: function () { return this.firstname + ' ' + this.lastname }
       },

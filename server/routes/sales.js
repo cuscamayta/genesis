@@ -1,0 +1,32 @@
+var models = require('./../models');
+var express = require('express');
+var router = express.Router();
+var common = require('./common');
+
+router.post('/create', function (request, response) {
+  return models.sequelize.transaction(function (t) {
+    return models.Schedule.create({
+      dateregister: request.body.dateregister,
+      price: request.body.price,
+      arrival: request.body.arrival,
+      departure: request.body.departure,
+      detail: request.body.detail,
+      idbus: request.body.idbus,
+      idtravel: request.body.idtravel
+    }, { transaction: t }).then(function (res) {
+      for (var i = 0; i < request.body.details.length; i++) {
+        return models.Scheduledetail.create({
+          drivertype: request.body.details[i].drivertype,
+          iddriver: request.body.details[i].iddriver,
+          idschedule: res.id
+        }), { transaction: t };
+      }
+    });
+  }).then(function (res) {
+    response.send(common.response(null, "Se guardo correctamente"));
+  }).catch(function (err) {
+    response.send(common.response(err.code, err.message, false));
+  });
+});
+
+module.exports = router;

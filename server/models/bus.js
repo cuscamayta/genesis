@@ -21,6 +21,7 @@ module.exports = function (sequelize, DataTypes) {
         associate: function (models) {
           Bus.belongsTo(models.Bustype, { foreignKey: "idbustype" });
           Bus.hasMany(models.Schedule, { foreignKey: 'idbus' });
+          Bus.hasMany(models.Ticket, { foreignKey: 'idbus' });
         }
       }
     }

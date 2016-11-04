@@ -62,7 +62,7 @@
 
 					<p>
 						<label for="idrole">Rol <span class="required">*</span></label>
-						<select id="idrole" class="form-control" ng-options="role.title for role in listrole" ng-model="selectedrole" required>                            
+						<select id="idrole" class="form-control" ng-options="role.title for role in listrole" ng-model="selectedrole" required ng-enter="saveuser()">                            
                         </select>
 					</p>
 
