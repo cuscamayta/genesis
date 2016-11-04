@@ -48,13 +48,13 @@
 				<form class="form-horizontal form-label-left">
 					<p></p>
 					<label for="numberid">Nombre <span class="required">*</span></label>
-					<input type="text" id="numberid" class="form-control" ng-model="edittravel.numberid" validate="text-number-hour" required>
+					<input type="text" id="numberid" class="form-control" ngfocus order="1" ng-model="edittravel.numberid" validate="text-number-hour" required>
 
 					<label for="arrival">Hora salida <span class="required">*</span></label>
-					<input type="text" id="arrival" class="form-control" ng-model="edittravel.arrival" validate="text-number-hour" required>
+					<input type="text" id="arrival" class="form-control" ngfocus ng-model="edittravel.arrival" validate="text-number-hour" required>
 
 					<label for="departure">Hora llegada <span class="required">*</span></label>
-					<input type="text" id="departure" class="form-control" ng-model="edittravel.departure" validate="text-number-hour" required>
+					<input type="text" id="departure" class="form-control" ngfocus ng-model="edittravel.departure" validate="text-number-hour" required>
 
 					<p>
 						<label for="idcourse">Ruta <span class="required">*</span></label>
@@ -63,7 +63,7 @@
 					</p>
 
 					<label for="detail">Detalles <span class="required">*</span></label>
-					<textarea id="detail" class="form-control" ng-model="edittravel.detail" required rows="2"></textarea>
+					<textarea id="detail" class="form-control" ngfocus ng-model="edittravel.detail" required rows="2"></textarea>
 
 					<div class="ln_solid"></div>
 					<div class="col-md-12 col-sm-12 col-xs-12">

@@ -65,7 +65,7 @@
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="dateregister">Fecha <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="dateregister" class="form-control has-feedback-left active" ng-model="editschedule.dateregister" validate="date"
+						<input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus order="1" ng-model="editschedule.dateregister" validate="date"
 							required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
 						<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 						<span id="inputSuccess2Status" class="sr-only">(success)</span>
@@ -73,22 +73,22 @@
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="price">Precio <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="number" id="price" class="form-control" ng-model="editschedule.price" validate="number" required data-validate-minmax="1,10">
+						<input type="number" id="price" class="form-control" ngfocus ng-model="editschedule.price" validate="number" required data-validate-minmax="1,10">
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberid">Hora salida <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="arrival" class="form-control" ng-model="editschedule.arrival" validate="text-number-hour" required>
+						<input type="text" id="arrival" class="form-control" ngfocus ng-model="editschedule.arrival" validate="text-number-hour" required>
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberorder">Hora llegada <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="departure" class="form-control" ng-model="editschedule.departure" validate="text-number-hour" required>
+						<input type="text" id="departure" class="form-control" ngfocus ng-model="editschedule.departure" validate="text-number-hour" required>
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="detail">Detalles <span class="required">*</span></label>
 					<div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
-						<textarea id="detail" class="form-control" ng-model="editschedule.detail" required rows="2"></textarea>
+						<textarea id="detail" class="form-control" ngfocus ng-model="editschedule.detail" required rows="2"></textarea>
 					</div>
 
 

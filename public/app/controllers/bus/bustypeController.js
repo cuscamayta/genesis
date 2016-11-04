@@ -3,6 +3,7 @@ app.controller('BustypeController', function ($scope, BustypeService) {
     function init() {
         getbustypes();
         databustype();
+        $("#title").focus();
     }
 
     function databustype() {

@@ -36,3 +36,9 @@
 .pagination{
       margin-top: 0px !important;
 }
+
+.focus {
+        /*border-left: 5px solid #1ABB9C !important;*/
+        background-color: rgba(38, 185, 154, 0.08);
+        border: 1px solid rgba(38, 185, 154, 0.4) !important;
+}

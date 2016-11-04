@@ -58,45 +58,45 @@
 				<form class="form-horizontal form-label-left">
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberid">Nro de NIT <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="numberid" class="form-control" ng-model="editorderbook.numberid" validate="number" required>
+						<input type="text" id="numberid" class="form-control" ngfocus order="1" ng-model="editorderbook.numberid" validate="number" required>
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberorder">Nro de orden <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="numberorder" class="form-control" ng-model="editorderbook.numberorder" validate="number" required>
+						<input type="text" id="numberorder" class="form-control" ngfocus ng-model="editorderbook.numberorder" validate="number" required>
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="controlkey">Llave de control <span class="required">*</span></label>
 					<div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
-						<textarea id="controlkey" class="form-control" ng-model="editorderbook.controlkey" required rows="2"></textarea>
+						<textarea id="controlkey" class="form-control" ngfocus ng-model="editorderbook.controlkey" required rows="2"></textarea>
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="dateofissue">Fecha emisión <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="dateofissue" class="form-control date-picker" ng-model="editorderbook.dateofissue" validate="date"
+						<input type="text" id="dateofissue" class="form-control date-picker" ngfocus ng-model="editorderbook.dateofissue" validate="date"
 							required data-inputmask="'mask': '99/99/9999'">
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="deadline">Fecha límite <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="text" id="deadline" class="form-control date-picker" ng-model="editorderbook.deadline" validate="date" required
+						<input type="text" id="deadline" class="form-control date-picker" ngfocus ng-model="editorderbook.deadline" validate="date" required
 							data-inputmask="'mask': '99/99/9999'">
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberinit">Nro inicio <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="number" id="numberinit" class="form-control" ng-model="editorderbook.numberinit" validate="number" required
+						<input type="number" id="numberinit" class="form-control" ngfocus ng-model="editorderbook.numberinit" validate="number" required
 							data-validate-minmax="1,10">
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberend">Nro final <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="number" id="numberend" class="form-control" ng-model="editorderbook.numberend" validate="number" required data-validate-minmax="1,10">
+						<input type="number" id="numberend" class="form-control" ngfocus ng-model="editorderbook.numberend" validate="number" required data-validate-minmax="1,10">
 					</div>
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberinvoice">Nro actual <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-						<input type="number" id="numberinvoice" class="form-control" ng-model="editorderbook.numberinvoice" validate="number" required
+						<input type="number" id="numberinvoice" class="form-control" ngfocus ng-model="editorderbook.numberinvoice" validate="number" required
 							data-validate-minmax="1,10">
 					</div>
 
