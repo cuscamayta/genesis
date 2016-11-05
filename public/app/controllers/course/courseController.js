@@ -105,8 +105,7 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
 
     $scope.validatecontrols = function () {
         return $scope.editcourse == null || $scope.editcourse.numberid == null
-            || $scope.editcourse.detail == null || $scope.selecteddestination == null
-            || $scope.selectedorigin == null;
+            || $scope.selecteddestination == null || $scope.selectedorigin == null;
     };
 
     $scope.newcourse = function () {

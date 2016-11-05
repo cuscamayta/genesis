@@ -94,7 +94,7 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
     $scope.validatecontrols = function () {
         return $scope.editoffice == null || $scope.editoffice.title == null
             || $scope.editoffice.phone == null || $scope.editoffice.address == null
-            || $scope.editoffice.detail == null || $scope.selecteddestination == null;
+            || $scope.selecteddestination == null;
     };
 
     $scope.newoffice = function () {

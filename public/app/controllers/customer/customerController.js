@@ -1,5 +1,5 @@
 app.controller('CustomerController', function ($scope, CustomerService) {
-   init();
+    init();
     function init() {
         getcustomers();
         datacustomer();
@@ -53,7 +53,7 @@ app.controller('CustomerController', function ($scope, CustomerService) {
         response.then(function (res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
-                $("#modaldeletecustomer").modal("hide");                
+                $("#modaldeletecustomer").modal("hide");
                 datacustomer();
                 getcustomers();
                 toastr.success(res.message);
@@ -70,8 +70,7 @@ app.controller('CustomerController', function ($scope, CustomerService) {
     $scope.validatecontrols = function () {
         return $scope.editcustomer == null || $scope.editcustomer.numberid == null
             || ($scope.editcustomer.numberid != null && $scope.editcustomer.numberid.length < 4)
-            || $scope.editcustomer.firstname == null || $scope.editcustomer.lastname == null
-            || $scope.editcustomer.email == null;
+            || $scope.editcustomer.firstname == null || $scope.editcustomer.lastname == null;
     };
 
     $scope.newcustomer = function () {

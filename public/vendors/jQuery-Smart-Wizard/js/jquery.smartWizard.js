@@ -21,9 +21,9 @@ function SmartWizard(target, options) {
     this.elmStepContainer = $('<div></div>').addClass("stepContainer");
     this.loader = $('<div>Loading</div>').addClass("loader");
     this.buttons = {
-        next : $('<a>'+options.labelNext+'</a>').attr("href","#").addClass("buttonNext"),
-        previous : $('<a>'+options.labelPrevious+'</a>').attr("href","#").addClass("buttonPrevious"),
-        finish  : $('<a>'+options.labelFinish+'</a>').attr("href","#").addClass("buttonFinish")
+        next : $('<a>'+options.labelNext+'</a>').attr("href","").addClass("buttonNext"),
+        previous : $('<a>'+options.labelPrevious+'</a>').attr("href","").addClass("buttonPrevious"),
+        finish  : $('<a>'+options.labelFinish+'</a>').attr("href","").addClass("buttonFinish")
     };
 
     /*
@@ -58,11 +58,13 @@ function SmartWizard(target, options) {
         $this.target.append(elmActionBar);
         this.contentWidth = $this.elmStepContainer.width();
 
-        $($this.buttons.next).click(function() {
+        $($this.buttons.next).click(function(e) {
+            e.preventDefault();
             $this.goForward();
             return false;
         });
-        $($this.buttons.previous).click(function() {
+        $($this.buttons.previous).click(function(e) {
+            e.preventDefault();
             $this.goBackward();
             return false;
         });
@@ -84,14 +86,16 @@ function SmartWizard(target, options) {
         });
 
         $($this.steps).bind("click", function(e){
+            e.preventDefault();
             if($this.steps.index(this) == $this.curStepIdx){
                 return false;
             }
             var nextStepIdx = $this.steps.index(this);
             var isDone = $this.steps.eq(nextStepIdx).attr("isDone") - 0;
             if(isDone == 1){
-                _loadContent($this, nextStepIdx);
+               // _loadContent($this, nextStepIdx);
             }
+             _loadContent($this, nextStepIdx);
             return false;
         });
 

@@ -93,8 +93,7 @@
 								<li><a><i class="fa fa-table"></i> Ventas <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="#/customer">Pasajero</a></li>
-										<li><a href="#!">Pasaje</a></li>
-										<li><a href="#!">Venta</a></li>
+										<li><a href="#ticket">Ticket</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-bar-chart-o"></i>Manifiesto<span class="fa fa-chevron-down"></span></a>
@@ -150,7 +149,7 @@
 									<span class=" fa fa-angle-down"></span>
 								</a>
 								<ul class="dropdown-menu dropdown-usermenu pull-right">
-									<li><a href="javascript:;"> Configuracion</a></li>																	
+									<li><a href="javascript:;"> Configuracion</a></li>
 									<li><a href="#"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
 								</ul>
 							</li>
@@ -275,10 +274,13 @@
 	<script src="../vendors/starrr/dist/starrr.js"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script src="../resources/js/custom.min.js"></script>	
+	<script src="../resources/js/custom.min.js"></script>
+
+	<!-- jquery.smartWizard.js -->
+	<script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 
 	<!--angularJS resources-->
-	<script src="app/libs/angular.js"></script>	
+	<script src="app/libs/angular.js"></script>
 	<script src="app/libs/toastr.js"></script>
 	<script src="app/libs/prototype.js"></script>
 	<script src="app/app.js"></script>
@@ -317,7 +319,11 @@
 	<script src="app/controllers/schedule/travelController.js"></script>
 	<script src="app/services/schedule/travelService.js"></script>
 	<script src="app/controllers/schedule/scheduleController.js"></script>
-	<script src="app/services/schedule/scheduleService.js"></script>	
+	<script src="app/services/schedule/scheduleService.js"></script>
+	<script src="app/controllers/sales/ticketController.js"></script>
+	<script src="app/services/sales/saleService.js"></script>
+	
+
 
 	<!-- bootstrap-daterangepicker -->
 	<script>

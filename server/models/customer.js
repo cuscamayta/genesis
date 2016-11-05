@@ -13,13 +13,6 @@ module.exports = function (sequelize, DataTypes) {
     email: { type: DataTypes.STRING, validate: { isEmail: true } },
   },
     {
-      classMethods: {
-        associate: function (models) {
-          Customer.hasMany(models.Ticket, { foreignKey: "idcustomer" });
-        }
-      }
-    },
-    {
       getterMethods: {
         fullName: function () { return this.firstname + ' ' + this.lastname }
       },
@@ -31,6 +24,13 @@ module.exports = function (sequelize, DataTypes) {
           this.setDataValue('firstname', names.slice(0, -1).join(' '));
           this.setDataValue('lastname', names.slice(-1).join(' '));
         },
+      }
+    },
+    {
+      classMethods: {
+        associate: function (models) {
+          Customer.hasMany(models.Ticket, { foreignKey: "idcustomer" });
+        }
       }
     });
   return Customer;

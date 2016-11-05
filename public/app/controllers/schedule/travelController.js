@@ -94,7 +94,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         return $scope.edittravel == null || $scope.edittravel.numberid == null
             || ($scope.edittravel.numberid != null && $scope.edittravel.numberid.length < 4)
             || $scope.edittravel.arrival == null || $scope.edittravel.departure == null
-            || $scope.edittravel.detail == null || $scope.selectedcourse == null;
+            || $scope.selectedcourse == null;
     };
 
     $scope.newtravel = function () {

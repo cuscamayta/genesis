@@ -58,12 +58,12 @@
 
 					<p>
 						<label for="idcourse">Ruta <span class="required">*</span></label>
-						<select id="idcourse" class="form-control" ng-options="course.numberid for course in listcourse" ng-model="selectedcourse" required>                            
+						<select id="idcourse" class="form-control" ng-options="course.numberid for course in listcourse" ng-model="selectedcourse" required ng-enter="savetravel()">                            
                         </select>
 					</p>
 
-					<label for="detail">Detalles <span class="required">*</span></label>
-					<textarea id="detail" class="form-control" ngfocus ng-model="edittravel.detail" required rows="2" ng-enter="savetravel()"></textarea>
+					<label for="detail">Detalles</label>
+					<textarea id="detail" class="form-control" ngfocus ng-model="edittravel.detail" rows="2" ng-enter="savetravel()"></textarea>
 
 					<div class="ln_solid"></div>
 					<div class="col-md-12 col-sm-12 col-xs-12">

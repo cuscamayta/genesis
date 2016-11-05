@@ -5,7 +5,7 @@ module.exports = function (sequelize, DataTypes) {
     title: { type: DataTypes.STRING, allowNull: false, unique: true },
     address: { type: DataTypes.STRING, allowNull: false },
     phone: { type: DataTypes.STRING, allowNull: false },
-    detail: { type: DataTypes.STRING, allowNull: false }
+    detail: { type: DataTypes.STRING, allowNull: true }
   }, 
     {
       classMethods: {
