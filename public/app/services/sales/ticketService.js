@@ -1,29 +1,29 @@
-app.service('SaleService', function ($http, $q) {
+app.service('TicketService', function ($http, $q) {
 
     init();
 
     function init() {
     }
 
-    this.savesalesbook = function (salesbook) {
+    this.saveticket = function (ticket) {
         var defer = $q.defer();
-        $http.post('/sales/create', salesbook).success(function (response) {
+        $http.post('/tickets/create', ticket).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;
     };
 
-    this.getsales = function () {
+    this.gettickets = function () {
         var defer = $q.defer();
-        $http.post('/sales').success(function (response) {
+        $http.post('/tickets').success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;
     };
 
-    this.deletesalesbook = function (salesbook) {
+    this.deleteticket = function (ticket) {
         var defer = $q.defer();
-        $http.post('/sales/destroy', salesbook).success(function (response) {
+        $http.post('/tickets/destroy', ticket).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

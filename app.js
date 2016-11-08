@@ -22,7 +22,7 @@ var express = require('express'),
     offices = require('./server/routes/offices');
     travels = require('./server/routes/travels');
     schedules = require('./server/routes/schedules');
-    sales = require('./server/routes/sales');
+    tickets = require('./server/routes/tickets');
 
 app.use(bodyParser.urlencoded({
   extended: false

@@ -29,6 +29,15 @@ app.service('ScheduleService', function ($http, $q) {
         return defer.promise;
     };
 
+    this.getschedulesforselect = function (schedule) {
+        var defer = $q.defer();
+        $http.post('/schedules/forselect', schedule).success(function (response) {
+            defer.resolve(response);
+        });
+        return defer.promise;
+    };
+
+
     this.deleteschedule = function (schedule) {
         var defer = $q.defer();
         $http.post('/schedules/destroy', schedule).success(function (response) {

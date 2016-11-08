@@ -73,6 +73,18 @@ router.get('/', function (request, response) {
   });
 });
 
+router.post('/forselect', function (request, response) {
+  models.Schedule.findAll({
+    include: [
+      { model: models.Bus }
+    ], where: { idtravel: request.body.id }
+  }).then(function (res) {
+    response.send(res);
+  }).catch(function (err) {
+    response.send(common.response(err.code, err.message, false));
+  });
+});
+
 router.post('/destroy', function (request, response) {
   return models.sequelize.transaction(function (t) {
     return models.Scheduledetail.destroy({

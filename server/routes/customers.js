@@ -39,6 +39,25 @@ router.get('/', function (request, response) {
     });
 });
 
+router.get('/forselect', function (request, response) {
+    models.Customer.findAll(
+        {
+            where: {
+                firstname: request.body.name + '%',
+                $or: [
+                    { lastname: request.body.name + '%' }
+                ],
+                $or: [
+                    { numberid: request.body.name + '%' }
+                ]
+            }
+        }).then(function (customers) {
+            response.send(customers);
+        }).catch(function (err) {
+            response.send(common.response(err.code, err.message, false));
+        });
+});
+
 router.post('/destroy', function (request, response) {
     models.Customer.destroy({
         where: { id: request.body.id }
