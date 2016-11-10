@@ -6,6 +6,7 @@ var Sequelize = require("sequelize");
 var env       = 'production';// process.env.NODE_ENV || "development";
 var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
+//new Sequelize(config.database, config.username, config.password, { timezone : "+08:00", pool:config.pool, dialect: 'mysql', logging: false, host: config.host})
 var db        = {};
 
 fs

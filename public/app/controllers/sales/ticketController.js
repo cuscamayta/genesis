@@ -1,9 +1,8 @@
-app.controller('TicketController', function ($scope, TicketService, ScheduleService, CustomerService, TravelService) {
+app.controller('TicketController', function ($scope, TicketService, ScheduleService, TravelService) {
     init();
 
     function init() {
         gettravels();
-        getcustomers();
         dataticket();
 
         $('#dateregister').daterangepicker({
@@ -21,7 +20,6 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         };
         $scope.selectedbus = null;
         $scope.selectedschedule = null;
-        $scope.selectedcustomer = null;
         $scope.ticketdetails = [];
 
         $scope.editdetail = {
@@ -48,18 +46,6 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
                 toastr.error(res.message);
             }
             else { $scope.listschedule = res; }
-        });
-    }
-
-    function getcustomers() {
-        var response = CustomerService.getcustomers();
-        response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
-                toastr.error(res.message);
-            }
-            else {
-                $scope.listcustomer = res;
-            }
         });
     }
 
@@ -91,28 +77,29 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
 
     $scope.validatecontrols = function () {
         return $scope.editticket == null || $("#dateregister").val() == null
-            || $scope.selectedcustomer == null
             || $scope.ticketdetails == null
             || ($scope.ticketdetails != null && $scope.ticketdetails.length < 1);
     };
 
     $scope.validatecontrolsdetail = function () {
-        return $scope.selectedcustomer == null || $scope.selectedseat == null;
+        return $scope.namecustomer == null || $scope.selectedseat == null || $scope.numberidcustomer == null
+        || $scope.numberbaggage == null || $scope.weightbaggage == null;
     };
 
     $scope.newticketdetail = function () {
         $scope.editdetail = {};
 
         var n = $scope.ticketdetails.where(function (item) {
-            return item.idcustomer == $scope.selectedcustomer.id && item.numberseat == $scope.selectedseat;
+            return item.fullName == $scope.namecustomer && item.numberseat == $scope.selectedseat;
         });
 
         if (n.length == 0) {
             $scope.editdetail.numberseat = $scope.selectedseat;
-            $scope.editdetail.idcustomer = $scope.selectedcustomer.id;
-            $scope.editdetail.numberid = $scope.selectedcustomer.numberid;
-            $scope.editdetail.fullName = $scope.selectedcustomer.fullName;
+            $scope.editdetail.numberid = $scope.numberidcustomer;
+            $scope.editdetail.fullName = $scope.namecustomer;
             $scope.editdetail.price = $scope.price;
+            $scope.editdetail.numberbaggage = $scope.numberbaggage;
+            $scope.editdetail.weightbaggage = $scope.weightbaggage;
             $scope.ticketdetails.push($scope.editdetail);
             $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
                 return parseInt(item.price);

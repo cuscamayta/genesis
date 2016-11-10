@@ -2,6 +2,7 @@ var models = require('./../models');
 var express = require('express');
 var router = express.Router();
 var common = require('./common');
+var sequelize = require('sequelize');
 
 router.post('/create', function (request, response) {
   models.Driver.create({

@@ -1,35 +1,32 @@
-<div class="row">
-	<div class="col-md-6 col-xs-12">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>Codigo de control</h2>
-				<div class="clearfix"></div>
-				<button type="button" class="btn btn-default pull-right btnborderless" 
-					ng-click="saveinvoice()" title="Nuevo"><i class="fa fa-plus-square"></i> Nuevo</button>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<div class="page-title">
+	<div class="title_left">
+		<h3>Invoice <small>Some examples to get you started</small></h3>
+	</div>
 
-				<div class="row">
-					<label id="qrinvoice"></label>
-				</div>
+	<div class="title_right">
+		<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search for...">
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="button" ng-click="saveinvoice()">Go!</button>
+			</span>
 			</div>
 		</div>
 	</div>
+</div>
 
+<div class="clearfix"></div>
+<div class="x_content">
 
-
-	<div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" travel="dialog" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<h3>Registrar libro de ordenes</h3>
-				<div class="row">
-					
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</button>
-				<button class="modal-action modal-close waves-effect waves-green btn-flat" ng-disabled="validatecontrols()" ng-click="saveinvoice()">Aceptar</button>
-			</div>
-		</div>
+	<div class="row">
+		<label id="qrinvoice"></label>
 	</div>
+</div>
+
+<div class="row no-print">
+	<div class="col-xs-12">
+		<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+		<button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+		<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+	</div>
+</div>

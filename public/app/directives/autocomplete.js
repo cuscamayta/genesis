@@ -37,7 +37,7 @@ function myAutocomplete($http, $interpolate, $parse) {
             element.autocomplete({
                 source: function (request, response) {
                     $http({
-                        url: "/customers/forselect",
+                        url: scope.url,
                         method: 'GET',
                         params: { term: request.term }
                     })

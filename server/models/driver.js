@@ -1,5 +1,8 @@
 "use strict";
 
+var moment = require("moment");
+var common = require('../routes/common');
+
 module.exports = function (sequelize, DataTypes) {
   var Driver = sequelize.define("Driver", {
     numberid: {
@@ -10,7 +13,20 @@ module.exports = function (sequelize, DataTypes) {
     },
     firstname: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
-    birthdate: { type: DataTypes.DATE, allowNull: true },
+    birthdate: {
+      type: DataTypes.DATE, allowNull: true,
+      set: function (val) {
+        this.setDataValue('birthdate', common.formatDate(val));
+      },
+
+      get: function (val) {
+        var date = this.getDataValue('birthdate');
+        // 'this' allows you to access attributes of the instance
+        // return this.getDataValue('name') + ' (' + title + ')';
+
+        return moment(date).format("DD/MM/YYYY");
+      }
+    },
   }, {
       getterMethods: {
         fullName: function () { return this.firstname + " " + this.lastname }

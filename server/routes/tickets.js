@@ -27,8 +27,12 @@ router.post('/create', function (request, response) {
       { transaction: t }).then(function (res) {
         for (var i = 0; i < request.body.details.length; i++) {
           var tic = models.Ticket.create({
+            numberid: request.body.numberidcustomer,
+            fullaname: request.body.namecustumer,
             price: request.body.details[i].price,
             number: request.body.details[i].number,
+            numberbaggage: request.body.details[i].numberbaggage,
+            weightbaggage: request.body.details[i].weightbaggage,
             idbus: request.body.details[i].idbus,
             idcustomer: request.body.details[i].idcustomer,
             idschedule: request.body.details[i].idschedule,

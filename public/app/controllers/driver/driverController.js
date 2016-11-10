@@ -6,10 +6,12 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
         datadriver();
 
         $('#birthdate').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
             singleDatePicker: true,
+            showDropdowns: true,
             calender_style: "picker_4"
-        }, function (start, end, label) {
-            //console.log(start.toISOString(), end.toISOString(), label);
         });
     }
 

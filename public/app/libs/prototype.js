@@ -167,9 +167,9 @@ Array.prototype.innerJoin = function (arr, outer, inner, result, comparer) {
         arr.where(function (u) {
             return comparer(outer(t), inner(u));
         })
-        .forEach(function (u) {
-            res.push(result(t, u));
-        });
+            .forEach(function (u) {
+                res.push(result(t, u));
+            });
     });
 
     return res;
@@ -286,7 +286,7 @@ Array.prototype.takeWhile = function (predicate) {
     predicate = predicate || DefaultPredicate;
     var l = this.length;
     var arr = [];
-    for (var i = 0; i < l && predicate(this[i], i) === true ; i++)
+    for (var i = 0; i < l && predicate(this[i], i) === true; i++)
         arr.push(this[i]);
 
     return arr;
@@ -319,4 +319,9 @@ Array.prototype.forEach = Array.prototype.forEach || function (callback, context
 
 Array.prototype.defaultIfEmpty = function (val) {
     return this.length == 0 ? [val == null ? null : val] : this;
+};
+
+String.prototype.toFormatDate = function (formatDate) {
+    formatDate = formatDate || 'DD/MM/YYYY';
+    return moment(this).format('DD/MM/YYYY');
 };
