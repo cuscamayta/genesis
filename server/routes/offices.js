@@ -34,8 +34,10 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Office.findAll().then(function (res) {
-    response.send(res);
+  models.Office.findAll({
+    include: [{ model: models.Destination }]
+  }).then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -45,7 +47,7 @@ router.get('/forselect', function (request, response) {
   models.Office.findAll({
     attributes: ["id", "title"]
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

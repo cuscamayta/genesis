@@ -5,7 +5,8 @@ var common = require('./common');
 
 router.post('/create', function (request, response) {
   models.Destination.create({
-    title: request.body.title
+    title: request.body.title,
+    short: request.body.short
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
@@ -15,7 +16,8 @@ router.post('/create', function (request, response) {
 
 router.post('/update', function (request, response) {
   models.Destination.update({
-    title: request.body.title
+    title: request.body.title,
+    short: request.body.short
   }, {
       where: { id: request.body.id }
     }).then(function (res) {
@@ -26,8 +28,8 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Destination.findAll().then(function (roles) {
-    response.send(roles);
+  models.Destination.findAll().then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

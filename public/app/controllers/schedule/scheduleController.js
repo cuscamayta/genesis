@@ -8,9 +8,12 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         dataschedule();
 
         $('#dateregister').daterangepicker({
+            locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
+            showDropdowns: true,
             calender_style: "picker_4"
-        }, function (start, end, label) {
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.editschedule.dateregister = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
@@ -33,11 +36,11 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     function getschedules() {
         var response = ScheduleService.getschedules();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.schedules = res;
+                $scope.schedules = res.data;
             }
         });
     }
@@ -45,11 +48,11 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     function gettravels() {
         var response = TravelService.gettravels();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listtravel = res;
+                $scope.listtravel = res.data;
             }
         });
     }
@@ -57,11 +60,11 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     function getdrivers() {
         var response = DriverService.getdriversforselect();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listdriver = res;
+                $scope.listdriver = res.data;
             }
         });
     }
@@ -69,18 +72,17 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     function getbuses() {
         var response = BusService.getbusesforselect();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listbus = res;
+                $scope.listbus = res.data;
             }
         });
     }
 
     $scope.saveschedule = function () {
         $scope.editschedule;
-        $scope.editschedule.dateregister = $("#dateregister").val();
         $scope.editschedule.idbus = $scope.selectedbus.id;
         $scope.editschedule.idtravel = $scope.selectedtravel.id;
         $scope.editschedule.details = $scope.schedulesdetails;
@@ -159,7 +161,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editschedule == null || $("#dateregister").val() == null
+        return $scope.editschedule == null || $scope.editschedule.dateregister == null
             || $scope.editschedule.arrival == null || $scope.editschedule.departure == null
             || $scope.editschedule.price == null || $scope.selectedtravel == null
             || $scope.selectedbus == null || $scope.schedulesdetails == null

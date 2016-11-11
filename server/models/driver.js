@@ -18,34 +18,27 @@ module.exports = function (sequelize, DataTypes) {
       set: function (val) {
         this.setDataValue('birthdate', common.formatDate(val));
       },
-
       get: function (val) {
         var date = this.getDataValue('birthdate');
-        // 'this' allows you to access attributes of the instance
-        // return this.getDataValue('name') + ' (' + title + ')';
-
         return moment(date).format("DD/MM/YYYY");
       }
     },
   }, {
+      classMethods: {
+        associate: function (models) {
+          Driver.belongsTo(models.Drivertype, { foreignKey: "iddrivertype" });
+          Driver.hasMany(models.Scheduledetail, { foreignKey: 'iddriver' });
+        }
+      },
       getterMethods: {
         fullName: function () { return this.firstname + " " + this.lastname }
       },
-
       setterMethods: {
         fullName: function (value) {
           var names = value.split(" ");
           this.setDataValue("firstname", names.slice(0, -1).join(" "));
           this.setDataValue("lastname", names.slice(-1).join(" "));
         },
-      }
-    },
-    {
-      classMethods: {
-        associate: function (models) {
-          Driver.belongsTo(models.Typedriver, { foreignKey: "iddrivertype" });
-          Driver.hasMany(models.Scheduledetail, { foreignKey: 'iddriver' });
-        }
       }
     }
   );

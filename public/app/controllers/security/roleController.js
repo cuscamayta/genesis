@@ -17,10 +17,10 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
     function getroles() {
         var response = RoleService.getroles();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.roles = res; }
+            else { $scope.roles = res.data; }
         });
     }
 

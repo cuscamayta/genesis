@@ -2,16 +2,7 @@ app.controller('InvoiceController', function ($scope, InvoiceService) {
 
     init();
     function init() {
-        datainvoice();
-        //$('select').material_select();
-        $('#transactiondate').daterangepicker({
-            singleDatePicker: true,
-            calender_style: "picker_4"
-        }, function (start, end, label) {
-            //console.log(start.toISOString(), end.toISOString(), label);
-        });
-
-        
+        datainvoice();               
     }
 
     function datainvoice() {
@@ -27,7 +18,6 @@ app.controller('InvoiceController', function ($scope, InvoiceService) {
     };
 
     $scope.newinvoice = function () {
-        //$('#modaleditinvoice').openModal();
         $("#modal").modal("show");
         datainvoice();
     };
@@ -45,9 +35,7 @@ app.controller('InvoiceController', function ($scope, InvoiceService) {
         var response = InvoiceService.generatecodecontrol($scope.editinvoice);
 
         response.then(function (invoice) {
-            //Materialize.toast(invoice, 4000);
             toastr.success(invoice);
-
             printcodeqr("qrinvoice", "1234", "Buses Genesis",
                 $scope.editinvoice.numberinvoice,
                 $scope.editinvoice.numberorder,

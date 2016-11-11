@@ -70,8 +70,8 @@ router.post('/updatenumberinvoice', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Orderbook.findAll().then(function (Orderbooks) {
-    response.send(Orderbooks);
+  models.Orderbook.findAll().then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -81,7 +81,7 @@ router.post('/getbyid', function (request, response) {
   models.Orderbook.findOne({
     where: { id: request.body.id }
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -91,7 +91,7 @@ router.post('/getbystatusandtype', function (request, response) {
   models.Orderbook.findOne({
     where: { status: request.body.status, type: request.body.type }
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -101,7 +101,7 @@ router.post('/getbynumberinvoiceandnumberorder', function (request, response) {
   models.Orderbook.findOne({
     where: { numberorder: request.body.numberorder, numberinvoice: request.body.numberinvoice }
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

@@ -15,10 +15,10 @@ app.controller('DrivertypeController', function ($scope, DrivertypeService) {
     function getdrivertypes() {
         var response = DrivertypeService.getdrivertypes();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.drivertypes = res; }
+            else { $scope.drivertypes = res.data; }
         });
     }
 

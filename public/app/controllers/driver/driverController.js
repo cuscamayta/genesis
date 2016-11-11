@@ -6,12 +6,12 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
         datadriver();
 
         $('#birthdate').daterangepicker({
-            locale: {
-                format: 'DD/MM/YYYY'
-            },
+            locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.editdriver.birthdate = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
@@ -26,21 +26,21 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
     function getdrivers() {
         var response = DriverService.getdrivers();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.drivers = res; }
+            else { $scope.drivers = res.data; }
         });
     }
 
     function getdrivertypes() {
         var response = DrivertypeService.getdrivertypes();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listdrivertype = res;
+                $scope.listdrivertype = res.data;
             }
         });
     }
@@ -48,7 +48,6 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
     $scope.savedriver = function () {
         $scope.editdriver;
         $scope.editdriver.iddrivertype = $scope.selecteddrivertype.id;
-        $scope.editdriver.birthdate = $("#birthdate").val();
 
         if ($scope.editdriver.id == 0) {
             var response = DriverService.savedriver($scope.editdriver);
@@ -105,7 +104,7 @@ app.controller('DriverController', function ($scope, DriverService, DrivertypeSe
         return $scope.editdriver == null || $scope.editdriver.numberid == null
             || ($scope.editdriver.numberid != null && $scope.editdriver.numberid.length < 4)
             || $scope.editdriver.firstname == null || $scope.editdriver.lastname == null
-            || $scope.selecteddrivertype == null || $("#birthdate").val() == null;
+            || $scope.selecteddrivertype == null || $scope.editdriver.birthdate == null;
     };
 
     $scope.newdriver = function () {

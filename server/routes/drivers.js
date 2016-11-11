@@ -35,8 +35,10 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Driver.findAll().then(function (drivers) {
-    response.send(drivers);
+  models.Driver.findAll({
+    include: [{ model: models.Drivertype }]
+  }).then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -47,7 +49,7 @@ router.get('/forselect', function (request, response) {
     attributes: ["id", "firstname", "lastname"],
     order: [["firstname", "ASC"]]
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

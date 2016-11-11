@@ -325,3 +325,11 @@ String.prototype.toFormatDate = function (formatDate) {
     formatDate = formatDate || 'DD/MM/YYYY';
     return moment(this).format('DD/MM/YYYY');
 };
+
+function getCurrentTime(element) {
+    var date = new Date();
+    var hour = date.getHours().toString();
+    var minute = date.getMinutes().toString();
+    $('#' + element).val((hour < 10 ? '0' + hour : hour) + ":" + (minute < 10 ? '0' + minute : minute));
+    $('#' + element).timeEntry({ show24Hours: true, useMouseWheel: false, noSeparatorEntry: true });
+}

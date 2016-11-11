@@ -16,10 +16,10 @@ app.controller('BustypeController', function ($scope, BustypeService) {
     function getbustypes() {
         var response = BustypeService.getbustypes();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.bustypes = res; }
+            else { $scope.bustypes = res.data; }
         });
     }
 

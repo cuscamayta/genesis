@@ -17,20 +17,20 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
     function getoffices() {
         var response = OfficeService.getoffices();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.offices = res; }
+            else { $scope.offices = res.data; }
         });
     }
 
     function getdestinations() {
         var response = DestinationService.getdestinations();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.listdestination = res; }
+            else { $scope.listdestination = res.data; }
         });
     }
 

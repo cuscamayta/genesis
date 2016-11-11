@@ -17,21 +17,21 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
     function getusers() {
         var response = UserService.getusers();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.users = res; }
+            else { $scope.users = res.data; }
         });
     }
 
     function getroles() {
         var response = RoleService.getroles();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listrole = res;
+                $scope.listrole = res.data;
             }
         });
     }

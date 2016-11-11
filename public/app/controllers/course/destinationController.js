@@ -15,10 +15,10 @@ app.controller('DestinationController', function ($scope, DestinationService) {
     function getdestinations() {
         var response = DestinationService.getdestinations();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.destinations = res; }
+            else { $scope.destinations = res.data; }
         });
     }
 
@@ -71,7 +71,8 @@ app.controller('DestinationController', function ($scope, DestinationService) {
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editdestination == null || $scope.editdestination.title == null
+        return $scope.editdestination == null || $scope.editdestination.short == null
+            || $scope.editdestination.title == null
             || ($scope.editdestination.title != null && $scope.editdestination.title.length < 4)
     };
 

@@ -6,9 +6,12 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         dataticket();
 
         $('#dateregister').daterangepicker({
+            locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
+            showDropdowns: true,
             calender_style: "picker_4"
-        }, function (start, end, label) {
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.editticket.dateregister = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
@@ -30,11 +33,11 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     function gettravels() {
         var response = TravelService.gettravels();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listtravel = res;
+                $scope.listtravel = res.data;
             }
         });
     }
@@ -42,16 +45,15 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     function getschedules() {
         var response = ScheduleService.getschedulesforselect($scope.selectedtravel);
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.listschedule = res; }
+            else { $scope.listschedule = res.data; }
         });
     }
 
     $scope.saveticket = function () {
         $scope.editticket;
-        $scope.editticket.dateregister = $("#dateregister").val();
         $scope.editticket.idschedule = $scope.selectedschedule.id;
         $scope.editticket.details = $scope.ticketdetails;
 
@@ -76,14 +78,14 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editticket == null || $("#dateregister").val() == null
+        return $scope.editticket == null || $scope.editticket.dateregister == null
             || $scope.ticketdetails == null
             || ($scope.ticketdetails != null && $scope.ticketdetails.length < 1);
     };
 
     $scope.validatecontrolsdetail = function () {
         return $scope.namecustomer == null || $scope.selectedseat == null || $scope.numberidcustomer == null
-        || $scope.numberbaggage == null || $scope.weightbaggage == null;
+            || $scope.numberbaggage == null || $scope.weightbaggage == null;
     };
 
     $scope.newticketdetail = function () {
@@ -106,7 +108,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             });
             $("#modaleditcustomer").modal("hide");
         }
-    }
+    };
 
     $scope.deleteticketdetail = function (item) {
         $scope.ticketdetails.remove(item);
@@ -117,7 +119,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
 
     $scope.selectedtravelchange = function () {
         getschedules();
-    }
+    };
 
     $scope.scheduleselected = function (schedule) {
         $scope.seatlist = [];

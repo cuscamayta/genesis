@@ -13,7 +13,8 @@
 								<th>#</th>
 								<th>Sucursal</th>
 								<th>Teléfono</th>
-								<th>Dirección</th>
+								<th>Dirección</th>								
+								<th>Origen</th>
 								<th>Detalles</th>
 								<th></th>
 								<th></th>
@@ -25,6 +26,7 @@
 								<td>{{office.title}}</td>
 								<td>{{office.phone}}</td>
 								<td>{{office.address}}</td>
+								<td>{{office.Destination.title}}</td>
 								<td>{{office.detail}}</td>
 								<td ng-click="selectedoffice(office,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
 								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selectedoffice(office,2)"><i class="fa fa-trash" title="Eliminar"></i></td>

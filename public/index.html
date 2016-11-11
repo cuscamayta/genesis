@@ -41,6 +41,7 @@
 	<link href="../resources/css/custom.min.css" rel="stylesheet">
 	<link href="../resources/css/site.css" rel="stylesheet">
 	<link href="../resources/css/toastr.css" rel="stylesheet">
+	<link href="../resources/css/jquery.timeentry.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -53,19 +54,6 @@
 					</div>
 
 					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile">
-						<!--<div class="profile_pic">
-							<img src="app/images/img.jpg" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2>Jose Perez</h2>
-						</div>-->
-					</div>
-					<!-- /menu profile quick info -->
-
 					<br />
 
 					<!-- sidebar menu -->
@@ -157,7 +145,7 @@
 									<span class=" fa fa-angle-down"></span>
 								</a>
 								<ul class="dropdown-menu dropdown-usermenu pull-right">
-									<li><a href="javascript:;"> Configuracion</a></li>
+									<li><a href="javascript:;"> Configuracion</a></li>									
 									<li><a href="#"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
 								</ul>
 							</li>
@@ -265,6 +253,10 @@
 	<!-- toastr -->
 	<script src="app/libs/toastr.js"></script>
 
+	<!-- jquery.timeentry -->
+	<script src="app/libs/jquery-migrate-1.2.1.js"></script>
+	<script src="app/libs/jquery.timeentry.min.js"></script>
+
 	<!-- FastClick -->
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 
@@ -297,11 +289,11 @@
 	<!-- Autosize 
 	<script src="../vendors/autosize/dist/autosize.min.js"></script>-->
 
-	<!-- jQuery autocomplete 
-	<script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script> -->
+	<!-- jQuery autocomplete -->
+	<script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 
 	<!-- starrr -->
-	<script src="../vendors/starrr/dist/starrr.js"></script> 
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 
 	<!-- Custom Theme Scripts -->
 	<script src="../resources/js/custom.min.js"></script>
@@ -352,6 +344,7 @@
 	<script src="app/services/schedule/scheduleService.js"></script>
 	<script src="app/controllers/sales/ticketController.js"></script>
 	<script src="app/services/sales/ticketService.js"></script>
+	<script src="app/services/common/commonService.js"></script>
 
 	<!-- bootstrap-wysiwyg -->
 	<script>

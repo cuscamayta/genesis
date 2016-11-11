@@ -7,8 +7,7 @@ module.exports = function (sequelize, DataTypes) {
         price:  { type: DataTypes.DECIMAL, allowNull: false },
         number: { type: DataTypes.INTEGER, allowNull: false },
         numberbaggage: { type: DataTypes.INTEGER, allowNull: true },
-        weightbaggage: { type: DataTypes.DECIMAL, allowNull: true }
-        
+        weightbaggage: { type: DataTypes.DECIMAL, allowNull: true }        
     },
         {
             classMethods: {

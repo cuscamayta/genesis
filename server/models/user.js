@@ -8,6 +8,13 @@ module.exports = function (sequelize, DataTypes) {
     password: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: true, validate: { isEmail: true } }
   }, {
+      classMethods: {
+        associate: function (models) {
+          User.belongsTo(models.Role, { foreignKey: "idrole" });
+          User.hasMany(models.Useroffice, { foreignKey: 'iduser' });
+        }
+      }
+    }, {
       getterMethods: {
         fullName: function () { return this.firstname + " " + this.lastname }
       },
@@ -19,14 +26,6 @@ module.exports = function (sequelize, DataTypes) {
           this.setDataValue("firstname", names.slice(0, -1).join(" "));
           this.setDataValue("lastname", names.slice(-1).join(" "));
         },
-      }
-    },
-    {
-      classMethods: {
-        associate: function (models) {
-          User.belongsTo(models.Role, { foreignKey: "idrole" });
-          User.hasMany(models.UserOffice, { foreignKey: 'iduser' });
-        }
       }
     }
   );

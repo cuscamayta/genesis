@@ -26,8 +26,8 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-    models.Role.findAll().then(function (roles) {
-        response.send(roles);
+    models.Role.findAll().then(function (res) {
+        response.send(common.response(res));
     }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
     });

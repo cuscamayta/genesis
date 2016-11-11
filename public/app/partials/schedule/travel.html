@@ -47,20 +47,23 @@
 			<div class="x_content">
 				<form class="form-horizontal form-label-left">
 					<p></p>
-					<label for="numberid">Nombre <span class="required">*</span></label>
-					<input type="text" id="numberid" class="form-control" ngfocus order="1" ng-model="edittravel.numberid" validate="text-number-hour" required>
-
-					<label for="arrival">Hora salida <span class="required">*</span></label>
-					<input type="text" id="arrival" class="form-control" ngfocus ng-model="edittravel.arrival" validate="text-number-hour" required>
-
-					<label for="departure">Hora llegada <span class="required">*</span></label>
-					<input type="text" id="departure" class="form-control" ngfocus ng-model="edittravel.departure" validate="text-number-hour" required>
-
 					<p>
 						<label for="idcourse">Ruta <span class="required">*</span></label>
-						<select id="idcourse" class="form-control" ng-options="course.numberid for course in listcourse" ng-model="selectedcourse" required ng-enter="savetravel()">                            
+						<select id="idcourse" class="form-control" ng-options="course.numberid for course in listcourse" ng-model="selectedcourse"
+							required ng-change="selectecoursechange()">         
                         </select>
 					</p>
+
+					<label for="numberid">Nombre <span class="required">*</span></label>
+					<input type="text" id="numberid" class="form-control" ngfocus order="1" ng-model="edittravel.numberid" required>
+
+					<label for="arrival">Hora salida <span class="required">*</span></label>
+					<input type="text" id="arrival" class="form-control" ngfocus ng-model="edittravel.arrival" validate="text-number-hour" required
+						ng-blur="validatecontrols()">
+
+					<label for="departure">Hora llegada <span class="required">*</span></label>
+					<input type="text" id="departure" class="form-control" ngfocus ng-model="edittravel.departure" validate="text-number-hour"
+						required ng-blur="validatecontrols()">
 
 					<label for="detail">Detalles</label>
 					<textarea id="detail" class="form-control" ngfocus ng-model="edittravel.detail" rows="2" ng-enter="savetravel()"></textarea>

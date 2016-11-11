@@ -65,9 +65,9 @@ router.post('/update', function (request, response) {
 
 router.get('/', function (request, response) {
   models.Schedule.findAll({
-    include: [{ model: models.Scheduledetail, include: [models.Driver] }]
-  }).then(function (schedules) {
-    response.send(schedules);
+    include: [{ model: models.Scheduledetail, include: [models.Driver] }, { model: models.Bus }, { model: models.Travel }]
+  }).then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -79,7 +79,7 @@ router.post('/forselect', function (request, response) {
       { model: models.Bus }
     ], where: { idtravel: request.body.id }
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

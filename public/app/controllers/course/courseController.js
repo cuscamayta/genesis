@@ -18,21 +18,21 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
     function getcourses() {
         var response = CourseService.getcourses();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
-            else { $scope.courses = res; }
+            else { $scope.courses = res.data; }
         });
     }
 
     function getdestinations() {
         var response = DestinationService.getdestinations();
         response.then(function (res) {
-            if (res.isSuccess && !res.isSuccess) {
+            if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listdestination = res;
+                $scope.listdestination = res.data;
             }
         });
     }
@@ -110,5 +110,9 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
 
     $scope.newcourse = function () {
         datacourse();
+    };
+
+    $scope.selecteddestinationchange = function () {
+        $scope.editcourse.numberid = ($scope.selectedorigin.short + " - "+ $scope.selecteddestination.short);
     };
 });

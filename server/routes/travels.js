@@ -34,8 +34,8 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Travel.findAll().then(function (travels) {
-    response.send(travels);
+  models.Travel.findAll().then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

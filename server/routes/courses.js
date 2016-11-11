@@ -33,7 +33,7 @@ router.post('/update', function (request, response) {
 
 router.get('/', function (request, response) {
   models.Course.findAll().then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

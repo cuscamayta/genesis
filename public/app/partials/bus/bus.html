@@ -15,7 +15,8 @@
 								<th>Marca</th>
 								<th>Modelo</th>
 								<th>Color</th>
-								<th>Caracteristicas</th>
+								<th>Detalle</th>
+								<th>Tipo</th>
 								<th></th>
 								<th></th>
 							</tr>
@@ -28,6 +29,7 @@
 								<td>{{bus.model}}</td>
 								<td>{{bus.color}}</td>
 								<td>{{bus.detail}}</td>
+								<td>{{bus.Bustype.title}}</td>
 								<td ng-click="selectedbus(bus,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
 								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selectedbus(bus,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
 							</tr>
@@ -64,13 +66,13 @@
 					<input type="text" id="detail" class="form-control" ngfocus ng-model="editbus.detail" validate="text-number" required>
 
 					<label for="numberseats">Nro asientos <span class="required">*</span></label>
-					<input type="text" id="numberseats" class="form-control" ngfocus ng-model="editbus.numberseats" validate="text-number" required>
+					<input type="number" id="numberseats" class="form-control" ngfocus ng-model="editbus.numberseats" validate="number" required>
 
 					<label for="numberrows">Nro filas <span class="required">*</span></label>
-					<input type="text" id="numberrows" class="form-control" ngfocus ng-model="editbus.numberrows" validate="text-number" required>
+					<input type="number" id="numberrows" class="form-control" ngfocus ng-model="editbus.numberrows" validate="number" required>
 
 					<label for="numberfloors">Nro pisos <span class="required">*</span></label>
-					<input type="text" id="numberfloors" class="form-control" ngfocus ng-model="editbus.numberfloors" validate="text-number" required>
+					<input type="number" id="numberfloors" class="form-control" ngfocus ng-model="editbus.numberfloors" validate="number" required>
 
 					<p>
 						<label for="idbustype">Tipo de bus <span class="required">*</span></label>

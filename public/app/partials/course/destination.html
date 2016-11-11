@@ -12,6 +12,7 @@
 							<tr>
 								<th>#</th>
 								<th>Descripción</th>
+								<th>Abreviación</th>
 								<th></th>
 								<th></th>
 							</tr>
@@ -20,6 +21,7 @@
 							<tr class="even pointer" ng-repeat="destination in destinations | paginate" ng-class="{selectelement:destinationselected.id==destination.id}">
 								<td>{{$index}}</td>
 								<td>{{destination.title}}</td>
+								<td>{{destination.short}}</td>
 								<td ng-click="selecteddestination(destination,1)"><i class="fa fa-pencil-square-o" title="Editar"></i></td>
 								<td data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="selecteddestination(destination,2)"><i class="fa fa-trash" title="Eliminar"></i></td>
 							</tr>
@@ -42,7 +44,12 @@
 				<form class="form-horizontal form-label-left">
 					<p></p>
 					<label for="title">Descripción<span class="required">*</span></label>
-					<input type="text" id="title" class="form-control" ngfocus order="1" ng-model="editdestination.title" validate="text-number" required ng-enter="savedestination()">
+					<input type="text" id="title" class="form-control" ngfocus order="1" ng-model="editdestination.title" validate="text-number"
+						required maxlength="30">
+
+					<label for="short">Abreviación<span class="required">*</span></label>
+					<input type="text" id="short" class="form-control textUpperCase" ngfocus ng-model="editdestination.short" validate="text-number"
+						required ng-enter="savedestination()" maxlength="10">
 
 					<div class="ln_solid"></div>
 					<div class="col-md-12 col-sm-12 col-xs-12">
@@ -54,7 +61,8 @@
 		</div>
 	</div>
 </div>
-<div id="modaldeletedestination" class="modal fade bs-example-modal-sm" tabindex="-1" destination="dialog" aria-hidden="true" style="display: none;">
+<div id="modaldeletedestination" class="modal fade bs-example-modal-sm" tabindex="-1" destination="dialog" aria-hidden="true"
+	style="display: none;">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">

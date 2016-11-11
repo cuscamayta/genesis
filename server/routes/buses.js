@@ -42,8 +42,10 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Bus.findAll().then(function (res) {
-    response.send(res);
+  models.Bus.findAll({
+    include: [{ model: models.Bustype }]
+  }).then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
@@ -53,7 +55,7 @@ router.get('/forselect', function (request, response) {
   models.Bus.findAll({
     attributes: ["id", "numberid"]
   }).then(function (res) {
-    response.send(res);
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

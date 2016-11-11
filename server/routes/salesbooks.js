@@ -26,8 +26,8 @@ router.post('/create', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Salesbook.findAll().then(function (Salesbooks) {
-    response.send(Salesbooks);
+  models.Salesbook.findAll().then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });
