@@ -70,7 +70,9 @@ router.post('/updatenumberinvoice', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-  models.Orderbook.findAll().then(function (res) {
+  models.Orderbook.findAll({
+    include: [models.Office]
+  }).then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));

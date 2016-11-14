@@ -7,8 +7,18 @@ module.exports = function (sequelize, DataTypes) {
     type: { type: DataTypes.INTEGER, allowNull: false },
     numberorder: { type: DataTypes.STRING, allowNull: false },
     numbercontrol: { type: DataTypes.STRING, allowNull: false, unique: true },
-    numberid: { type: DataTypes.STRING, allowNull: false, unique: true },
-    fullname: { type: DataTypes.STRING, allowNull: false },
+    numberid: {
+      type: DataTypes.STRING, allowNull: false,
+      set: function (val) {
+        this.setDataValue('numberid', val.toUpperCase());
+      }
+    },
+    fullname: {
+      type: DataTypes.STRING, allowNull: false,
+      set: function (val) {
+        this.setDataValue('fullname', val.toUpperCase());
+      }
+    },
     numbersales: { type: DataTypes.INTEGER, allowNull: false },
     numberinvoice: { type: DataTypes.INTEGER, allowNull: false },
     dateregister: {

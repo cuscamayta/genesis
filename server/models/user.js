@@ -13,16 +13,13 @@ module.exports = function (sequelize, DataTypes) {
           User.belongsTo(models.Role, { foreignKey: "idrole" });
           User.hasMany(models.Useroffice, { foreignKey: 'iduser' });
         }
-      }
-    }, {
+      },
       getterMethods: {
         fullName: function () { return this.firstname + " " + this.lastname }
       },
-
       setterMethods: {
         fullName: function (value) {
           var names = value.split(" ");
-
           this.setDataValue("firstname", names.slice(0, -1).join(" "));
           this.setDataValue("lastname", names.slice(-1).join(" "));
         },

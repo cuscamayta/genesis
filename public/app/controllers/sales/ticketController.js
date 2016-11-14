@@ -24,6 +24,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         $scope.selectedbus = null;
         $scope.selectedschedule = null;
         $scope.ticketdetails = [];
+        $scope.listtickets = [];
 
         $scope.editdetail = {
             state: "0"
@@ -91,26 +92,22 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     $scope.newticketdetail = function () {
         $scope.editdetail = {};
 
-        var n = $scope.ticketdetails.where(function (item) {
-            return item.fullName == $scope.namecustomer && item.numberseat == $scope.selectedseat;
+        $scope.selectedseat.status = 1;
+        $scope.editdetail.numberseat = $scope.selectedseat.number;
+        $scope.editdetail.numberid = $scope.numberidcustomer;
+        $scope.editdetail.fullName = $scope.namecustomer;
+        $scope.editdetail.price = $scope.price;
+        $scope.editdetail.numberbaggage = $scope.numberbaggage;
+        $scope.editdetail.weightbaggage = $scope.weightbaggage;
+        $scope.ticketdetails.push($scope.editdetail);
+        $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
+            return parseInt(item.price);
         });
-
-        if (n.length == 0) {
-            $scope.editdetail.numberseat = $scope.selectedseat;
-            $scope.editdetail.numberid = $scope.numberidcustomer;
-            $scope.editdetail.fullName = $scope.namecustomer;
-            $scope.editdetail.price = $scope.price;
-            $scope.editdetail.numberbaggage = $scope.numberbaggage;
-            $scope.editdetail.weightbaggage = $scope.weightbaggage;
-            $scope.ticketdetails.push($scope.editdetail);
-            $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
-                return parseInt(item.price);
-            });
-            $("#modaleditcustomer").modal("hide");
-        }
+        $("#modaleditcustomer").modal("hide");
     };
 
     $scope.deleteticketdetail = function (item) {
+        $scope.selectedseat.status = 0;
         $scope.ticketdetails.remove(item);
         $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
             return item.price;
@@ -122,12 +119,22 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.scheduleselected = function (schedule) {
-        $scope.seatlist = [];
         $scope.selectedschedule = schedule;
         $scope.price = schedule.price;
 
         for (var i = 0; i < schedule.Bus.numberseats; i++) {
-            $scope.seatlist.push(i + 1);
+            $scope.seatlist = {};
+            var n = schedule.Tickets.where(function (item) {
+                return item.number == i + 1;
+            });
+
+            $scope.seatlist.number = i + 1;
+            if (n.length == 0) {
+                $scope.seatlist.status = 0;
+            } else {
+                $scope.seatlist.status = 1;
+            }
+            $scope.listtickets.push($scope.seatlist);
         }
 
         $("#step-2").css("display", "block");
@@ -135,8 +142,16 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.selectedticketseat = function (item) {
-        $scope.selectedseat = item;
-        $("#modaleditcustomer").modal("show");
+        if (item.status == 0) {
+            $scope.selectedseat = item;
+            $scope.numberidcustomer = null;
+            $scope.namecustomer = null;
+            $scope.numberbaggage = null;
+            $scope.weightbaggage = null;
+            $("#modaleditcustomer").modal("show");
+        } else {
+            toastr.warning("El asiento numero " + item.number + " ya fue asignado");
+        }
     }
 
     $scope.copyticketdetail = function (item) {

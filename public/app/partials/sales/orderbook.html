@@ -13,6 +13,7 @@
 						<thead class="headings">
 							<tr>
 								<th>#</th>
+								<th>Sucursal</th>
 								<th>Nro Orden</th>
 								<th>NIT</th>
 								<th>Nro. Inicio</th>
@@ -27,6 +28,7 @@
 						<tbody>
 							<tr class="even pointer" ng-repeat="orderbook in orderbooks | paginate" ng-class="{selectelement:orderbookselected.id==orderbook.id}">
 								<td>{{$index}}</td>
+								<td>{{orderbook.Office.title}}</td>
 								<td>{{orderbook.numberorder}}</td>
 								<td>{{orderbook.numberid}}</td>
 								<td>{{orderbook.numberinit}}</td>
@@ -64,12 +66,7 @@
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="numberorder">Nro de orden <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
 						<input type="text" id="numberorder" class="form-control" ngfocus ng-model="editorderbook.numberorder" validate="number" required>
-					</div>
-
-					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="controlkey">Llave de control <span class="required">*</span></label>
-					<div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
-						<textarea id="controlkey" class="form-control" ngfocus ng-model="editorderbook.controlkey" required rows="2"></textarea>
-					</div>
+					</div>					
 
 					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="dateofissue">Fecha emisión <span class="required">*</span></label>
 					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
@@ -123,6 +120,11 @@
 								<option value="1">Manual</option>
 								<option value="2">Electronica</option>
 							</select>
+					</div>
+
+					<label class="control-label col-md-2 col-sm-2 col-xs-12" for="controlkey">Llave de control <span class="required">*</span></label>
+					<div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
+						<textarea id="controlkey" class="form-control" ngfocus ng-model="editorderbook.controlkey" required rows="2"></textarea>
 					</div>
 				</form>
 			</div>
