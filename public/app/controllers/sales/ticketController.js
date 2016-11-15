@@ -8,8 +8,8 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         $('#dateregister').daterangepicker({
             locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
-            showDropdowns: true,
-            calender_style: "picker_4"
+            showDropdowns: false,
+            calender_style: "picker_4",
         }).on('apply.daterangepicker', function (ev, picker) {
             $scope.editticket.dateregister = picker.startDate.format('DD/MM/YYYY');
         });
@@ -54,15 +54,19 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     }
 
     $scope.saveticket = function () {
+        debugger;
         $scope.editticket;
         $scope.editticket.idschedule = $scope.selectedschedule.id;
+        $scope.editticket.arrival = $scope.selectedschedule.arrival;
+        $scope.editticket.departure = $scope.selectedschedule.departure;
+        $scope.editticket.detail = $scope.selectedschedule.detail;
         $scope.editticket.details = $scope.ticketdetails;
 
-        $scope.editticket.nitci = 5635467;
-        $scope.editticket.numberorder = 7904006306693;
-        $scope.editticket.amount = $scope.sumTotal;
-        $scope.editticket.limit = "20100101"
-        $scope.editticket.controlkey = "zZ7Z]xssKqkEf_6K9uH(EcV+%x+u[Cca9T%+_$kiLjT8(zr3T9b5Fx2xG-D+_EBS";
+        $scope.editticket.numberorder = 700400168524;
+        $scope.editticket.numbernit = 123;
+        $scope.editticket.type = 1;
+        $scope.editticket.controlkey = "21a2s545as4df654s";
+        $scope.editticket.amountinvoice = $scope.sumTotal;
 
         if ($scope.editticket.id == 0) {
             var response = TicketService.saveticket($scope.editticket);
@@ -80,6 +84,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
 
     $scope.validatecontrols = function () {
         return $scope.editticket == null || $scope.editticket.dateregister == null
+            || $scope.editticket.nameinvoice == null || $scope.editticket.numbernitinvoice == null
             || $scope.ticketdetails == null
             || ($scope.ticketdetails != null && $scope.ticketdetails.length < 1);
     };
@@ -121,6 +126,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     $scope.scheduleselected = function (schedule) {
         $scope.selectedschedule = schedule;
         $scope.price = schedule.price;
+        $scope.editticket.dateregister = schedule.dateregister;
 
         for (var i = 0; i < schedule.Bus.numberseats; i++) {
             $scope.seatlist = {};

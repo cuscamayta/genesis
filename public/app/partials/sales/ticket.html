@@ -14,7 +14,6 @@
 							<select id="idtravel" class="form-control" ng-options="travel.numberid for travel in listtravel" ng-model="selectedtravel"
 								ng-change="selectedtravelchange()" required></select>
 						</div>
-
 						<div class="col-md-12">
 							<div class="x_panel">
 								<div class="x_content">
@@ -33,7 +32,7 @@
 											<tbody>
 												<tr class="even pointer" ng-repeat="schedule in listschedule" ng-class="{selectelement:scheduleselected.id==schedule.id}">
 													<td>{{$index}}</td>
-													<td>{{schedule.numberid}}</td>
+													<td>{{schedule.dateregister}}</td>
 													<td>{{schedule.arrival}}</td>
 													<td>{{schedule.departure}}</td>
 													<td>{{schedule.detail}}</td>
@@ -65,7 +64,7 @@
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2>Asientos</h2>
+										<h2>Pasajes</h2>
 										<div class="clearfix"></div>
 									</div>
 
@@ -114,10 +113,10 @@
 
 										<form class="form-horizontal form-label-left">
 
-											<label for="dateregister">Fecha <span class="required">*</span></label>
+											<label for="dateregisteredit">Fecha <span class="required">*</span></label>
 											<div class="form-group has-feedback">
-												<input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus order="1" ng-model="editticket.dateregister"
-													validate="date" required data-inputmask="'mask': '99/99/9999'" data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+												<input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus ng-model="editticket.dateregister"
+													validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
 												<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 												<span id="inputSuccess2Status" class="sr-only">(success)</span>
 											</div>
@@ -129,15 +128,7 @@
 											<label for="nameinvoice">Nombre para la factura <span class="required">*</span></label>
 											<input type="text" id="nameinvoice" class="form-control textUpperCase" ngfocus ng-model="editticket.nameinvoice" validate="text-number"
 												required>
-
-											<label for="numberbaggage">Nro de NIT <span class="required">*</span></label>
-											<input type="text" id="numberbaggage" class="form-control" ngfocus ng-model="editticket.numberbaggage" validate="number"
-												required>
-
-											<label for="weightbaggage">Nro de NIT <span class="required">*</span></label>
-											<input type="text" id="weightbaggage" class="form-control" ngfocus ng-model="editticket.weightbaggage" validate="decimal"
-												required>
-
+																							
 											<div class="ln_solid"></div>
 											<div>
 												<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveticket()" title="Facturar"><i class="fa fa-credit-card"></i> Guardar</button>

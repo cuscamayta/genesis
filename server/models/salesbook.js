@@ -14,12 +14,12 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     fullname: {
-      type: DataTypes.STRING, allowNull: false,
-      set: function (val) {
-        this.setDataValue('fullname', val.toUpperCase());
+      type: DataTypes.STRING,
+      allowNull: false,
+      set: function (val1) {
+        this.setDataValue('fullname', val1.toUpperCase());
       }
     },
-    numbersales: { type: DataTypes.INTEGER, allowNull: false },
     numberinvoice: { type: DataTypes.INTEGER, allowNull: false },
     dateregister: {
       type: DataTypes.DATE, allowNull: false,

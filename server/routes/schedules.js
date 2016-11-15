@@ -77,7 +77,8 @@ router.post('/forselect', function (request, response) {
   models.Schedule.findAll({
     include: [
       { model: models.Bus }, { model: models.Ticket }
-    ], where: { idtravel: request.body.id }
+    ], where: { idtravel: request.body.id },
+    order: 'dateregister DESC'
   }).then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
