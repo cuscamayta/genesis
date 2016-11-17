@@ -23,6 +23,7 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     Sale.belongsTo(models.Salesbook, { foreignKey: "idsalesbook" });
                     Sale.belongsTo(models.Schedule, { foreignKey: "idschedule" });
+                    Sale.belongsTo(models.User, { foreignKey: "iduser" });
                     Sale.hasMany(models.Salesdetail, { foreignKey: "idsale" });
                 }
             }

@@ -30,11 +30,12 @@ function createsale(request, res) {
     departure: request.body.departure,
     detail: request.body.detail,
     idsalesbook: res.id,
-    idschedule: request.body.idschedule
+    idschedule: request.body.idschedule,
+    iduser: request.body.iduser
   };
 }
 
-function createticket(request, i) { 
+function createticket(request, i) {
   return {
     numberid: request.body.details[i].numberid,
     fullname: request.body.details[i].fullName,
@@ -43,7 +44,8 @@ function createticket(request, i) {
     numberbaggage: request.body.details[i].numberbaggage,
     weightbaggage: request.body.details[i].weightbaggage,
     idbus: request.body.details[i].idbus,
-    idschedule: request.body.details[i].idschedule,    
+    idschedule: request.body.details[i].idschedule,
+    iduser: request.body.iduser
   };
 }
 
@@ -74,42 +76,50 @@ function getdatesinvoice(orderbook, request) {
 }
 
 router.post('/create', function (request, response) {
+
   return models.sequelize.transaction(function (t) {
-    return models.Orderbook.findOne({ where: { numberorder: request.body.numberorder } }, { transaction: t })
-      .then(function (orderbook) {
-        var datesInvoice = getdatesinvoice(orderbook, request);
 
-        if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
-          response.send(common.response(null, "Libro de orden vencido", false));
-        } else {
-          return models.Salesbook.max('numberinvoice', { where: { numberorder: request.body.numberorder } }, { transaction: t })
-            .then(function (nroinvoice) {
+    /*$scope.headerticket.numberorder = 700400168524;
+         $scope.headerticket.numbernit = 123;
+         $scope.headerticket.type = 1;
+         $scope.headerticket.controlkey = "21a2s545as4df654s";*/
 
-              if (!nroinvoice) nroinvoice = 0
-              var numberinvoice = (nroinvoice + 1),
-                controlcode = codecontrol(request, numberinvoice);
 
-              return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice), { transaction: t })
-                .then(function (salebook) {
-                  return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
+    return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type : 2 } }, { transaction: t }).then(function (orderbook) {
+      var datesInvoice = getdatesinvoice(orderbook, request);
 
-                    for (var i = 0; i < request.body.details.length; i++) {
-                      return models.Ticket.create(createticket(request, i), { transaction: t }).then(function (tic) {
-                        console.log(tic);
-                        console.log(i);
-                        return models.Salesdetail.create(createdetailsales(request, i, tic, sale), { transaction: t })
-                         .then(function (res) {
-                         });
-                      }, { transaction: t })
-                    }
-                  }, { transaction: t })
+      if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
+        throw new Error("Libro de ordenes vencido");
+      } else {
+        return models.Salesbook.max('numberinvoice', { where: { numberorder: request.body.numberorder } }, { transaction: t }).then(function (nroinvoice) {
+          if (!nroinvoice) nroinvoice = 0
+          var numberinvoice = (nroinvoice + 1), controlcode = codecontrol(request, numberinvoice);
 
-                }, { transaction: t })
+          return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice), { transaction: t }).then(function (salebook) {
+            return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
+              var ticketpromises = [];
 
-            }, { transaction: t });
-        }
-      })
-  }).then(function (res) {
+              for (var i = 0; i < request.body.details.length; i++) {
+                var ticketpromise = models.Ticket.create(createticket(request, i), { transaction: t });
+                ticketpromises.push(ticketpromise);
+              }
+
+              return Promise.all(ticketpromises).then(function (tickets) {
+                var salesdetailpromises = [];
+                for (var i = 0; i < tickets.length; i++) {
+
+                  var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
+                  salesdetailpromises.push(salesdetailpromise, { transaction: t });
+                }
+                return Promise.all(salesdetailpromises);
+              });
+            });
+          });
+        });
+      }
+    });
+
+  }).then(function (result) {
     response.send(common.response(null, "Se guardo correctamente"));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));

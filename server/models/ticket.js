@@ -25,6 +25,7 @@ module.exports = function (sequelize, DataTypes) {
                     Ticket.belongsTo(models.Bus, { foreignKey: "idbus" });
                     Ticket.belongsTo(models.Schedule, { foreignKey: "idschedule" });
                     Ticket.hasMany(models.Salesdetail, { foreignKey: "idticket" });
+                    Ticket.belongsTo(models.User, { foreignKey: "iduser" });
                 }
             }
         }

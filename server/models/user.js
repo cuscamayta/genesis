@@ -12,6 +12,8 @@ module.exports = function (sequelize, DataTypes) {
         associate: function (models) {
           User.belongsTo(models.Role, { foreignKey: "idrole" });
           User.hasMany(models.Useroffice, { foreignKey: 'iduser' });
+          User.hasMany(models.Sale, { foreignKey: "iduser" });
+          User.hasMany(models.Ticket, { foreignKey: "iduser" });
         }
       },
       getterMethods: {

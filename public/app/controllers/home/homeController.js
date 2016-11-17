@@ -1,9 +1,12 @@
-app.controller('HomeController', function ($scope,homeService) {
+app.controller('HomeController', function ($scope, homeService, $rootScope) {
 
     init();
 
     function init() {
-        console.log('init from home');
+        $rootScope.currentUser = {
+            iduser: 1,
+            idoffice: 1
+        };
     }
 
 });

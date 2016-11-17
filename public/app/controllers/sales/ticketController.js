@@ -1,4 +1,4 @@
-app.controller('TicketController', function ($scope, TicketService, ScheduleService, TravelService) {
+app.controller('TicketController', function ($scope, TicketService, ScheduleService, TravelService, $rootScope) {
     init();
 
     function init() {
@@ -11,24 +11,26 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             showDropdowns: false,
             calender_style: "picker_4",
         }).on('apply.daterangepicker', function (ev, picker) {
-            $scope.editticket.dateregister = picker.startDate.format('DD/MM/YYYY');
+            $scope.headerticket.dateregister = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
     function dataticket() {
-        $scope.editticket = {
+        $scope.headerticket = {
             id: 0,
             state: 1,
             details: []
         };
         $scope.selectedbus = null;
         $scope.selectedschedule = null;
-        $scope.ticketdetails = [];
         $scope.listtickets = [];
+        $scope.listseats = [];
 
-        $scope.editdetail = {
+        $scope.detailticket = {
             state: "0"
         }
+
+        defaultvalue();
     };
 
     function gettravels() {
@@ -54,28 +56,29 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     }
 
     $scope.saveticket = function () {
-        $scope.editticket;
-        $scope.editticket.idschedule = $scope.selectedschedule.id;
-        $scope.editticket.arrival = $scope.selectedschedule.arrival;
-        $scope.editticket.departure = $scope.selectedschedule.departure;
-        $scope.editticket.detail = $scope.selectedschedule.detail;
-        $scope.editticket.details = $scope.ticketdetails;
+        $scope.headerticket;
+        $scope.headerticket.idschedule = $scope.selectedschedule.id;
+        $scope.headerticket.arrival = $scope.selectedschedule.arrival;
+        $scope.headerticket.departure = $scope.selectedschedule.departure;
+        $scope.headerticket.detail = $scope.selectedschedule.detail;
+        $scope.headerticket.details = $scope.listtickets;
+        $scope.headerticket.iduser = $rootScope.currentUser.iduser;
 
-        $scope.editticket.numberorder = 700400168524;
-        $scope.editticket.numbernit = 123;
-        $scope.editticket.type = 1;
-        $scope.editticket.controlkey = "21a2s545as4df654s";
-        $scope.editticket.amountinvoice = $scope.sumTotal;
+        $scope.headerticket.idoffice = $rootScope.currentUser.idoffice;
+        $scope.headerticket.amountinvoice = $scope.sumTotal;
 
-        if ($scope.editticket.id == 0) {
-            var response = TicketService.saveticket($scope.editticket);
+        if ($scope.headerticket.id == 0) {
+            var response = TicketService.saveticket($scope.headerticket);
             response.then(function (res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     toastr.success(res.message);
-                    $scope.ticketdetails = null;
-                    $scope.editticket.numbernitinvoice = null;
-                    $scope.editticket.nameinvoice = null;
+                    $scope.listtickets = null;
+                    $scope.headerticket.numbernitinvoice = null;
+                    $scope.headerticket.nameinvoice = null;
+                    $scope.sumTotal = 0;
+                    $scope.listtickets = [];
+                    defaultvalue();
                 }
             });
         }
@@ -83,10 +86,10 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editticket == null || $scope.editticket.dateregister == null
-            || $scope.editticket.nameinvoice == null || $scope.editticket.numbernitinvoice == null
-            || $scope.ticketdetails == null
-            || ($scope.ticketdetails != null && $scope.ticketdetails.length < 1);
+        return $scope.headerticket == null || $scope.headerticket.dateregister == null
+            || $scope.headerticket.nameinvoice == null || $scope.headerticket.numbernitinvoice == null
+            || $scope.listtickets == null
+            || ($scope.listtickets != null && $scope.listtickets.length < 1);
     };
 
     $scope.validatecontrolsdetail = function () {
@@ -95,18 +98,19 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.newticketdetail = function () {
-        $scope.editdetail = {};
+        $scope.detailticket = {};
         $scope.selectedseat.status = 1;
-        $scope.editdetail.numberseat = $scope.selectedseat.number;
-        $scope.editdetail.numberid = $scope.numberidcustomer.toUpperCase();
-        $scope.editdetail.fullName = $scope.namecustomer.toUpperCase();
-        $scope.editdetail.price = $scope.price;
-        $scope.editdetail.numberbaggage = $scope.numberbaggage;
-        $scope.editdetail.weightbaggage = $scope.weightbaggage;
-        $scope.editdetail.idbus = $scope.selectedschedule.idbus;
-        $scope.editdetail.idschedule = $scope.selectedschedule.id;
-        $scope.ticketdetails.push($scope.editdetail);
-        $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
+        $scope.detailticket.numberseat = $scope.selectedseat.number;
+        $scope.detailticket.numberid = $scope.numberidcustomer.toUpperCase();
+        $scope.detailticket.fullName = $scope.namecustomer.toUpperCase();
+        $scope.detailticket.price = $scope.price;
+        $scope.detailticket.numberbaggage = $scope.numberbaggage;
+        $scope.detailticket.weightbaggage = $scope.weightbaggage;
+        $scope.detailticket.idbus = $scope.selectedschedule.idbus;
+        $scope.detailticket.idschedule = $scope.selectedschedule.id;
+        $scope.detailticket.iduser = $rootScope.currentUser.iduser;
+        $scope.listtickets.push($scope.detailticket);
+        $scope.sumTotal = $scope.listtickets.sum(function (item) {
             return parseInt(item.price);
         });
         $("#modaleditcustomer").modal("hide");
@@ -114,8 +118,8 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
 
     $scope.deleteticketdetail = function (item) {
         $scope.selectedseat.status = 0;
-        $scope.ticketdetails.remove(item);
-        $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
+        $scope.listtickets.remove(item);
+        $scope.sumTotal = $scope.listtickets.sum(function (item) {
             return item.price;
         });
     };
@@ -127,7 +131,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     $scope.scheduleselected = function (schedule) {
         $scope.selectedschedule = schedule;
         $scope.price = schedule.price;
-        $scope.editticket.dateregister = schedule.dateregister;
+        $scope.headerticket.dateregister = schedule.dateregister;
 
         for (var i = 0; i < schedule.Bus.numberseats; i++) {
             $scope.seatlist = {};
@@ -141,7 +145,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             } else {
                 $scope.seatlist.status = 1;
             }
-            $scope.listtickets.push($scope.seatlist);
+            $scope.listseats.push($scope.seatlist);
         }
 
         $("#step-2").css("display", "block");
@@ -162,7 +166,12 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     }
 
     $scope.copyticketdetail = function (item) {
-        $scope.editticket.nameinvoice = item.fullName;
-        $scope.editticket.numbernitinvoice = parseInt(item.numberid);
+        $scope.headerticket.nameinvoice = item.fullName;
+        $scope.headerticket.numbernitinvoice = parseInt(item.numberid);
+    };
+
+    function defaultvalue() {
+        $scope.headerticket.numbernitinvoice = 0;
+        $scope.headerticket.nameinvoice = "SIN NOMBRE";
     };
 });
