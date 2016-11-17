@@ -54,7 +54,6 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     }
 
     $scope.saveticket = function () {
-        debugger;
         $scope.editticket;
         $scope.editticket.idschedule = $scope.selectedschedule.id;
         $scope.editticket.arrival = $scope.selectedschedule.arrival;
@@ -73,13 +72,14 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             response.then(function (res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
-                    dataticket();
                     toastr.success(res.message);
+                    $scope.ticketdetails = null;
+                    $scope.editticket.numbernitinvoice = null;
+                    $scope.editticket.nameinvoice = null;
                 }
             });
         }
         $("#modaleditticket").modal("hide");
-        dataticket();
     };
 
     $scope.validatecontrols = function () {
@@ -96,14 +96,15 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
 
     $scope.newticketdetail = function () {
         $scope.editdetail = {};
-
         $scope.selectedseat.status = 1;
         $scope.editdetail.numberseat = $scope.selectedseat.number;
-        $scope.editdetail.numberid = $scope.numberidcustomer;
-        $scope.editdetail.fullName = $scope.namecustomer;
+        $scope.editdetail.numberid = $scope.numberidcustomer.toUpperCase();
+        $scope.editdetail.fullName = $scope.namecustomer.toUpperCase();
         $scope.editdetail.price = $scope.price;
         $scope.editdetail.numberbaggage = $scope.numberbaggage;
         $scope.editdetail.weightbaggage = $scope.weightbaggage;
+        $scope.editdetail.idbus = $scope.selectedschedule.idbus;
+        $scope.editdetail.idschedule = $scope.selectedschedule.id;
         $scope.ticketdetails.push($scope.editdetail);
         $scope.sumTotal = $scope.ticketdetails.sum(function (item) {
             return parseInt(item.price);
