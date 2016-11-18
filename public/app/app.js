@@ -62,6 +62,10 @@ app.config(function ($routeProvider) {
             controller: 'TicketController',
             templateUrl: 'app/partials/sales/ticket.html'
         })
+        .when('/login', {
+            controller: 'LoginController',
+            templateUrl: 'app/partials/home/login.html'
+        })
 		.when('/route/:id', {
 		    controller: 'HomeController',
 			templateUrl: '/routepartial'

@@ -1,31 +1,41 @@
 var express = require('express'),
-    app = express();
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    debug = require('debug')('express-sequelize'),
-    http = require('http'),
-    models = require('./server/models'),
-    routes = require('./server/routes/index'),
-    users = require('./server/routes/users');
-    roles = require('./server/routes/roles');
-    drivertypes = require('./server/routes/drivertypes');
-    drivers = require('./server/routes/drivers');
-    bustypes = require('./server/routes/bustypes');
-    buses = require('./server/routes/buses');
-    destinations = require('./server/routes/destinations');
-    courses = require('./server/routes/courses');
-    orderbooks = require('./server/routes/orderbooks');
-    salesbooks = require('./server/routes/salesbooks');
-    invoices = require('./server/routes/invoices');
-    offices = require('./server/routes/offices');
-    travels = require('./server/routes/travels');
-    schedules = require('./server/routes/schedules');
-    tickets = require('./server/routes/tickets');
+  app = express(),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  path = require('path'),
+  debug = require('debug')('express-sequelize'),
+  http = require('http'),
+  jwt = require("jsonwebtoken"),
+  models = require('./server/models'),
+  routes = require('./server/routes/index'),
+  users = require('./server/routes/users'),
+  roles = require('./server/routes/roles'),
+  drivertypes = require('./server/routes/drivertypes'),
+  drivers = require('./server/routes/drivers'),
+  bustypes = require('./server/routes/bustypes'),
+  buses = require('./server/routes/buses'),
+  destinations = require('./server/routes/destinations'),
+  courses = require('./server/routes/courses'),
+  orderbooks = require('./server/routes/orderbooks'),
+  salesbooks = require('./server/routes/salesbooks'),
+  invoices = require('./server/routes/invoices'),
+  offices = require('./server/routes/offices'),
+  travels = require('./server/routes/travels'),
+  schedules = require('./server/routes/schedules'),
+  security = require('./server/routes/security'),
+  tickets = require('./server/routes/tickets');
 
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+  next();
+});
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
@@ -62,11 +72,11 @@ models.sequelize.sync().then(function () {
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
-  if (isNaN(port)) {    
+  if (isNaN(port)) {
     return val;
   }
 
-  if (port >= 0) {    
+  if (port >= 0) {
     return port;
   }
 
@@ -81,7 +91,7 @@ function onError(error) {
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
-  
+
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
