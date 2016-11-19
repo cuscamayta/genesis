@@ -2,29 +2,28 @@ var models = require('./../models');
 var express = require('express');
 var router = express.Router();
 var common = require('./common');
+var jwt = require("jsonwebtoken");
 
 
 router.post('/authenticate', function (req, res) {
-    models.User.findOne({ username: req.body.username, password: req.body.password }, function (err, user) {
-        if (err) {
+    models.User.findOne({ where: { username: req.body.username, password: req.body.password } }).then(function (user) {
+        if (user) {
             res.json({
-                type: false,
-                data: "Error occured: " + err
+                type: true,
+                data: user.dataValues
+                // token: user.dataValues.token
             });
         } else {
-            if (user) {
-                res.json({
-                    type: true,
-                    data: user,
-                    token: user.token
-                });
-            } else {
-                res.json({
-                    type: false,
-                    data: "Incorrect username/password"
-                });
-            }
+            res.json({
+                type: false,
+                data: "Incorrect username/password"
+            });
         }
+    }).catch(function (err) {
+        res.json({
+            type: false,
+            data: "Error occured: " + err
+        });
     });
 });
 

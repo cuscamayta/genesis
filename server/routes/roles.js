@@ -17,15 +17,15 @@ router.post('/update', function (request, response) {
     models.Role.update({
         title: request.body.title
     }, {
-        where: { id: request.body.id }
+            where: { id: request.body.id }
         }).then(function (res) {
             response.send(common.response(res, "Se guardo correctamente"));
         }).catch(function (err) {
             response.send(common.response(err.code, err.message, false));
         });
 });
-
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
+    // router.get('/', function (request, response) {
     models.Role.findAll().then(function (res) {
         response.send(common.response(res));
     }).catch(function (err) {

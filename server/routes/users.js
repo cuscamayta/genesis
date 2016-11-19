@@ -2,15 +2,18 @@ var models = require('./../models');
 var express = require('express');
 var router = express.Router();
 var common = require('./common');
+var jwt = require("jsonwebtoken");
 
 router.post('/create', function (request, response) {
+  var token = jwt.sign(request.body, "AIzaSyAQfxPJiounkhOjODEO5ZieffeBv6yft2Q");
   models.User.create({
     username: request.body.username,
     firstname: request.body.firstname,
     lastname: request.body.lastname,
     password: request.body.password,
     email: request.body.email,
-    idrole: request.body.idrole
+    idrole: request.body.idrole,
+    token: token
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {

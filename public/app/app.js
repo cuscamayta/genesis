@@ -1,24 +1,24 @@
-var app = angular.module('genesisApp', ['uitls.paginate']);
+var app = angular.module('genesisApp', ['uitls.paginate', 'ngStorage']);
 
-app.config(function ($routeProvider) {    
-	$routeProvider
-		.when('/', {
-		    controller: 'HomeController',
-			templateUrl: 'app/partials/home/home.html'
-		})
+app.config(function ($routeProvider, $httpProvider) {
+    $routeProvider
+        .when('/', {
+            controller: 'HomeController',
+            templateUrl: 'app/partials/home/home.html'
+        })
         .when('/user', {
             controller: 'UserController',
             templateUrl: 'app/partials/security/user.html'
         })
-		.when('/role', {
+        .when('/role', {
             controller: 'RoleController',
             templateUrl: 'app/partials/security/role.html'
-        })	
-		.when('/drivertype', {
+        })
+        .when('/drivertype', {
             controller: 'DrivertypeController',
             templateUrl: 'app/partials/driver/drivertype.html'
-        })	
-		.when('/driver', {
+        })
+        .when('/driver', {
             controller: 'DriverController',
             templateUrl: 'app/partials/driver/driver.html'
         })
@@ -66,15 +66,84 @@ app.config(function ($routeProvider) {
             controller: 'LoginController',
             templateUrl: 'app/partials/home/login.html'
         })
-		.when('/route/:id', {
-		    controller: 'HomeController',
-			templateUrl: '/routepartial'
-		})	
+        .when('/route/:id', {
+            controller: 'HomeController',
+            templateUrl: '/routepartial'
+        })
 
-	.otherwise({
-		redirectTo: '/'
-	});
+        .otherwise({
+            redirectTo: '/'
+        });
+
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($localStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    $location.path('/login');
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
 });
+
+// app.factory('httpInterceptor', function ($q, $rootScope, $log, $injector, $location) {
+
+//     var numLoadings = 0;
+//     $rootScope.countRequest = 0;
+//     return {
+//         request: function (config) {
+
+//             console.log('se llamo el interceptor');
+//             //mensaje de espere por favor
+//             $rootScope.lastResponse = 1;
+
+
+//             return config || $q.when(config);
+
+//         },
+//         response: function (response) {
+//             $rootScope.countRequest--;
+//             if ((--numLoadings) === 0) {
+
+//                 // ocultar el mensaje de espere por favor
+
+//                 $rootScope.lastResponse = 0;
+
+//             }
+
+//             return response || $q.when(response);
+
+//         },
+//         responseError: function (response) {
+
+//             if (response.status === 403 || response.status === 401) {
+
+//                 //retornar a la pagina de login
+
+//             //    $location.path("/login");
+//             }
+
+//             if (!(--numLoadings)) {
+
+//                 //ocultar el mensaje de espere por favor
+//             }
+
+//             return $q.reject(response);
+//         }
+//     };
+// })
+//     .config(function ($httpProvider) {
+//         $httpProvider.interceptors.push('httpInterceptor');
+//     });
+
 
 // app.run(function ($rootScope, $location) {
 

@@ -6,7 +6,8 @@ module.exports = function (sequelize, DataTypes) {
     firstname: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, allowNull: true, validate: { isEmail: true } }
+    email: { type: DataTypes.STRING, allowNull: true, validate: { isEmail: true } },
+    token: { type: DataTypes.TEXT, allowNull: true }
   }, {
       classMethods: {
         associate: function (models) {

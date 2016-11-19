@@ -4,13 +4,13 @@
 			<form role="form" ng-submit="signin()">
 				<h1>Inciar sesión</h1>
 				<div>
-					<input type="text" class="form-control" placeholder="Username" required="">
+					<input type="text" class="form-control" placeholder="Username" required="" data-ng-model="user.username">
 				</div>
 				<div>
-					<input type="password" class="form-control" placeholder="Password" required="">
+					<input type="password" class="form-control" placeholder="Password" required="" data-ng-model="user.password">
 				</div>
 				<div>
-					<a class="btn btn-default submit" href="home.html">Log in</a>
+					<a class="btn btn-default submit" data-ng-click="login()">Log in</a>
 					<a class="reset_pass" href="#">Lost your password?</a>
 				</div>
 
@@ -31,5 +31,5 @@
 				</div>
 			</form>
 		</section>
-	</div>	
+	</div>
 </div>
