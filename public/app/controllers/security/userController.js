@@ -68,7 +68,7 @@ app.controller('UserController', function ($scope, UserService, RoleService) {
         response.then(function (res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
-                $("#modaldeleteuser").modal("hide");                
+                $("#modaldeleteuser").modal("hide");
                 datauser();
                 getusers();
                 toastr.success(res.message);

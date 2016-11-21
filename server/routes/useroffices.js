@@ -4,9 +4,9 @@ var router = express.Router();
 var common = require('./common');
 
 router.post('/create', function(request, response) {
-    models.Permit.create({
-        idrole: request.body.idrole,
-        idpage: request.body.idpage
+    models.Useroffice.create({
+        iduser: request.body.iduser,
+        idoffice: request.body.idoffice
     }).then(function(res) {
         response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function(err) {
@@ -15,8 +15,8 @@ router.post('/create', function(request, response) {
 });
 
 router.get('/', function(request, response) {
-    models.Permit.findAll({
-        include: [{ model: models.Role }, { model: models.Page }]
+    models.Useroffice.findAll({
+        include: [{ model: models.User }, { model: models.Office }]
     }).then(function(res) {
         response.send(common.response(res));
     }).catch(function(err) {
@@ -25,7 +25,7 @@ router.get('/', function(request, response) {
 });
 
 router.post('/destroy', function(request, response) {
-    models.Permit.destroy({
+    models.Useroffice.destroy({
         where: { id: request.body.id }
     }).then(function() {
         response.send(common.response("", "Se elimino correctamente"));

@@ -6,6 +6,10 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'HomeController',
             templateUrl: 'app/partials/home/home.html'
         })
+        .when('/setting', {
+            controller: 'SettingController',
+            templateUrl: 'app/partials/security/setting.html'
+        })
         .when('/user', {
             controller: 'UserController',
             templateUrl: 'app/partials/security/user.html'
@@ -21,6 +25,14 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/module', {
             controller: 'ModuleController',
             templateUrl: 'app/partials/security/module.html'
+        })
+        .when('/permit', {
+            controller: 'PermitController',
+            templateUrl: 'app/partials/security/permit.html'
+        })
+        .when('/useroffice', {
+            controller: 'UserofficeController',
+            templateUrl: 'app/partials/security/useroffice.html'
         })
         .when('/drivertype', {
             controller: 'DrivertypeController',

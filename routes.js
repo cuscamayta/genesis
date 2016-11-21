@@ -1,6 +1,9 @@
 'use strict';
 
-module.exports = function (app) {	
+module.exports = function (app) {
+	app.use('/settings', require('./server/routes/settings'));	
+	app.use('/permits', require('./server/routes/permits'));
+	app.use('/useroffices', require('./server/routes/useroffices'));
  	app.use('/users', require('./server/routes/users'));
 	app.use('/roles', require('./server/routes/roles'));
 	app.use('/modules', require('./server/routes/modules'));

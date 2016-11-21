@@ -53,10 +53,13 @@
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-home"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
+										<li><a href="#/setting">Ajustes</a></li>
 										<li><a href="#/module">Módulo</a></li>
 										<li><a href="#/page">Página</a></li>
 										<li><a href="#/role">Rol</a></li>
 										<li><a href="#/user">Usuario</a></li>
+										<li><a href="#/permit">Permisos</a></li>
+										<li><a href="#/useroffice">Sucursales por usuario</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-edit"></i> Configuracion <span class="fa fa-chevron-down"></span></a>
@@ -277,14 +280,20 @@
 	<script src="app/services/home/homeService.js"></script>
 	<script src="app/controllers/home/loginController.js"></script>
 	<script src="app/services/home/loginService.js"></script>
+	<script src="app/services/security/settingService.js"></script>
+	<script src="app/controllers/security/settingController.js"></script>
 	<script src="app/services/security/moduleService.js"></script>
-	<script src="app/controllers/security/moduleController.js"></script>
+	<script src="app/controllers/security/moduleController.js"></script>	
 	<script src="app/services/security/pageService.js"></script>
 	<script src="app/controllers/security/pageController.js"></script>
 	<script src="app/services/security/userService.js"></script>
 	<script src="app/controllers/security/userController.js"></script>
 	<script src="app/services/security/roleService.js"></script>
-	<script src="app/controllers/security/roleController.js"></script>
+	<script src="app/controllers/security/roleController.js"></script>	
+	<script src="app/services/security/permitService.js"></script>
+	<script src="app/controllers/security/permitController.js"></script>	
+	<script src="app/services/security/userofficeService.js"></script>
+	<script src="app/controllers/security/userofficeController.js"></script>
 	<script src="app/services/driver/drivertypeService.js"></script>
 	<script src="app/controllers/driver/drivertypeController.js"></script>
 	<script src="app/services/driver/driverService.js"></script>

@@ -69,7 +69,7 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
         response.then(function (res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
-                $("#modaldeleteoffice").modal("hide");                
+                $("#modaldeleteoffice").modal("hide");
                 dataoffice();
                 getoffices();
                 toastr.success(res.message);

@@ -1,4 +1,4 @@
-app.controller('ScheduleController', function ($scope, ScheduleService, BusService, TravelService, DriverService) {
+app.controller('ScheduleController', function($scope, ScheduleService, BusService, TravelService, DriverService) {
     init();
     function init() {
         getbuses();
@@ -12,7 +12,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function (ev, picker) {
+        }).on('apply.daterangepicker', function(ev, picker) {
             $scope.editschedule.dateregister = picker.startDate.format('DD/MM/YYYY');
         });
     }
@@ -29,13 +29,13 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         $scope.schedulesdetails = [];
 
         $scope.editdetail = {
-            state : "0"
+            state: "0"
         }
     };
 
     function getschedules() {
         var response = ScheduleService.getschedules();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -47,7 +47,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
 
     function gettravels() {
         var response = TravelService.gettravels();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -59,7 +59,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
 
     function getdrivers() {
         var response = DriverService.getdriversforselect();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -71,7 +71,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
 
     function getbuses() {
         var response = BusService.getbusesforselect();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -81,14 +81,14 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         });
     }
 
-    $scope.saveschedule = function () {
+    $scope.saveschedule = function() {
         $scope.editschedule;
         $scope.editschedule.idbus = $scope.selectedbus.id;
         $scope.editschedule.idtravel = $scope.selectedtravel.id;
         $scope.editschedule.details = $scope.schedulesdetails;
         if ($scope.editschedule.id == 0) {
             var response = ScheduleService.saveschedule($scope.editschedule);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getschedules();
@@ -98,7 +98,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
             });
         } else {
             var response = ScheduleService.updateschedule($scope.editschedule);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getschedules();
@@ -111,9 +111,9 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         dataschedule();
     };
 
-    $scope.deleteschedule = function () {
+    $scope.deleteschedule = function() {
         var response = ScheduleService.deleteschedule($scope.editschedule);
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeleteschedule").modal("hide");
@@ -124,7 +124,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         });
     };
 
-    $scope.selectedschedule = function (schedule, option) {
+    $scope.selectedschedule = function(schedule, option) {
         $scope.scheduleselected = schedule;
         $scope.editschedule = angular.copy($scope.scheduleselected);
         $scope.editschedule.state = 2;
@@ -160,7 +160,7 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         }
     };
 
-    $scope.validatecontrols = function () {
+    $scope.validatecontrols = function() {
         return $scope.editschedule == null || $scope.editschedule.dateregister == null
             || $scope.editschedule.arrival == null || $scope.editschedule.departure == null
             || $scope.editschedule.price == null || $scope.selectedtravel == null
@@ -168,19 +168,19 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
             || ($scope.schedulesdetails != null && $scope.schedulesdetails.length < 1);
     };
 
-    $scope.validatecontrolsdetail = function () {
+    $scope.validatecontrolsdetail = function() {
         return $scope.editdetail == null || $("#type").val() == null
             || $scope.selecteddriver == null;
     };
 
-    $scope.newschedule = function () {
+    $scope.newschedule = function() {
         dataschedule();
     };
 
-    $scope.newscheduledetail = function () {
+    $scope.newscheduledetail = function() {
         $scope.editdetail = {};
 
-        var n = $scope.schedulesdetails.where(function (item) {
+        var n = $scope.schedulesdetails.where(function(item) {
             return item.iddriver == $scope.selecteddriver.id && item.drivertype == $("#type").val();
         });
 
@@ -193,11 +193,11 @@ app.controller('ScheduleController', function ($scope, ScheduleService, BusServi
         }
     }
 
-    $scope.deletescheduledetail = function (item) {
+    $scope.deletescheduledetail = function(item) {
         item.state = 0;
     };
 
-    $scope.selectedtravelchange = function () {
+    $scope.selectedtravelchange = function() {
         $scope.editschedule.arrival = $scope.selectedtravel.arrival;
         $scope.editschedule.departure = $scope.selectedtravel.departure;
     }

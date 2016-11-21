@@ -2,7 +2,7 @@ app.controller('InvoiceController', function ($scope, InvoiceService) {
 
     init();
     function init() {
-        datainvoice();               
+        datainvoice();
     }
 
     function datainvoice() {

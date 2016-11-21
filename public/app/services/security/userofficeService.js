@@ -13,14 +13,6 @@ app.service('UserofficeService', function ($http, $q) {
         return defer.promise;
     };
 
-    this.updateuseroffice = function (useroffice) {
-        var defer = $q.defer();
-        $http.post('/useroffices/update', useroffice).success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
-
     this.getuseroffices = function () {
         var defer = $q.defer();
         $http.get('/useroffices').success(function (response) {

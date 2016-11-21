@@ -1,4 +1,4 @@
-app.controller('ModuleController', function ($scope, ModuleService, $filter) {
+app.controller('ModuleController', function($scope, ModuleService, $filter) {
     init();
     function init() {
         getmodules();
@@ -14,7 +14,7 @@ app.controller('ModuleController', function ($scope, ModuleService, $filter) {
 
     function getmodules() {
         var response = ModuleService.getmodules();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -22,11 +22,11 @@ app.controller('ModuleController', function ($scope, ModuleService, $filter) {
         });
     }
 
-    $scope.savemodule = function () {
+    $scope.savemodule = function() {
         $scope.editmodule;
         if ($scope.editmodule.id == 0) {
             var response = ModuleService.savemodule($scope.editmodule);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getmodules();
@@ -36,7 +36,7 @@ app.controller('ModuleController', function ($scope, ModuleService, $filter) {
             });
         } else {
             var response = ModuleService.updatemodule($scope.editmodule);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getmodules();
@@ -47,9 +47,9 @@ app.controller('ModuleController', function ($scope, ModuleService, $filter) {
         }
     };
 
-    $scope.deletemodule = function () {
+    $scope.deletemodule = function() {
         var response = ModuleService.deletemodule($scope.editmodule);
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -62,7 +62,7 @@ app.controller('ModuleController', function ($scope, ModuleService, $filter) {
         });
     };
 
-    $scope.selectedmodule = function (module, option) {
+    $scope.selectedmodule = function(module, option) {
         $scope.moduleselected = module;
         $scope.editmodule = angular.copy($scope.moduleselected);
         $scope.editmodule.state = 2;
@@ -72,13 +72,13 @@ app.controller('ModuleController', function ($scope, ModuleService, $filter) {
         }
     };
 
-    $scope.validatecontrols = function () {
+    $scope.validatecontrols = function() {
         return $scope.editmodule == null
             || $scope.editmodule.class == null || $scope.editmodule.title == null
             || ($scope.editmodule.title != null && $scope.editmodule.title.length < 3);
     };
 
-    $scope.newmodule = function () {
+    $scope.newmodule = function() {
         datamodule();
     };
 });

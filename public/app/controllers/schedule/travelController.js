@@ -1,4 +1,4 @@
-app.controller('TravelController', function ($scope, TravelService, CourseService) {
+app.controller('TravelController', function($scope, TravelService, CourseService) {
     init();
     function init() {
         getcourses();
@@ -18,7 +18,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
 
     function gettravels() {
         var response = TravelService.gettravels();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -28,7 +28,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
 
     function getcourses() {
         var response = CourseService.getcourses();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -38,7 +38,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         });
     }
 
-    $scope.savetravel = function () {
+    $scope.savetravel = function() {
         $scope.edittravel;
         $scope.edittravel.idcourse = $scope.selectedcourse.id;
         $scope.edittravel.arrival = $("#arrival").val();
@@ -46,7 +46,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
 
         if ($scope.edittravel.id == 0) {
             var response = TravelService.savetravel($scope.edittravel);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     gettravels();
@@ -56,7 +56,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
             });
         } else {
             var response = TravelService.updatetravel($scope.edittravel);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     gettravels();
@@ -68,9 +68,9 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         datatravel();
     };
 
-    $scope.deletetravel = function () {
+    $scope.deletetravel = function() {
         var response = TravelService.deletetravel($scope.edittravel);
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeletetravel").modal("hide");
@@ -81,7 +81,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         });
     };
 
-    $scope.selectedtravel = function (travel, option) {
+    $scope.selectedtravel = function(travel, option) {
         $scope.travelselected = travel;
         $scope.edittravel = angular.copy($scope.travelselected);
         $scope.edittravel.state = 2;
@@ -98,7 +98,7 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
         }
     };
 
-    $scope.validatecontrols = function () {
+    $scope.validatecontrols = function() {
         return $scope.edittravel == null || $scope.edittravel.numberid == null
             || ($scope.edittravel.numberid != null && $scope.edittravel.numberid.length < 4)
             || $("#arrival").val() == null
@@ -108,11 +108,11 @@ app.controller('TravelController', function ($scope, TravelService, CourseServic
             || $scope.selectedcourse == null;
     };
 
-    $scope.newtravel = function () {
+    $scope.newtravel = function() {
         datatravel();
     };
 
-    $scope.selectecoursechange = function () {
+    $scope.selectecoursechange = function() {
         $scope.edittravel.numberid = ($scope.selectedcourse.numberid);
     };
 

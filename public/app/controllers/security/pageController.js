@@ -68,7 +68,7 @@ app.controller('PageController', function ($scope, PageService, ModuleService) {
         response.then(function (res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
-                $("#modaldeletepage").modal("hide");                
+                $("#modaldeletepage").modal("hide");
                 datapage();
                 getpages();
                 toastr.success(res.message);

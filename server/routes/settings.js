@@ -4,8 +4,10 @@ var router = express.Router();
 var common = require('./common');
 
 router.post('/create', function (request, response) {
-    models.Role.create({
-        title: request.body.title
+    models.Setting.create({
+        title: request.body.title,
+        numberid: request.body.numberid,
+        note: request.body.note,
     }).then(function (res) {
         response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
@@ -14,8 +16,10 @@ router.post('/create', function (request, response) {
 });
 
 router.post('/update', function (request, response) {
-    models.Role.update({
-        title: request.body.title
+    models.Setting.update({
+        title: request.body.title,
+        numberid: request.body.numberid,
+        note: request.body.note,
     }, {
             where: { id: request.body.id }
         }).then(function (res) {
@@ -26,18 +30,8 @@ router.post('/update', function (request, response) {
 });
 
 router.get('/', function (request, response) {
-    models.Role.findAll().then(function (res) {
+    models.Setting.findAll().then(function (res) {
         response.send(common.response(res));
-    }).catch(function (err) {
-        response.send(common.response(err.code, err.message, false));
-    });
-});
-
-router.post('/destroy', function (request, response) {
-    models.Role.destroy({
-        where: { id: request.body.id }
-    }).then(function () {
-        response.send(common.response("", "Se elimino correctamente"));
     }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
     });

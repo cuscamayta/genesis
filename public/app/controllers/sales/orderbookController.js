@@ -1,4 +1,4 @@
-app.controller('OrderbookController', function ($scope, OrderbookService, OfficeService) {
+app.controller('OrderbookController', function($scope, OrderbookService, OfficeService) {
     init();
     function init() {
         getoffices();
@@ -9,7 +9,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
             locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function (ev, picker) {
+        }).on('apply.daterangepicker', function(ev, picker) {
             $scope.editorderbook.dateofissue = picker.startDate.format('DD/MM/YYYY');
         });
 
@@ -17,7 +17,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
             locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function (ev, picker) {
+        }).on('apply.daterangepicker', function(ev, picker) {
             $scope.editorderbook.deadline = picker.startDate.format('DD/MM/YYYY');
         });
     }
@@ -32,7 +32,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
 
     function getorderbooks() {
         var response = OrderbookService.getorderbooks();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -42,7 +42,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
 
     function getoffices() {
         var response = OfficeService.getoffices();
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -52,7 +52,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
         });
     }
 
-    $scope.saveorderbook = function () {
+    $scope.saveorderbook = function() {
         $scope.editorderbook;
         $scope.editorderbook.idoffice = $scope.selectedoffice.id;
         $scope.editorderbook.type = $("#type").val();
@@ -60,7 +60,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
 
         if ($scope.editorderbook.id == 0) {
             var response = OrderbookService.saveorderbook($scope.editorderbook);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getorderbooks();
@@ -70,7 +70,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
             });
         } else {
             var response = OrderbookService.updateorderbook($scope.editorderbook);
-            response.then(function (res) {
+            response.then(function(res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     getorderbooks();
@@ -83,9 +83,9 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
         dataorderbook();
     };
 
-    $scope.deleteorderbook = function () {
+    $scope.deleteorderbook = function() {
         var response = OrderbookService.deleteorderbook($scope.editorderbook);
-        response.then(function (res) {
+        response.then(function(res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeleteorderbook").modal("hide");
@@ -96,7 +96,7 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
         });
     };
 
-    $scope.selectedorderbook = function (orderbook, option) {
+    $scope.selectedorderbook = function(orderbook, option) {
         $scope.orderbookselected = orderbook;
         $scope.editorderbook = angular.copy($scope.orderbookselected);
         $scope.editorderbook.state = 2;
@@ -113,17 +113,15 @@ app.controller('OrderbookController', function ($scope, OrderbookService, Office
         }
     };
 
-    $scope.validatecontrols = function () {
+    $scope.validatecontrols = function() {
         return $scope.editorderbook == null || $scope.editorderbook.numberorder == null
             || ($scope.editorderbook.numberorder != null && $scope.editorderbook.numberorder.length < 4)
-            || $scope.editorderbook.controlkey == null || $scope.editorderbook.numberinit == null
-            || $scope.editorderbook.numberend == null || $scope.editorderbook.numberinvoice == null
-            || $scope.editorderbook.numberid == null || $scope.selectedoffice == null
+            || $scope.editorderbook.controlkey == null || $scope.selectedoffice == null
             || $scope.editorderbook.deadline == null || $scope.editorderbook.dateofissue == null
             || $("#type").val() == null || $("#status").val() == null;
     };
 
-    $scope.neworderbook = function () {
+    $scope.neworderbook = function() {
         dataorderbook();
     };
 });
