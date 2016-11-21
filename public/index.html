@@ -47,12 +47,14 @@
 					<br />
 
 					<!-- sidebar menu -->
-					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu" >
+					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<h3>Menu</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-home"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
+										<li><a href="#/module">Módulo</a></li>
+										<li><a href="#/page">Página</a></li>
 										<li><a href="#/role">Rol</a></li>
 										<li><a href="#/user">Usuario</a></li>
 									</ul>
@@ -272,9 +274,13 @@
 
 	<!--Controller and Services-->
 	<script src="app/controllers/home/homeController.js"></script>
+	<script src="app/services/home/homeService.js"></script>
 	<script src="app/controllers/home/loginController.js"></script>
 	<script src="app/services/home/loginService.js"></script>
-	<script src="app/services/home/homeService.js"></script>
+	<script src="app/services/security/moduleService.js"></script>
+	<script src="app/controllers/security/moduleController.js"></script>
+	<script src="app/services/security/pageService.js"></script>
+	<script src="app/controllers/security/pageController.js"></script>
 	<script src="app/services/security/userService.js"></script>
 	<script src="app/controllers/security/userController.js"></script>
 	<script src="app/services/security/roleService.js"></script>

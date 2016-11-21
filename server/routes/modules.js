@@ -4,8 +4,9 @@ var router = express.Router();
 var common = require('./common');
 
 router.post('/create', function (request, response) {
-    models.Role.create({
-        title: request.body.title
+    models.Module.create({
+        title: request.body.title,
+        class: request.body.class
     }).then(function (res) {
         response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
@@ -14,8 +15,9 @@ router.post('/create', function (request, response) {
 });
 
 router.post('/update', function (request, response) {
-    models.Role.update({
-        title: request.body.title
+    models.Module.update({
+        title: request.body.title,
+        class: request.body.class
     }, {
             where: { id: request.body.id }
         }).then(function (res) {
@@ -25,8 +27,8 @@ router.post('/update', function (request, response) {
         });
 });
 
-router.get('/', common.isAuthenticate, function (request, response) {
-    models.Role.findAll().then(function (res) {
+router.get('/', function (request, response) {
+    models.Module.findAll().then(function (res) {
         response.send(common.response(res));
     }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
@@ -34,7 +36,7 @@ router.get('/', common.isAuthenticate, function (request, response) {
 });
 
 router.post('/destroy', function (request, response) {
-    models.Role.destroy({
+    models.Module.destroy({
         where: { id: request.body.id }
     }).then(function () {
         response.send(common.response("", "Se elimino correctamente"));

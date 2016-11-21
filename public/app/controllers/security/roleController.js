@@ -5,8 +5,6 @@ app.controller('RoleController', function ($scope, RoleService, $filter) {
         datarole();
     }
 
-    $scope.currentPage = 1;
-    $scope.pageSize = 10;
     function datarole() {
         $scope.editrole = {
             id: 0,

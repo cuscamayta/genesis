@@ -3,6 +3,8 @@
 module.exports = function (app) {	
  	app.use('/users', require('./server/routes/users'));
 	app.use('/roles', require('./server/routes/roles'));
+	app.use('/modules', require('./server/routes/modules'));
+	app.use('/pages', require('./server/routes/pages'));
 	app.use('/drivertypes', require('./server/routes/drivertypes'));
 	app.use('/drivers', require('./server/routes/drivers'));
 	app.use('/bustypes', require('./server/routes/bustypes'));

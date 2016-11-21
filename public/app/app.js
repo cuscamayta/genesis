@@ -14,6 +14,14 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'RoleController',
             templateUrl: 'app/partials/security/role.html'
         })
+        .when('/page', {
+            controller: 'PageController',
+            templateUrl: 'app/partials/security/page.html'
+        })
+        .when('/module', {
+            controller: 'ModuleController',
+            templateUrl: 'app/partials/security/module.html'
+        })
         .when('/drivertype', {
             controller: 'DrivertypeController',
             templateUrl: 'app/partials/driver/drivertype.html'
