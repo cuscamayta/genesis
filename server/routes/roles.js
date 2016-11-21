@@ -3,42 +3,43 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function (request, response) {
+router.post('/create', function(request, response) {
     models.Role.create({
         title: request.body.title
-    }).then(function (res) {
+    }).then(function(res) {
         response.send(common.response(res, "Se guardo correctamente"));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', function(request, response) {
     models.Role.update({
         title: request.body.title
     }, {
             where: { id: request.body.id }
-        }).then(function (res) {
+        }).then(function(res) {
             response.send(common.response(res, "Se guardo correctamente"));
-        }).catch(function (err) {
+        }).catch(function(err) {
             response.send(common.response(err.code, err.message, false));
         });
 });
 
-router.get('/', function (request, response) {
-    models.Role.findAll().then(function (res) {
+//router.get('/', common.isAuthenticate, function (request, response) {
+router.get('/', function(request, response) {
+    models.Role.findAll().then(function(res) {
         response.send(common.response(res));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', function(request, response) {
     models.Role.destroy({
         where: { id: request.body.id }
-    }).then(function () {
+    }).then(function() {
         response.send(common.response("", "Se elimino correctamente"));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });

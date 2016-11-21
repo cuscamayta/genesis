@@ -59,12 +59,12 @@ function createdetailsales(request, i, tic, res) {
   };
 }
 
-function codecontrol(request, numberinvoice) {
+function codecontrol(request, numberinvoice, numbernit, controlkey) {
   var dateinvoice = request.body.dateregister.split("/")[2] + request.body.dateregister.split("/")[1] + request.body.dateregister.split("/")[0];
 
   return invoice.generateControlCode(
-    request.body.numberorder.toString(), numberinvoice, request.body.numbernit,
-    dateinvoice, request.body.amountinvoice, request.body.controlkey
+    request.body.numberorder.toString(), numberinvoice, numbernit,
+    dateinvoice, request.body.amountinvoice, controlkey
   );
 }
 
@@ -79,44 +79,40 @@ router.post('/create', function (request, response) {
 
   return models.sequelize.transaction(function (t) {
 
-    /*$scope.headerticket.numberorder = 700400168524;
-         $scope.headerticket.numbernit = 123;
-         $scope.headerticket.type = 1;
-         $scope.headerticket.controlkey = "21a2s545as4df654s";*/
+    return models.Setting.findOne({ transaction: t }).then(function (setting) {
+      return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type: 1 } }, { transaction: t }).then(function (orderbook) {
+        var datesInvoice = getdatesinvoice(orderbook, request);
 
+        if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
+          throw new Error("Libro de ordenes vencido");
+        } else {
+          return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function (nroinvoice) {
+            if (!nroinvoice) nroinvoice = 0
+            var numberinvoice = (nroinvoice + 1), controlcode = codecontrol(request, numberinvoice, setting.numberid, orderbook.controlkey);
 
-    return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type : 2 } }, { transaction: t }).then(function (orderbook) {
-      var datesInvoice = getdatesinvoice(orderbook, request);
+            return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice), { transaction: t }).then(function (salebook) {
+              return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
+                var ticketpromises = [];
 
-      if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
-        throw new Error("Libro de ordenes vencido");
-      } else {
-        return models.Salesbook.max('numberinvoice', { where: { numberorder: request.body.numberorder } }, { transaction: t }).then(function (nroinvoice) {
-          if (!nroinvoice) nroinvoice = 0
-          var numberinvoice = (nroinvoice + 1), controlcode = codecontrol(request, numberinvoice);
-
-          return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice), { transaction: t }).then(function (salebook) {
-            return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
-              var ticketpromises = [];
-
-              for (var i = 0; i < request.body.details.length; i++) {
-                var ticketpromise = models.Ticket.create(createticket(request, i), { transaction: t });
-                ticketpromises.push(ticketpromise);
-              }
-
-              return Promise.all(ticketpromises).then(function (tickets) {
-                var salesdetailpromises = [];
-                for (var i = 0; i < tickets.length; i++) {
-
-                  var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
-                  salesdetailpromises.push(salesdetailpromise, { transaction: t });
+                for (var i = 0; i < request.body.details.length; i++) {
+                  var ticketpromise = models.Ticket.create(createticket(request, i), { transaction: t });
+                  ticketpromises.push(ticketpromise);
                 }
-                return Promise.all(salesdetailpromises);
+
+                return Promise.all(ticketpromises).then(function (tickets) {
+                  var salesdetailpromises = [];
+                  for (var i = 0; i < tickets.length; i++) {
+
+                    var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
+                    salesdetailpromises.push(salesdetailpromise, { transaction: t });
+                  }
+                  return Promise.all(salesdetailpromises);
+                });
               });
             });
           });
-        });
-      }
+        }
+      });
     });
 
   }).then(function (result) {
