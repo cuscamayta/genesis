@@ -3,19 +3,19 @@ app.service('SaleService', function ($http, $q) {
     init();
 
     function init() {
-    }
+    }   
 
-    this.savesalesbook = function (salesbook) {
+    this.getsales = function () {
         var defer = $q.defer();
-        $http.post('/sales/create', salesbook).success(function (response) {
+        $http.post('/sales').success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;
     };
 
-    this.getsales = function () {
+    this.getdailycash = function (filters) {
         var defer = $q.defer();
-        $http.post('/sales').success(function (response) {
+        $http.post('/sales/dailycash', filters).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

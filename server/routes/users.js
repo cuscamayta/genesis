@@ -48,6 +48,17 @@ router.get('/', function (request, response) {
   });
 });
 
+router.get('/forselect', function (request, response) {
+  models.User.findAll({
+    attributes: ["id", "username", "firstname", "lastname"],
+    order: ["firstname", "lastname"]
+  }).then(function (res) {
+    response.send(common.response(res));
+  }).catch(function (err) {
+    response.send(common.response(err.code, err.message, false));
+  });
+});
+
 router.post('/destroy', function (request, response) {
   models.User.destroy({
     where: { id: request.body.id }

@@ -82,6 +82,18 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'TicketController',
             templateUrl: 'app/partials/sales/ticket.html'
         })
+        .when('/manifest', {
+            controller: 'ManifestController',
+            templateUrl: 'app/partials/manifest/manifest.html'
+        })
+        .when('/baggage', {
+            controller: 'ManifestController',
+            templateUrl: 'app/partials/manifest/baggage.html'
+        })
+        .when('/dailycash', {
+            controller: 'DailycashController',
+            templateUrl: 'app/partials/report/dailycash.html'
+        })
         .when('/login', {
             controller: 'LoginController',
             templateUrl: 'app/partials/home/login.html'
@@ -89,7 +101,7 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/route/:id', {
             controller: 'HomeController',
             templateUrl: '/routepartial'
-        })
+        })        
 
         .otherwise({
             redirectTo: '/'

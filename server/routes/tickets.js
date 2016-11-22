@@ -5,10 +5,10 @@ var common = require('./common');
 var invoice = require('./codecontrol');
 var moment = require("moment");
 
-function createsalesbook(request, codecontrol, numberinvoice) {
+function createsalesbook(request, codecontrol, numberinvoice, numberorder, typeorder, idorderbook) {
   return {
-    type: request.body.type,
-    numberorder: request.body.numberorder,
+    type: typeorder,
+    numberorder: numberorder,
     numbercontrol: codecontrol,
     numberid: request.body.numbernitinvoice,
     fullname: request.body.nameinvoice,
@@ -18,8 +18,9 @@ function createsalesbook(request, codecontrol, numberinvoice) {
     amountinvoiceice: 0,
     amountinvoiceexento: 0,
     amountinvoicenet: (request.body.amountinvoice - (request.body.amountinvoice * 0.13)),
-    amountoftax: (request.body.amountinvoice * 0.13)
-
+    amountoftax: (request.body.amountinvoice * 0.13),
+    idoffice: request.body.idoffice,
+    idorderbook: idorderbook
   };
 }
 
@@ -28,10 +29,12 @@ function createsale(request, res) {
     dateregister: request.body.dateregister,
     arrival: request.body.arrival,
     departure: request.body.departure,
+    total: request.body.amountinvoice,
     detail: request.body.detail,
     idsalesbook: res.id,
     idschedule: request.body.idschedule,
-    iduser: request.body.iduser
+    iduser: request.body.iduser,
+    idoffice: request.body.idoffice,
   };
 }
 
@@ -45,7 +48,8 @@ function createticket(request, i) {
     weightbaggage: request.body.details[i].weightbaggage,
     idbus: request.body.details[i].idbus,
     idschedule: request.body.details[i].idschedule,
-    iduser: request.body.iduser
+    iduser: request.body.iduser,
+    idoffice: request.body.idoffice,
   };
 }
 
@@ -59,12 +63,11 @@ function createdetailsales(request, i, tic, res) {
   };
 }
 
-function codecontrol(request, numberinvoice, numbernit, controlkey) {
+function getcodecontrol(request, numberorder, numberinvoice, numbernit, controlkey) {
   var dateinvoice = request.body.dateregister.split("/")[2] + request.body.dateregister.split("/")[1] + request.body.dateregister.split("/")[0];
 
   return invoice.generateControlCode(
-    request.body.numberorder.toString(), numberinvoice, numbernit,
-    dateinvoice, request.body.amountinvoice, controlkey
+    numberorder, numberinvoice, numbernit, dateinvoice, request.body.amountinvoice, controlkey
   );
 }
 
@@ -88,9 +91,9 @@ router.post('/create', function (request, response) {
         } else {
           return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function (nroinvoice) {
             if (!nroinvoice) nroinvoice = 0
-            var numberinvoice = (nroinvoice + 1), controlcode = codecontrol(request, numberinvoice, setting.numberid, orderbook.controlkey);
+            var numberinvoice = (nroinvoice + 1), controlcode = getcodecontrol(request, orderbook.numberorder, numberinvoice, setting.numberid, orderbook.controlkey);
 
-            return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice), { transaction: t }).then(function (salebook) {
+            return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice, orderbook.numberorder, orderbook.type, orderbook.id), { transaction: t }).then(function (salebook) {
               return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
                 var ticketpromises = [];
 
@@ -135,6 +138,17 @@ router.post('/destroy', function (request, response) {
     where: { id: request.body.id }
   }).then(function () {
     response.send(common.response("", "Se elimino correctamente"));
+  }).catch(function (err) {
+    response.send(common.response(err.code, err.message, false));
+  });
+});
+
+router.post('/formanifest', function (request, response) {
+  models.Ticket.findAll({
+    include: [{ model: models.Bus }, { model: models.Schedule }], where: { idschedule: request.body.id },
+    order: 'number ASC'
+  }).then(function (res) {
+    response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
   });

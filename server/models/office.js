@@ -13,6 +13,9 @@ module.exports = function (sequelize, DataTypes) {
           Office.belongsTo(models.Destination, { foreignKey: "idorigin" });
           Office.hasMany(models.Useroffice, { foreignKey: 'idoffice' });
           Office.hasMany(models.Orderbook, { foreignKey: 'idoffice' });
+          Office.hasMany(models.Sale, { foreignKey: 'idoffice' });
+          Office.hasMany(models.Salesbook, { foreignKey: 'idoffice' });
+          Office.hasMany(models.Ticket, { foreignKey: 'idoffice' });
         }
       }
     }

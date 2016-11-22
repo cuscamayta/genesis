@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         arrival: { type: DataTypes.STRING, allowNull: false },
         departure: { type: DataTypes.STRING, allowNull: false },
+        total: { type: DataTypes.DECIMAL(10,2), allowNull: false },
         detail: { type: DataTypes.STRING, allowNull: true }
     },
         {
@@ -24,6 +25,7 @@ module.exports = function (sequelize, DataTypes) {
                     Sale.belongsTo(models.Salesbook, { foreignKey: "idsalesbook" });
                     Sale.belongsTo(models.Schedule, { foreignKey: "idschedule" });
                     Sale.belongsTo(models.User, { foreignKey: "iduser" });
+                    Sale.belongsTo(models.Office, { foreignKey: "idoffice" });
                     Sale.hasMany(models.Salesdetail, { foreignKey: "idsale" });
                 }
             }

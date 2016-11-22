@@ -56,6 +56,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     }
 
     $scope.saveticket = function () {
+        debugger;
         $scope.headerticket;
         $scope.headerticket.idschedule = $scope.selectedschedule.id;
         $scope.headerticket.arrival = $scope.selectedschedule.arrival;
@@ -98,6 +99,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.newticketdetail = function () {
+        debugger;
         $scope.detailticket = {};
         $scope.selectedseat.status = 1;
         $scope.detailticket.numberseat = $scope.selectedseat.number;
