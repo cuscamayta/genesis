@@ -4,7 +4,7 @@ var common = require('../routes/common');
 
 module.exports = function (sequelize, DataTypes) {
   var Salesbook = sequelize.define("Salesbook", {
-    type: { type: DataTypes.INTEGER, allowNull: false },
+    type: { type: DataTypes.INTEGER(4), allowNull: false },
     numberorder: { type: DataTypes.STRING, allowNull: false },
     numbercontrol: { type: DataTypes.STRING, allowNull: false, unique: true },
     numberid: {
@@ -32,7 +32,8 @@ module.exports = function (sequelize, DataTypes) {
     amountinvoiceice: { type: DataTypes.DECIMAL, allowNull: false },
     amountinvoiceexento: { type: DataTypes.DECIMAL, allowNull: false },
     amountinvoicenet: { type: DataTypes.DECIMAL, allowNull: false },
-    amountoftax: { type: DataTypes.DECIMAL, allowNull: false }
+    amountoftax: { type: DataTypes.DECIMAL, allowNull: false },
+    status: { type: DataTypes.INTEGER(4), allowNull: false }
   },
     {
       classMethods: {

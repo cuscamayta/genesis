@@ -4,7 +4,7 @@ var router = express.Router();
 var common = require('./common');
 var jwt = require("jsonwebtoken");
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
   var token = jwt.sign(request.body, "AIzaSyAQfxPJiounkhOjODEO5ZieffeBv6yft2Q");
   models.User.create({
     username: request.body.username,
@@ -21,7 +21,7 @@ router.post('/create', function (request, response) {
   });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
   models.User.update({
     username: request.body.username,
     firstname: request.body.firstname,
@@ -38,7 +38,7 @@ router.post('/update', function (request, response) {
     });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
   models.User.findAll({
     include: [models.Role]
   }).then(function (res) {
@@ -48,7 +48,7 @@ router.get('/', function (request, response) {
   });
 });
 
-router.get('/forselect', function (request, response) {
+router.get('/forselect', common.isAuthenticate, function (request, response) {
   models.User.findAll({
     attributes: ["id", "username", "firstname", "lastname"],
     order: ["firstname", "lastname"]
@@ -59,7 +59,7 @@ router.get('/forselect', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', common.isAuthenticate, function (request, response) {
   models.User.destroy({
     where: { id: request.body.id }
   }).then(function () {

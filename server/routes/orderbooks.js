@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
   models.Orderbook.create({
     type: request.body.type,
     status: request.body.status,
@@ -19,7 +19,7 @@ router.post('/create', function (request, response) {
   });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
   models.Orderbook.update({
     type: request.body.type,
     status: request.body.status,
@@ -37,7 +37,7 @@ router.post('/update', function (request, response) {
     });
 });
 
-router.post('/updatestatus', function (request, response) {
+router.post('/updatestatus', common.isAuthenticate, function (request, response) {
   models.Orderbook.update({
     status: request.body.status,
   }, {
@@ -49,7 +49,7 @@ router.post('/updatestatus', function (request, response) {
     });
 });
 
-router.post('/updatenumberinvoice', function (request, response) {
+router.post('/updatenumberinvoice', common.isAuthenticate, function (request, response) {
   models.Orderbook.update({
     numberinvoice: request.body.numberinvoice,
   }, {
@@ -61,7 +61,7 @@ router.post('/updatenumberinvoice', function (request, response) {
     });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
   models.Orderbook.findAll({
     include: [models.Office]
   }).then(function (res) {
@@ -71,7 +71,7 @@ router.get('/', function (request, response) {
   });
 });
 
-router.post('/getbyid', function (request, response) {
+router.post('/getbyid', common.isAuthenticate, function (request, response) {
   models.Orderbook.findOne({
     where: { id: request.body.id }
   }).then(function (res) {
@@ -81,7 +81,7 @@ router.post('/getbyid', function (request, response) {
   });
 });
 
-router.post('/getbystatusandtype', function (request, response) {
+router.post('/getbystatusandtype', common.isAuthenticate, function (request, response) {
   models.Orderbook.findOne({
     where: { status: request.body.status, type: request.body.type }
   }).then(function (res) {
@@ -91,7 +91,7 @@ router.post('/getbystatusandtype', function (request, response) {
   });
 });
 
-router.post('/getbynumberinvoiceandnumberorder', function (request, response) {
+router.post('/getbynumberinvoiceandnumberorder', common.isAuthenticate, function (request, response) {
   models.Orderbook.findOne({
     where: { numberorder: request.body.numberorder, numberinvoice: request.body.numberinvoice }
   }).then(function (res) {
@@ -101,7 +101,7 @@ router.post('/getbynumberinvoiceandnumberorder', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', common.isAuthenticate, function (request, response) {
   models.Orderbook.destroy({
     where: { id: request.body.id }
   }).then(function () {

@@ -56,7 +56,6 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     }
 
     $scope.saveticket = function () {
-        debugger;
         $scope.headerticket;
         $scope.headerticket.idschedule = $scope.selectedschedule.id;
         $scope.headerticket.arrival = $scope.selectedschedule.arrival;
@@ -99,9 +98,8 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.newticketdetail = function () {
-        debugger;
         $scope.detailticket = {};
-        $scope.selectedseat.status = 1;
+        $scope.selectedseat.available = 1;
         $scope.detailticket.numberseat = $scope.selectedseat.number;
         $scope.detailticket.numberid = $scope.numberidcustomer.toUpperCase();
         $scope.detailticket.fullName = $scope.namecustomer.toUpperCase();
@@ -119,7 +117,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.deleteticketdetail = function (item) {
-        $scope.selectedseat.status = 0;
+        $scope.selectedseat.available = 0;
         $scope.listtickets.remove(item);
         $scope.sumTotal = $scope.listtickets.sum(function (item) {
             return item.price;
@@ -143,9 +141,9 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
 
             $scope.seatlist.number = i + 1;
             if (n.length == 0) {
-                $scope.seatlist.status = 0;
+                $scope.seatlist.available = 0;
             } else {
-                $scope.seatlist.status = 1;
+                $scope.seatlist.available = 1;
             }
             $scope.listseats.push($scope.seatlist);
         }
@@ -155,7 +153,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
     };
 
     $scope.selectedticketseat = function (item) {
-        if (item.status == 0) {
+        if (item.available == 0) {
             $scope.selectedseat = item;
             $scope.numberidcustomer = null;
             $scope.namecustomer = null;

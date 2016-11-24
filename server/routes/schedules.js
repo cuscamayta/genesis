@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
   return models.sequelize.transaction(function (t) {
     return models.Schedule.create({
       dateregister: request.body.dateregister,
@@ -30,7 +30,7 @@ router.post('/create', function (request, response) {
 });
 
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
   return models.sequelize.transaction(function (t) {
     return models.Schedule.update({
       dateregister: request.body.dateregister,
@@ -63,7 +63,7 @@ router.post('/update', function (request, response) {
   });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
   models.Schedule.findAll({
     include: [{ model: models.Scheduledetail, include: [models.Driver] }, { model: models.Bus }, { model: models.Travel }]
   }).then(function (res) {
@@ -73,11 +73,9 @@ router.get('/', function (request, response) {
   });
 });
 
-router.post('/forselect', function (request, response) {
+router.post('/forselect', common.isAuthenticate, function (request, response) {
   models.Schedule.findAll({
-    include: [
-      { model: models.Bus }, { model: models.Ticket }
-    ], where: { idtravel: request.body.id },
+    include: [{ model: models.Bus }, { model: models.Ticket, where: { status: 1} }], where: { idtravel: request.body.id },
     order: 'dateregister DESC'
   }).then(function (res) {
     response.send(common.response(res));
@@ -86,7 +84,7 @@ router.post('/forselect', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', common.isAuthenticate, function (request, response) {
   return models.sequelize.transaction(function (t) {
     return models.Scheduledetail.destroy({
       where: { idschedule: request.body.id }

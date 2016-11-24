@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
   models.Office.create({
     title: request.body.title,
     address: request.body.address,
@@ -17,7 +17,7 @@ router.post('/create', function (request, response) {
   });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
   models.Office.update({
     title: request.body.title,
     address: request.body.address,
@@ -33,7 +33,7 @@ router.post('/update', function (request, response) {
     });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
   models.Office.findAll({
     include: [{ model: models.Destination }]
   }).then(function (res) {
@@ -43,7 +43,7 @@ router.get('/', function (request, response) {
   });
 });
 
-router.get('/forselect', function (request, response) {
+router.get('/forselect', common.isAuthenticate, function (request, response) {
   models.Office.findAll({
     attributes: ["id", "title"]
   }).then(function (res) {
@@ -53,7 +53,7 @@ router.get('/forselect', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', common.isAuthenticate, function (request, response) {
   models.Office.destroy({
     where: { id: request.body.id }
   }).then(function () {

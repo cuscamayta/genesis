@@ -2,22 +2,13 @@
 
     init();
 
-    function init() {
-    }
+    function init() { }
 
-    this.getsalesbooks = function () {
+    this.getsalesbooksforselect = function (filters) {
         var defer = $q.defer();
-        $http.get('/salesbooks').success(function (response) {
+        $http.post('/salesbooks/forselect', filters).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;
-    };
-
-    this.deletesalesbook = function (salesbook) {
-        var defer = $q.defer();
-        $http.post('/salesbooks/destroy', salesbook).success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
+    };    
 });

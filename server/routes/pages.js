@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function(request, response) {
+router.post('/create', common.isAuthenticate, function(request, response) {
     models.Page.create({
         title: request.body.title,
         path: request.body.path,
@@ -15,7 +15,7 @@ router.post('/create', function(request, response) {
     });
 });
 
-router.post('/update', function(request, response) {
+router.post('/update', common.isAuthenticate, function(request, response) {
     models.Page.update({
         title: request.body.title,
         path: request.body.path,
@@ -29,7 +29,7 @@ router.post('/update', function(request, response) {
         });
 });
 
-router.get('/', function(request, response) {
+router.get('/', common.isAuthenticate, function(request, response) {
     models.Page.findAll({
         include: [{ model: models.Module }]
     }).then(function(res) {
@@ -39,7 +39,7 @@ router.get('/', function(request, response) {
     });
 });
 
-router.post('/destroy', function(request, response) {
+router.post('/destroy', common.isAuthenticate, function(request, response) {
     models.Page.destroy({
         where: { id: request.body.id }
     }).then(function() {

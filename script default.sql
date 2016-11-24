@@ -9,8 +9,6 @@ insert into database_production.modules (title, class, createdat, updatedat) val
 
 select * from database_production.pages;
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Ajustes', 'setting', now(), now(),1);
-insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Módulo', 'module', now(), now(),1);
-insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Página', 'page', now(), now(),1);
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Rol', 'role', now(), now(),1);
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Usuario', 'user', now(), now(),1);
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Permisos', 'permit', now(), now(),1);
@@ -29,9 +27,10 @@ insert into database_production.pages (title, path, createdat, updatedat, idmodu
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Programación diaria', 'schedule', now(), now(),3);
 
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Ticket', 'ticket', now(), now(),4);
+insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Anular factura', 'invalidate', now(), now(),4);
 
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Manifiestos de pasajeros', 'manifest', now(), now(),5);
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Manifiestos de equipajes', 'baggage', now(), now(),5);
 
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Ventas diarias', '', now(), now(),6);
-insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Arqueo de caja', '', now(), now(),6);
+insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Arqueo de caja', 'dailycash', now(), now(),6);

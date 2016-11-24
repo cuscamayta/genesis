@@ -4,7 +4,7 @@ var router = express.Router();
 var common = require('./common');
 var sequelize = require('sequelize');
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
   models.Driver.create({
     numberid: request.body.numberid,
     firstname: request.body.firstname,
@@ -18,7 +18,7 @@ router.post('/create', function (request, response) {
   });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
   models.Driver.update({
     numberid: request.body.numberid,
     firstname: request.body.firstname,
@@ -34,7 +34,7 @@ router.post('/update', function (request, response) {
     });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
   models.Driver.findAll({
     include: [{ model: models.Drivertype }]
   }).then(function (res) {
@@ -44,7 +44,7 @@ router.get('/', function (request, response) {
   });
 });
 
-router.get('/forselect', function (request, response) {
+router.get('/forselect', common.isAuthenticate, function (request, response) {
   models.Driver.findAll({
     attributes: ["id", "firstname", "lastname"],
     order: [["firstname", "ASC"]]
@@ -55,7 +55,7 @@ router.get('/forselect', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', common.isAuthenticate, function (request, response) {
   models.Driver.destroy({
     where: { id: request.body.id }
   }).then(function () {

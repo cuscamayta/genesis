@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
   models.Bus.create({
     numberid: request.body.numberid,
     numberseats: request.body.numberseats,
@@ -21,7 +21,7 @@ router.post('/create', function (request, response) {
   });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
   models.Bus.update({
     numberid: request.body.numberid,
     numberseats: request.body.numberseats,
@@ -41,7 +41,7 @@ router.post('/update', function (request, response) {
     });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
   models.Bus.findAll({
     include: [{ model: models.Bustype }]
   }).then(function (res) {
@@ -51,7 +51,7 @@ router.get('/', function (request, response) {
   });
 });
 
-router.get('/forselect', function (request, response) {
+router.get('/forselect', common.isAuthenticate, function (request, response) {
   models.Bus.findAll({
     attributes: ["id", "numberid"]
   }).then(function (res) {
@@ -61,7 +61,7 @@ router.get('/forselect', function (request, response) {
   });
 });
 
-router.post('/destroy', function (request, response) {
+router.post('/destroy', common.isAuthenticate, function (request, response) {
   models.Bus.destroy({
     where: { id: request.body.id }
   }).then(function () {

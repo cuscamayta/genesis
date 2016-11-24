@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function(request, response) {
+router.post('/create', common.isAuthenticate, function(request, response) {
     models.Permit.create({
         idrole: request.body.idrole,
         idpage: request.body.idpage
@@ -14,7 +14,7 @@ router.post('/create', function(request, response) {
     });
 });
 
-router.get('/', function(request, response) {
+router.get('/', common.isAuthenticate, function(request, response) {
     models.Permit.findAll({
         include: [{ model: models.Role }, { model: models.Page }]
     }).then(function(res) {
@@ -24,7 +24,7 @@ router.get('/', function(request, response) {
     });
 });
 
-router.post('/destroy', function(request, response) {
+router.post('/destroy', common.isAuthenticate, function(request, response) {
     models.Permit.destroy({
         where: { id: request.body.id }
     }).then(function() {

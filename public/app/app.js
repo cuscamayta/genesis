@@ -82,6 +82,10 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'TicketController',
             templateUrl: 'app/partials/sales/ticket.html'
         })
+        .when('/invalidate', {
+            controller: 'InvalidateController',
+            templateUrl: 'app/partials/sales/invalidate.html'
+        })
         .when('/manifest', {
             controller: 'ManifestController',
             templateUrl: 'app/partials/manifest/manifest.html'

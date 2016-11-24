@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/create', function (request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
     models.Setting.create({
         title: request.body.title,
         numberid: request.body.numberid,
@@ -15,7 +15,7 @@ router.post('/create', function (request, response) {
     });
 });
 
-router.post('/update', function (request, response) {
+router.post('/update', common.isAuthenticate, function (request, response) {
     models.Setting.update({
         title: request.body.title,
         numberid: request.body.numberid,
@@ -29,7 +29,7 @@ router.post('/update', function (request, response) {
         });
 });
 
-router.get('/', function (request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
     models.Setting.findAll().then(function (res) {
         response.send(common.response(res));
     }).catch(function (err) {

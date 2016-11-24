@@ -13,14 +13,6 @@ app.service('TicketService', function ($http, $q) {
         return defer.promise;
     };
 
-    this.gettickets = function () {
-        var defer = $q.defer();
-        $http.post('/tickets').success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
-
     this.getticketsformanifest = function (schedule) {
         var defer = $q.defer();
         $http.post('/tickets/formanifest', schedule).success(function (response) {
@@ -29,9 +21,9 @@ app.service('TicketService', function ($http, $q) {
         return defer.promise;
     };
 
-    this.deleteticket = function (ticket) {
+    this.invalidateinvoice = function (invoice) {
         var defer = $q.defer();
-        $http.post('/tickets/destroy', ticket).success(function (response) {
+        $http.post('/tickets/invalidate', invoice).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

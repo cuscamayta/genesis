@@ -1,32 +1,27 @@
-<div class="login_wrapper">
+<div class="login_wrapper" style="margin-top: -2%">
 	<div class="animate form login_form">
 		<section class="login_content">
-			<form role="form" ng-submit="signin()">
-				<h1>Inciar sesión</h1>
-				<div>
-					<input type="text" class="form-control" placeholder="Username" required="" data-ng-model="user.username">
-				</div>
-				<div>
-					<input type="password" class="form-control" placeholder="Password" required="" data-ng-model="user.password">
-				</div>
-				<div>
-					<a class="btn btn-default submit" data-ng-click="login()">Log in</a>
-					<a class="reset_pass" href="#">Lost your password?</a>
-				</div>
-
-				<div class="clearfix"></div>
-
-				<div class="separator">
-					<p class="change_link">New to site?
-						<a href="#signup" class="to_register"> Create Account </a>
-					</p>
-
-					<div class="clearfix"></div>
-					<br>
-
+			<form role="form">
+				<div id="step-1" class="content" style="display: block;">
+					<h1>Inciar sesión</h1>
 					<div>
-						<h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-						<p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+						<input type="text" class="form-control" placeholder="Username" required="" data-ng-model="user.username">
+					</div>
+					<div>
+						<input type="password" class="form-control" placeholder="Password" required="" data-ng-model="user.password" ng-enter="login()">
+					</div>
+					<div>
+						<button type="button" class="btn btn-default submit" ng-disabled="validatecontrols()" ng-click="login()">Ingresar</button>
+					</div>
+				</div>
+				<div id="step-2" class="content" style="display: none;">
+					<h1>Seleccione sucursal</h1>
+					<div>
+						<select id="idoffice" class="form-control" ng-options="office.Office.title for office in listoffice" ng-model="selectedoffice" required></select>
+					</div>
+					<p></p>					
+					<div>
+						<button type="button" class="btn btn-default submit" ng-disabled="validateoffice()" ng-click="getmenu()">Ingresar</button>
 					</div>
 				</div>
 			</form>
