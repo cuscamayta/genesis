@@ -102,6 +102,10 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'LoginController',
             templateUrl: 'app/partials/home/login.html'
         })
+        .when('/password', {
+            controller: 'LoginController',
+            templateUrl: 'app/partials/home/password.html'
+        })
         .when('/route/:id', {
             controller: 'HomeController',
             templateUrl: '/routepartial'
