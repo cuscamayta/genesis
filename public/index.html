@@ -50,16 +50,17 @@
 					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<h3>Menu</h3>
-							<ul class="nav side-menu">
-								<li><a><i class="fa fa-home"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#/setting">Ajustes</a></li>
+							<ul class="nav side-menu">																
+								<li ng-repeat="module in modules"><a><i class="fa fa-home"></i> {{module.title}} <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu" ng-repeat="page in module.pages">
+										<li><a href="{{page.path}}">{{page.title}}</a></li>
+										<!--<li><a href="#/setting">Ajustes</a></li>
 										<li><a href="#/module">Módulo</a></li>
 										<li><a href="#/page">Página</a></li>
 										<li><a href="#/role">Rol</a></li>
 										<li><a href="#/user">Usuario</a></li>
 										<li><a href="#/permit">Permisos</a></li>
-										<li><a href="#/useroffice">Sucursales por usuario</a></li>
+										<li><a href="#/useroffice">Sucursales por usuario</a></li>-->
 									</ul>
 								</li>
 								<li><a><i class="fa fa-edit"></i> Configuracion <span class="fa fa-chevron-down"></span></a>
