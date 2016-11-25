@@ -1,4 +1,4 @@
-app.controller('LoginController', function($scope, LoginService, $localStorage, $location, $rootScope, UserofficeService) {
+app.controller('LoginController', function($scope, LoginService, $localStorage, $location, $rootScope, UserofficeService, PermitService, $timeout) {
     init();
     function init() {
         $scope.user = {};
@@ -22,6 +22,7 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
                             $scope.tokentemp = responseData.data.token;
                             $scope.user.fullnameuser = responseData.data.firstname + " " + responseData.data.lastname;
                             $scope.user.roleuser = responseData.data.Role.title;
+                            $rootScope.roleid = responseData.data.Role.id;
 
                             if ($scope.listoffice.length > 1) {
                                 $("#step-2").css("display", "block");
@@ -34,6 +35,7 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
                                 $rootScope.roleuser = $scope.user.roleuser;
                                 $rootScope.currentUser.idoffice = $scope.listoffice[0].idoffice;
                                 $rootScope.currentUser.nameoffice = $scope.listoffice[0].title;
+                                getpermitsforrole();
                                 $location.path('/home');
                             }
                         }
@@ -65,6 +67,7 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
         $rootScope.roleuser = $scope.user.roleuser;
         $rootScope.currentUser.idoffice = $scope.selectedoffice.id;
         $rootScope.currentUser.nameoffice = $scope.selectedoffice.Office.title;
+        getpermitsforrole();
         $location.path('/home');
     };
 
@@ -82,7 +85,7 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
                 } else {
                     $scope.pass = null;
                     toastr.success(res.data);
-                    $rootScope.currentUser.password =  $scope.pass.passnew;
+                    $rootScope.currentUser.password = $scope.pass.passnew;
                 }
             });
         } else {
@@ -93,4 +96,37 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
     $scope.validatecontrolspass = function() {
         return $scope.pass == null || $scope.pass.passcurrent == null || $scope.pass.passnew == null;
     };
+
+    function getpermitsforrole() {
+        var response = PermitService.getpermitsforrole({ idrole: $rootScope.roleid });
+
+        response.then(function(res) {
+            if (!res.isSuccess) {
+                toastr.error(res.message);
+            }
+            else {
+                var listpages = res.data.select(function(item) {
+                    item.Page.moduleName = item.Page.Module.title;
+                    return item.Page;
+                });
+
+                var resultPages = listpages.groupBy(function(page) {
+                    return page.moduleName;
+                })
+                $rootScope.listmenupermit = resultPages.select(function(item) {
+                    return {
+                        moduleName: item.key,
+                        moduleClass: item.first().Module.class,
+                        pages: item.select(function(page) {
+                            return {
+                                path: page.path,
+                                title: page.title
+                            };
+                        })
+                    }
+                });
+                $timeout($enableSideBar, 500);
+            }
+        });
+    }
 });

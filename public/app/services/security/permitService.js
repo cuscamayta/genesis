@@ -21,6 +21,14 @@ app.service('PermitService', function ($http, $q) {
         return defer.promise;
     };
 
+    this.getpermitsforrole = function (role) {
+        var defer = $q.defer();
+        $http.post('/permits/forrole', role).success(function (response) {
+            defer.resolve(response);
+        });
+        return defer.promise;
+    };
+
     this.deletepermit = function (permit) {
         var defer = $q.defer();
         $http.post('/permits/destroy', permit).success(function (response) {

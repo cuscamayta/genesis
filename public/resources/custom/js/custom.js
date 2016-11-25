@@ -47,7 +47,9 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $LEFT_COL = $('.left_col'),
     $RIGHT_COL = $('.right_col'),
     $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
+    $FOOTER = $('footer'),
+    $enableSideBar = undefined;
+
 
 // Sidebar
 $(document).ready(function() {
@@ -67,7 +69,8 @@ $(document).ready(function() {
         $RIGHT_COL.css('min-height', contentHeight);
     };
 
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
+  $enableSideBar = function (){
+        $SIDEBAR_MENU.find('a').on('click', function(ev) {
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
@@ -89,6 +92,7 @@ $(document).ready(function() {
             });
         }
     });
+  };
 
     // toggle small or large menu
     $MENU_TOGGLE.on('click', function() {

@@ -51,77 +51,13 @@
 						<div class="menu_section">
 							<h3>Menu</h3>
 							<ul class="nav side-menu">																
-								<li ng-repeat="module in modules"><a><i class="fa fa-home"></i> {{module.title}} <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu" ng-repeat="page in module.pages">
-										<li><a href="{{page.path}}">{{page.title}}</a></li>
-										<!--<li><a href="#/setting">Ajustes</a></li>
-										<li><a href="#/module">Módulo</a></li>
-										<li><a href="#/page">Página</a></li>
-										<li><a href="#/role">Rol</a></li>
-										<li><a href="#/user">Usuario</a></li>
-										<li><a href="#/permit">Permisos</a></li>
-										<li><a href="#/useroffice">Sucursales por usuario</a></li>-->
+								<li ng-repeat="module in listmenupermit"><a><i class="{{module.moduleClass}}"></i> {{module.moduleName}} <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu" >
+										<li ng-repeat="page in module.pages"><a href="#/{{page.path}}">{{page.title}}</a></li>					
 									</ul>
-								</li>
-								<li><a><i class="fa fa-edit"></i> Configuracion <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#/bustype">Tipo de bus</a></li>
-										<li><a href="#/bus">Buses</a></li>
-										<li><a href="#/drivertype">Tipo chofer</a></li>
-										<li><a href="#/driver">Chofer</a></li>
-										<li><a href="#/destination">Destinos</a></li>
-										<li><a href="#/office">Sucursal</a></li>
-										<li><a href="#/course">Rutas</a></li>
-									</ul>
-								</li>
-								<li><a><i class="fa fa-desktop"></i>Administracion<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#/orderbook">Dosificación</a></li>
-										<li><a href="#/invoice">Factura</a></li>
-										<li><a href="#/travel">Itinerario</a></li>
-										<li><a href="#/schedule">Programación diaria</a></li>
-									</ul>
-								</li>
-								<li><a><i class="fa fa-table"></i> Ventas <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#/invoice">Codigo control</a></li>
-										<li><a href="#/ticket">Ticket</a></li>
-										<li><a href="#/invalidate">Anular factura</a></li>
-									</ul>
-								</li>
-								<li><a><i class="fa fa-bar-chart-o"></i>Manifiesto<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#/manifest">Manifiestos de pasajeros </a></li>
-										<li><a href="#/baggage">Manifiestos de equipajes </a></li>
-									</ul>
-								</li>
-								<li><a><i class="fa fa-clone"></i>Reportes <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="#!">Ventas diarias</a></li>
-										<li><a href="#/dailycash">Arqueo de caja</a></li>
-									</ul>
-								</li>
-							</ul>
+								</li>				
 						</div>
-					</div>
-					<!-- /sidebar menu -->
-
-					<!-- /menu footer buttons 
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a>
-						<a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a>
-						<a data-toggle="tooltip" data-placement="top" title="Lock">
-							<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a>
-						<a data-toggle="tooltip" data-placement="top" title="Logout">
-							<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-						</a>
-					</div>-->
-					<!-- /menu footer buttons -->
+					</div>					
 				</div>
 			</div>
 
@@ -200,7 +136,7 @@
 	<script src="../resources/devbridge-autocomplete/js/jquery.autocomplete.min.js"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script src="../resources/custom/js/custom.min.js"></script>
+	<script src="../resources/custom/js/custom.js"></script>
 
 	<!--angularJS resources-->
 	<script src="app/libs/angular.js"></script>
