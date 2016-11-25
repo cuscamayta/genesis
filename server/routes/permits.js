@@ -24,17 +24,6 @@ router.get('/', common.isAuthenticate, function(request, response) {
     });
 });
 
-router.post('/forrole', common.isAuthenticate, function(request, response) {
-    models.Permit.findAll({
-        include: [ { model: models.Page, include: [ { model: models.Module } ] } ],
-        where: { idrole: request.body.idrole }
-    }).then(function(res) {
-        response.send(common.response(res));
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
-    });
-});
-
 router.post('/destroy', common.isAuthenticate, function(request, response) {
     models.Permit.destroy({
         where: { id: request.body.id }

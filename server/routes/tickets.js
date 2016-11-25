@@ -83,94 +83,97 @@ function getdatesinvoice(orderbook, request) {
     }
 }
 
-router.post('/create', common.isAuthenticate, function(request, response) {
+router.post('/create', common.isAuthenticate, function (request, response) {
 
-    return models.sequelize.transaction(function(t) {
+    return models.sequelize.transaction(function (t) {
 
-        return models.Setting.findOne({ transaction: t }).then(function(setting) {
-            return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type: 1 } }, { transaction: t }).then(function(orderbook) {
-                var datesInvoice = getdatesinvoice(orderbook, request);
+        return models.Setting.findOne({ transaction: t }).then(function (setting) {
+            return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type: 1 } }, { transaction: t }).then(function (orderbook) {
+                if (orderbook) {
+                    var datesInvoice = getdatesinvoice(orderbook, request);
+                    if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
+                        throw new Error("Libro de ordenes vencido");
+                    } else {
+                        return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function (nroinvoice) {
+                            if (!nroinvoice) nroinvoice = 0
+                            var numberinvoice = (nroinvoice + 1), controlcode = getcodecontrol(request, orderbook.numberorder, numberinvoice, setting.numberid, orderbook.controlkey);
 
-                if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
-                    throw new Error("Libro de ordenes vencido");
-                } else {
-                    return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function(nroinvoice) {
-                        if (!nroinvoice) nroinvoice = 0
-                        var numberinvoice = (nroinvoice + 1), controlcode = getcodecontrol(request, orderbook.numberorder, numberinvoice, setting.numberid, orderbook.controlkey);
+                            return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice, orderbook.numberorder, orderbook.type, orderbook.id), { transaction: t }).then(function (salebook) {
+                                return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
+                                    var ticketpromises = [];
 
-                        return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice, orderbook.numberorder, orderbook.type, orderbook.id), { transaction: t }).then(function(salebook) {
-                            return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function(sale) {
-                                var ticketpromises = [];
-
-                                for (var i = 0; i < request.body.details.length; i++) {
-                                    var ticketpromise = models.Ticket.create(createticket(request, i, sale), { transaction: t });
-                                    ticketpromises.push(ticketpromise);
-                                }
-
-                                return Promise.all(ticketpromises).then(function(tickets) {
-                                    var salesdetailpromises = [];
-                                    for (var i = 0; i < tickets.length; i++) {
-
-                                        var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
-                                        salesdetailpromises.push(salesdetailpromise, { transaction: t });
+                                    for (var i = 0; i < request.body.details.length; i++) {
+                                        var ticketpromise = models.Ticket.create(createticket(request, i, sale), { transaction: t });
+                                        ticketpromises.push(ticketpromise);
                                     }
-                                    return Promise.all(salesdetailpromises);
+
+                                    return Promise.all(ticketpromises).then(function (tickets) {
+                                        var salesdetailpromises = [];
+                                        for (var i = 0; i < tickets.length; i++) {
+
+                                            var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
+                                            salesdetailpromises.push(salesdetailpromise, { transaction: t });
+                                        }
+                                        return Promise.all(salesdetailpromises);
+                                    });
                                 });
                             });
                         });
-                    });
+                    }
+                } else {
+                    throw new Error("No existe libro de orden");
                 }
             });
         });
 
-    }).then(function(result) {
+    }).then(function (result) {
         response.send(common.response(null, "Se guardo correctamente"));
-    }).catch(function(err) {
+    }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.get('/', common.isAuthenticate, function(request, response) {
+router.get('/', common.isAuthenticate, function (request, response) {
     models.Sale.findAll({
         where: { status: 1 }
-    }).then(function(res) {
+    }).then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
+    }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.post('/invalidate', common.isAuthenticate, function(request, response) {
+router.post('/invalidate', common.isAuthenticate, function (request, response) {
 
-    return models.sequelize.transaction(function(t) {
+    return models.sequelize.transaction(function (t) {
 
         var nro = request.body.id;
 
-        return models.Salesbook.update({ status: 0 }, { where: { id: request.body.id } }, { transaction: t }).then(function(salebook) {
-            return models.Sale.findOne({ where: { idsalesbook: request.body.id } }, { transaction: t }).then(function(sale) {
-                return models.Sale.update({ status: 0 }, { where: { idsalesbook: request.body.id } }, { transaction: t }).then(function() {
-                    return models.Salesdetail.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function() {
-                        return models.Ticket.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function() {
+        return models.Salesbook.update({ status: 0 }, { where: { id: request.body.id } }, { transaction: t }).then(function (salebook) {
+            return models.Sale.findOne({ where: { idsalesbook: request.body.id } }, { transaction: t }).then(function (sale) {
+                return models.Sale.update({ status: 0 }, { where: { idsalesbook: request.body.id } }, { transaction: t }).then(function () {
+                    return models.Salesdetail.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function () {
+                        return models.Ticket.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function () {
                         });
                     });
                 });
             });
         });
 
-    }).then(function(result) {
+    }).then(function (result) {
         response.send(common.response(null, "Se anulo correctamente"));
-    }).catch(function(err) {
+    }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.post('/formanifest', common.isAuthenticate, function(request, response) {
+router.post('/formanifest', common.isAuthenticate, function (request, response) {
     models.Ticket.findAll({
         include: [{ model: models.Bus }, { model: models.Schedule }], where: { idschedule: request.body.id, status: 1 },
         order: 'number ASC'
-    }).then(function(res) {
+    }).then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
+    }).catch(function (err) {
         response.send(common.response(err.code, err.message, false));
     });
 });

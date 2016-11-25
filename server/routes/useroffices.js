@@ -24,17 +24,6 @@ router.get('/', common.isAuthenticate, function (request, response) {
     });
 });
 
-router.post('/forselect', function (request, response) {
-    models.Useroffice.findAll({
-        include: [{ model: models.User }, { model: models.Office }], where: { iduser: request.body.id },
-        order: 'idoffice DESC'
-    }).then(function (res) {
-        response.send(common.response(res));
-    }).catch(function (err) {
-        response.send(common.response(err.code, err.message, false));
-    });
-});
-
 router.post('/destroy', common.isAuthenticate, function (request, response) {
     models.Useroffice.destroy({
         where: { id: request.body.id }

@@ -62,9 +62,9 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         $scope.headerticket.departure = $scope.selectedschedule.departure;
         $scope.headerticket.detail = $scope.selectedschedule.detail;
         $scope.headerticket.details = $scope.listtickets;
-        $scope.headerticket.iduser = $rootScope.currentUser.iduser;
+        $scope.headerticket.iduser = $rootScope.currentUser.user.id;
 
-        $scope.headerticket.idoffice = $rootScope.currentUser.idoffice;
+        $scope.headerticket.idoffice = $rootScope.idoffice;
         $scope.headerticket.amountinvoice = $scope.sumTotal;
 
         if ($scope.headerticket.id == 0) {

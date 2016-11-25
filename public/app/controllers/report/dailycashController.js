@@ -40,8 +40,6 @@ app.controller('DailycashController', function ($scope, SaleService, UserService
             }
             else {
                 $scope.lissales = res.data;
-                $("#step-2").css("display", "block");
-                $("#step-1").css("display", "none");
             }
         });
     };

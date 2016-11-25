@@ -20,15 +20,7 @@ app.service('UserofficeService', function ($http, $q) {
         });
         return defer.promise;
     };
-
-    this.getuserofficesforselect = function (user) {
-        var defer = $q.defer();
-        $http.post('/useroffices/forselect', user).success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
-
+    
     this.deleteuseroffice = function (useroffice) {
         var defer = $q.defer();
         $http.post('/useroffices/destroy', useroffice).success(function (response) {

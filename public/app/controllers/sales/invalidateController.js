@@ -38,8 +38,6 @@ app.controller('InvalidateController', function ($scope, SalesbookService, Offic
             }
             else {
                 $scope.listsalebook = res.data;
-                $("#step-2").css("display", "block");
-                $("#step-1").css("display", "none");
             }
         });
     };
@@ -59,8 +57,6 @@ app.controller('InvalidateController', function ($scope, SalesbookService, Offic
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeletesalebook").modal("hide");
-                $("#step-1").css("display", "block");
-                $("#step-2").css("display", "none");
                 $scope.selectedsalebook = null;
                 $scope.listsalebook = [];
                 toastr.success(res.message);

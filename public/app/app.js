@@ -1,6 +1,20 @@
 var app = angular.module('genesisApp', ['uitls.paginate', 'ngStorage']);
 
-app.config(function ($routeProvider, $httpProvider) {
+app.run(function($localStorage, $rootScope, $location, $timeout) {
+    if ($localStorage.currentUser) {
+        $rootScope.currentUser = $localStorage.currentUser;
+        $rootScope.listMenuPermit = getModulesAndPages($rootScope.currentUser.permits);
+        $rootScope.nameoffice = $localStorage.currentUser.nameOffice;
+        $rootScope.idoffice = $localStorage.currentUser.idOffice;
+        $rootScope.fullnameuser = $localStorage.currentUser.user.firstname + " " + $localStorage.currentUser.user.lastname;
+        $rootScope.roleuser = $localStorage.currentUser.user.Role.title;
+        $timeout($enableSideBar, 500);
+    }
+    else
+        $location.path('/login');
+});
+
+app.config(function($routeProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             controller: 'HomeController',
@@ -109,22 +123,22 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/route/:id', {
             controller: 'HomeController',
             templateUrl: '/routepartial'
-        })        
+        })
 
         .otherwise({
             redirectTo: '/'
         });
 
-    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
         return {
-            'request': function (config) {
+            'request': function(config) {
                 config.headers = config.headers || {};
-                if ($localStorage.token) {
-                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                if ($localStorage.currentUser) {
+                    config.headers.Authorization = 'Bearer ' + $localStorage.currentUser.user.token;
                 }
                 return config;
             },
-            'responseError': function (response) {
+            'responseError': function(response) {
                 if (response.status === 401 || response.status === 403) {
                     $location.path('/login');
                 }
@@ -133,3 +147,27 @@ app.config(function ($routeProvider, $httpProvider) {
         };
     }]);
 });
+
+function getModulesAndPages(permits) {
+    var listpages = permits.select(function(item) {
+        item.Page.moduleName = item.Page.Module.title;
+        return item.Page;
+    });
+
+    var resultPages = listpages.groupBy(function(page) {
+        return page.moduleName;
+    })
+    var listMenuPermit = resultPages.select(function(item) {
+        return {
+            moduleName: item.key,
+            moduleClass: item.first().Module.class,
+            pages: item.select(function(page) {
+                return {
+                    path: page.path,
+                    title: page.title
+                };
+            })
+        }
+    });
+    return listMenuPermit;
+}

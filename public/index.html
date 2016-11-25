@@ -51,7 +51,7 @@
 						<div class="menu_section">
 							<h3>Menu</h3>
 							<ul class="nav side-menu">																
-								<li ng-repeat="module in listmenupermit"><a><i class="{{module.moduleClass}}"></i> {{module.moduleName}} <span class="fa fa-chevron-down"></span></a>
+								<li ng-repeat="module in listMenuPermit"><a><i class="{{module.moduleClass}}"></i> {{module.moduleName}} <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" >
 										<li ng-repeat="page in module.pages"><a href="#/{{page.path}}">{{page.title}}</a></li>					
 									</ul>
@@ -72,12 +72,12 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li class="">
 								<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									<img src="app/images/img.jpg" alt="">{{currentUser.fullnameuser}} - {{currentUser.roleuser}} - {{currentUser.nameoffice}}
+									<img src="app/images/img.jpg" alt="">{{fullnameuser}} - {{roleuser}} - {{nameoffice}}
 									<span class=" fa fa-angle-down"></span>
 								</a>
 								<ul class="dropdown-menu dropdown-usermenu pull-right">
 									<li><a href="#password">Cambiar contraseña</a></li>
-									<li><a href="#login" data-ng-click="logout()"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+									<li><a href="#/login" data-ng-click="logout()"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -140,6 +140,7 @@
 
 	<!--angularJS resources-->
 	<script src="app/libs/angular.js"></script>
+	<script src="app/libs/localstore.js"></script>
 	<script src="app/libs/prototype.js"></script>
 
 	<script src="app/app.js"></script>
