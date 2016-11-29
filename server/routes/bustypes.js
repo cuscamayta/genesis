@@ -5,7 +5,8 @@ var common = require('./common');
 
 router.post('/create', common.isAuthenticate, function (request, response) {
   models.Bustype.create({
-    title: request.body.title
+    title: request.body.title,
+    path: request.body.path,
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
@@ -15,7 +16,8 @@ router.post('/create', common.isAuthenticate, function (request, response) {
 
 router.post('/update', common.isAuthenticate, function (request, response) {
   models.Bustype.update({
-    title: request.body.title
+    title: request.body.title,
+    path: request.body.path,
   }, {
       where: { id: request.body.id }
     }).then(function (res) {

@@ -48,137 +48,136 @@
 					</form>
 				</div>
 				<div id="step-2" class="content" style="display: none;">
-					<form class="form-horizontal form-label-left">
 
-						<div>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="bs-glyphicons">
-									<ul class="bs-glyphicons-list" id="listseats">
-										<li ng-repeat="seat in listseats" ng-click="selectedticketseat(seat)">
-											<span class="glyphicon glyphicon-bed" aria-hidden="true"></span>
-											<span class="glyphicon-class">[{{seat.number}}]</span>
-										</li>
-									</ul>
+					<div class="row">
+						<div ng-include="bustypepath"></div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Pasajes</h2>
+									<div class="clearfix"></div>
 								</div>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="x_panel">
-									<div class="x_title">
-										<h2>Pasajes</h2>
-										<div class="clearfix"></div>
-									</div>
 
-									<div class="x_content">
-
-										<div class="table-responsive">
-											<table class="table table-striped jambo_table bulk_action">
-												<thead class="headings">
-													<tr>
-														<th>Nro</th>
-														<th>Pasajero</th>
-														<th>Documento</th>
-														<th>Precio</th>
-														<th>Equipaje</th>
-														<th>Peso</th>
-														<th></th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr ng-repeat="ticket in listtickets" ng-class="{selectelement:ticketdetailselected.id==listtickets.id}">
-														<td>{{ticket.numberseat}}</td>
-														<td>{{ticket.fullName}}</td>
-														<td>{{ticket.numberid}}</td>
-														<td>{{ticket.price}}</td>
-														<td>{{ticket.numberbaggage}}</td>
-														<td>{{ticket.weightbaggage}}</td>
-														<td ng-click="deleteticketdetail(ticket)"><i class="fa fa-trash" title="Eliminar"></i></td>
-														<td ng-click="copyticketdetail(ticket)"><i class="fa fa-copy" title="Facturar"></i></td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td>Total</td>
-														<td>{{ sumTotal }}</td>
-														<td></td>
-														<td></td>
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-
-										<form class="form-horizontal form-label-left">
-
-											<label for="dateregisteredit">Fecha <span class="required">*</span></label>
-											<div class="form-group has-feedback">
-												<input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus ng-model="headerticket.dateregister"
-													validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
-												<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-												<span id="inputSuccess2Status" class="sr-only">(success)</span>
-											</div>
-
-											<label for="numbernitinvoice">Nro de NIT <span class="required">*</span></label>
-											<input type="text" id="numbernitinvoice" class="form-control textUpperCase" ngfocus ng-model="headerticket.numbernitinvoice"
-												validate="number" required>
-
-											<label for="nameinvoice">Nombre para la factura <span class="required">*</span></label>
-											<input type="text" id="nameinvoice" class="form-control textUpperCase" ngfocus ng-model="headerticket.nameinvoice" validate="text-number"
-												required>
-
-											<div class="ln_solid"></div>
-											<div>
-												<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveticket()" title="Facturar"><i class="fa fa-credit-card"></i> Guardar</button>
-											</div>
-
-										</form>
+								<div class="x_content">
+									<div class="table-responsive">
+										<table class="table table-striped jambo_table bulk_action">
+											<thead class="headings">
+												<tr>
+													<th>Nro</th>
+													<th>Pasajero</th>
+													<th>Documento</th>
+													<th>Precio</th>
+													<th>Equipaje</th>
+													<th>Peso</th>
+													<th></th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="ticket in listtickets" ng-class="{selectelement:ticketdetailselected.id==listtickets.id}">
+													<td>{{ticket.numberseat}}</td>
+													<td>{{ticket.fullName}}</td>
+													<td>{{ticket.numberid}}</td>
+													<td style="text-align: right;">{{ticket.price}}</td>
+													<td>{{ticket.numberbaggage}}</td>
+													<td>{{ticket.weightbaggage}}</td>
+													<td ng-click="deleteticketdetail(ticket)"><i class="fa fa-trash" title="Eliminar"></i></td>
+													<td ng-click="copyticketdetail(ticket)"><i class="fa fa-copy" title="Facturar"></i></td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td></td>
+													<td></td>
+													<td style="text-align: right; font-weight: bold;">Total</td>
+													<td style="text-align: right; font-weight: bold;">{{ sumTotal }}</td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</tfoot>
+										</table>
 									</div>
 								</div>
 							</div>
 						</div>
-					</form>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Datos para la factura</h2>
+									<div class="clearfix"></div>
+								</div>
 
+								<div class="x_content">
+
+									<form class="form-horizontal form-label-left">
+
+										<label for="dateregisteredit">Fecha <span class="required">*</span></label>
+										<div class="form-group has-feedback">
+											<input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus ng-model="headerticket.dateregister"
+												validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+											<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+											<span id="inputSuccess2Status" class="sr-only">(success)</span>
+										</div>
+
+										<label for="numbernitinvoice">Nro de NIT <span class="required">*</span></label>
+										<input type="text" id="numbernitinvoice" class="form-control textUpperCase" ngfocus ng-model="headerticket.numbernitinvoice"
+											validate="number" required>
+
+										<label for="nameinvoice">Nombre para la factura <span class="required">*</span></label>
+										<input type="text" id="nameinvoice" class="form-control textUpperCase" ngfocus ng-model="headerticket.nameinvoice" validate="text-number"
+											required>
+
+										<div class="ln_solid"></div>
+										<div>
+											<button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="saveticket()" title="Facturar"><i class="fa fa-credit-card"></i> Guardar</button>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
-</div>
 
-<div id="modaleditcustomer" class="modal fade bs-example-modal-sm" tabindex="-1" travel="dialog" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title">Asignar pasajero</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal form-label-left">
-					<p></p>
+	<div id="modaleditcustomer" class="modal fade bs-example-modal-sm" tabindex="-1" travel="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">Asignar pasajero</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal form-label-left">
+						<p></p>
 
-					<label for="price">Precio <span class="required">*</span></label>
-					<input type="number" id="price" class="form-control" ngfocus validate="number" required ng-model="price">
+						<label for="price">Precio <span class="required">*</span></label>
+						<input type="number" id="price" class="form-control" ngfocus validate="number" required ng-model="price">
 
-					<label for="numberidcustomer">Nro identidad <span class="required">*</span></label>
-					<input type="text" id="numberidcustomer" class="form-control textUpperCase" required ng-model="numberidcustomer">
+						<label for="numberidcustomer">Nro identidad <span class="required">*</span></label>
+						<input type="text" id="numberidcustomer" class="form-control textUpperCase" required ng-model="numberidcustomer">
 
-					<label for="namecustomer">Nombre y apellido<span class="required">*</span></label>
-					<input type="text" id="namecustomer" class="form-control textUpperCase" required ng-model="namecustomer">
+						<label for="namecustomer">Nombre y apellido<span class="required">*</span></label>
+						<input type="text" id="namecustomer" class="form-control textUpperCase" required ng-model="namecustomer">
 
-					<label for="numberbaggage">Nro de equipaje <span class="required">*</span></label>
-					<input type="number" id="numberbaggage" class="form-control" ngfocus validate="number" required ng-model="numberbaggage">
+						<label for="numberbaggage">Nro de equipaje <span class="required">*</span></label>
+						<input type="number" id="numberbaggage" class="form-control" ngfocus validate="number" required ng-model="numberbaggage">
 
-					<label for="weightbaggage">Peso equipaje (kg)<span class="required">*</span></label>
-					<input type="number" id="weightbaggage" class="form-control" ngfocus validate="number" required ng-model="weightbaggage">
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
-				<button type="button" class="btn btn-primary" ng-disabled="validatecontrolsdetail()" ng-click="newticketdetail()" title="Asignar">Asignar</button>
+						<label for="weightbaggage">Peso equipaje (kg)<span class="required">*</span></label>
+						<input type="number" id="weightbaggage" class="form-control" ngfocus validate="number" required ng-model="weightbaggage">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+					<button type="button" class="btn btn-primary" ng-disabled="validatecontrolsdetail()" ng-click="newticketdetail()" title="Asignar">Asignar</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>

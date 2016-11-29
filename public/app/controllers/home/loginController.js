@@ -28,8 +28,8 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
                 }
 
             } else {
-                $localStorage.currentUser = {};
-                $rootScope.currentUser = {};
+                $localStorage.currentUser = null;
+                $rootScope.currentUser = null;
                 toastr.error(responseData.data);
             }
         })

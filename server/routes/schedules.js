@@ -75,7 +75,7 @@ router.get('/', common.isAuthenticate, function (request, response) {
 
 router.post('/forselect', common.isAuthenticate, function (request, response) {
   models.Schedule.findAll({
-    include: [{ model: models.Bus }, { model: models.Ticket, where: { status: 1 }, required: false }], where: { idtravel: request.body.id },
+    include: [{ model: models.Bus, include: [models.Bustype] }, { model: models.Ticket, where: { status: 1 }, required: false }], where: { idtravel: request.body.id },
     order: 'dateregister DESC'
   }).then(function (res) {
     response.send(common.response(res));

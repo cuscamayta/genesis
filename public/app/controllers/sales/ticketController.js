@@ -148,17 +148,34 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             $scope.listseats.push($scope.seatlist);
         }
 
+        $scope.bustypepath = schedule.Bus.Bustype.path;
         $("#step-2").css("display", "block");
         $("#step-1").css("display", "none");
+
+        setTimeout(function () {
+            $("area").unbind('click').click(function (e) {
+                e.preventDefault();
+                var numberseatselected = e.currentTarget.attributes.name.nodeValue;
+
+                var seatselected = $scope.listseats.where(function (item) {
+                    return item.number == numberseatselected;
+                });
+                if (seatselected && seatselected.length > 0) {
+                    selectedticketseat(seatselected.first());
+                }
+
+            });
+        }, 500);
     };
 
-    $scope.selectedticketseat = function (item) {
-        if (item.available == 0) {
+    function selectedticketseat(item) {
+        if (item && item.available == 0) {
             $scope.selectedseat = item;
             $scope.numberidcustomer = null;
             $scope.namecustomer = null;
             $scope.numberbaggage = null;
             $scope.weightbaggage = null;
+            $scope.$apply();
             $("#modaleditcustomer").modal("show");
         } else {
             toastr.warning("El asiento numero " + item.number + " ya fue asignado");

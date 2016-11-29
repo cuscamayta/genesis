@@ -72,8 +72,8 @@ app.controller('BustypeController', function ($scope, BustypeService) {
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editbustype == null || $scope.editbustype.title == null
-            || ($scope.editbustype.title != null && $scope.editbustype.title.length < 4)
+        return $scope.editbustype == null || $scope.editbustype.path == null
+            || $scope.editbustype.title == null || ($scope.editbustype.title != null && $scope.editbustype.title.length < 4)
     };
 
     $scope.newbustype = function () {

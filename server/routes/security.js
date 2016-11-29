@@ -11,20 +11,20 @@ router.post('/authenticate', function(req, res) {
         include: [{ model: models.Role, attributes: ["title"] }],
         where: { username: req.body.username, password: req.body.password }
     }).then(function(user) {
-        if (user) {
+        if (user && user.dataValues.id > 0) {
             models.Permit.findAll({
                 attributes: ["idpage"],
                 include: [{ model: models.Page, attributes: ["title", "path", "idmodule"], include: [{ model: models.Module, attributes: ["title", "class"] }] }],
                 where: { idrole: user.dataValues.idrole },
                 order: ["idmodule", "idpage"]
             }).then(function(permit) {
-                if (permit) {
+                if (permit && permit.length > 0) {
                     models.Useroffice.findAll({
                         attributes: ["idoffice"],
                         include: [{ model: models.Office, attributes: ["title"] }],
                         where: { iduser: user.dataValues.id }, order: "title"
                     }).then(function(offices) {
-                        if (offices) {
+                        if (offices && offices.length > 0) {
                             res.json({ type: true, user: user.dataValues, permits: permit, offices: offices });
                         }
                         else {
