@@ -12,7 +12,7 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
             id: 0,
             state: 1
         };
-        $scope.selectedrole = null;
+        $scope.selectedpage = null;
     };
 
     function getpermits() {

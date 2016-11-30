@@ -2,6 +2,7 @@ app.controller('ManifestController', function ($scope, TicketService, ScheduleSe
     init();
 
     function init() {
+        $scope.showblack = true;
         gettravels();
         $scope.selectedschedule = null;
         $scope.listtickets = [];
@@ -42,10 +43,17 @@ app.controller('ManifestController', function ($scope, TicketService, ScheduleSe
                 toastr.error(res.message);
             }
             else {
-            $scope.listticket = res.data;
+                $scope.showblack = false;
+                $scope.listticket = res.data;
                 $("#step-2").css("display", "block");
                 $("#step-1").css("display", "none");
             }
         });
+    };
+
+    $scope.back = function () {
+        $scope.showblack = true;
+        $("#step-2").css("display", "none");
+        $("#step-1").css("display", "block");
     };
 });

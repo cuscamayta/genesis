@@ -112,6 +112,14 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'DailycashController',
             templateUrl: 'app/partials/report/dailycash.html'
         })
+        .when('/dailysale', {
+            controller: 'DailysaleController',
+            templateUrl: 'app/partials/report/dailysale.html'
+        })
+        .when('/voidedinvoice', {
+            controller: 'VoidedinvoiceController',
+            templateUrl: 'app/partials/report/voidedinvoice.html'
+        })
         .when('/login', {
             controller: 'LoginController',
             templateUrl: 'app/partials/home/login.html'

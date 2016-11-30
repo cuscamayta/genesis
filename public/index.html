@@ -10,6 +10,8 @@
 
 	<title>Bus Ticket System</title>
 
+	<link rel="icon" type="image/png" href="/app/images/icono.png" />
+
 	<!-- Bootstrap -->
 	<link href="../app/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -40,7 +42,7 @@
 			<div class="col-md-3 left_col" ng-hide="!currentUser">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="#" class="site_title"><i class="fa fa-bars"></i> <span>Ticket System</span></a>
+						<a href="#" class="site_title"><i class="fa fa-bus"></i> <span>Ticket System</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -49,15 +51,15 @@
 					<!-- sidebar menu -->
 					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
-							<h3>Menu</h3>
-							<ul class="nav side-menu">																
+							<!--	<h3>Menu</h3> -->
+							<ul class="nav side-menu">
 								<li ng-repeat="module in listMenuPermit"><a><i class="{{module.moduleClass}}"></i> {{module.moduleName}} <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu" >
-										<li ng-repeat="page in module.pages"><a href="#/{{page.path}}">{{page.title}}</a></li>					
+									<ul class="nav child_menu">
+										<li ng-repeat="page in module.pages"><a href="#/{{page.path}}">{{page.title}}</a></li>
 									</ul>
-								</li>				
+								</li>
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 
@@ -87,7 +89,8 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main" data-ng-style="isLoginPage()">
+			<div class="right_col" role="main" data-ng-style="isLoginPage()" style="background-image: url(/app/images/fondo.jpg); border: 1px solid transparent">
+				<div style="clear: both"></div>
 				<div data-ng-view>
 					Content here
 				</div>
@@ -200,6 +203,8 @@
 	<script src="app/services/sales/ticketService.js"></script>
 	<script src="app/controllers/manifest/manifestController.js"></script>
 	<script src="app/controllers/report/dailycashController.js"></script>
+	<script src="app/controllers/report/dailysaleController.js"></script>
+	<script src="app/controllers/report/voidedinvoiceController.js"></script>
 	<script src="app/services/sales/saleService.js"></script>
 	<script src="app/services/common/commonService.js"></script>
 
