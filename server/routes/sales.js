@@ -59,7 +59,7 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
                             attributes: ["numberorder", "numbercontrol", "numberid", "fullname", "numberinvoice", "dateregister", "amountinvoice", "idoffice"],
                             include: [{
                                 model: models.Office,
-                                attributes: ["title", "address", "phone"]
+                                attributes: ["title", "address", "phone", "detail"]
                             },
                             {
                                 model: models.Sale,
@@ -70,7 +70,7 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
                                     include: [{
                                         model: models.Ticket,
                                         where: { status: 1 },
-                                        attributes: ["numberid", "fullname", "price", "number", "numberbaggage", "weightbaggage"]
+                                        attributes: ["numberid", "fullname", "price", "number", "numberbaggage", "weightbaggage", "origin", "destination", "typebus"]
                                     }]
                                 }]
                             }],

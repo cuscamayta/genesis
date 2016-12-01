@@ -16,12 +16,34 @@
 </div>
 
 <div class="clearfix"></div>
-<div class="x_content">
+<div class="row">
+	<div class="col-md-4">
+		<div class="x_panel">
+			<div class="x_content">
 
-	<div class="row">
-		<label id="qrinvoice"></label>
+				<div>
+					<p style="text-align: center"><b>{{datainvoice.titleCompany}}</b></p>
+					<p style="text-align: center">{{datainvoice.titleOffice}}<br />
+					{{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/>
+					{{datainvoice.detailOffice}}</p>
+					<p style="text-align: center"><b>FACTURA</b><br/>
+					ORIGINAL</p>
+					<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/>
+					Factura Nro: {{datainvoice.numberInvoice}}<br/>
+					Autorizacion: {{datainvoice.numberorderInvoice}}<br/>
+					Nombre: {{datainvoice.nameInvoice}}<br/>
+					NIT: {{datainvoice.numbernitInvoice}}</p>
+
+					<p style="text-align: center"><b>***********************************************************</b><br/>
+					GRACIAS POR SU PREFERENCIA</p>
+				</div>
+				<label id="qrinvoice"></label>
+
+			</div>
+		</div>
 	</div>
 </div>
+
 
 <div class="row no-print">
 	<div class="col-xs-12">

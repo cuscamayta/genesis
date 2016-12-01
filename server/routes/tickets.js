@@ -40,7 +40,7 @@ function createsale(request, salebook) {
     };
 }
 
-function createticket(request, index, sale) {
+function createticket(request, index, sale, bus) {
     return {
         numberid: request.body.details[index].numberid,
         fullname: request.body.details[index].fullName,
@@ -49,6 +49,9 @@ function createticket(request, index, sale) {
         numberbaggage: request.body.details[index].numberbaggage,
         weightbaggage: request.body.details[index].weightbaggage,
         status: 1,
+        origin: bus.origin,
+        destination: bus.destination,
+        typebus: bus.bustype,
         idbus: request.body.details[index].idbus,
         idschedule: request.body.details[index].idschedule,
         iduser: request.body.iduser,
@@ -83,39 +86,53 @@ function getdatesinvoice(orderbook, request) {
     }
 }
 
-router.post('/create', common.isAuthenticate, function (request, response) {
+router.post('/create', common.isAuthenticate, function(request, response) {
 
-    return models.sequelize.transaction(function (t) {
+    return models.sequelize.transaction(function(t) {
 
-        return models.Setting.findOne({ transaction: t }).then(function (setting) {
+        return models.Setting.findOne({ transaction: t }).then(function(setting) {
             if (setting) {
-                return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type: 1 } }, { transaction: t }).then(function (orderbook) {
+                return models.Orderbook.findOne({ where: { idoffice: request.body.idoffice, status: 2, type: 1 } }, { transaction: t }).then(function(orderbook) {
                     if (orderbook) {
                         var datesInvoice = getdatesinvoice(orderbook, request);
                         if (moment(datesInvoice.datecurrent).isAfter(datesInvoice.deadline)) {
                             throw new Error("Libro de ordenes vencido");
                         } else {
-                            return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function (nroinvoice) {
+                            return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function(nroinvoice) {
                                 if (!nroinvoice) nroinvoice = 0
                                 var numberinvoice = (nroinvoice + 1), controlcode = getcodecontrol(request, orderbook.numberorder, numberinvoice, setting.numberid, orderbook.controlkey);
 
-                                return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice, orderbook.numberorder, orderbook.type, orderbook.id), { transaction: t }).then(function (salebook) {
-                                    return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function (sale) {
-                                        var ticketpromises = [];
+                                return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice, orderbook.numberorder, orderbook.type, orderbook.id), { transaction: t }).then(function(salebook) {
+                                    return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function(sale) {
 
-                                        for (var i = 0; i < request.body.details.length; i++) {
-                                            var ticketpromise = models.Ticket.create(createticket(request, i, sale), { transaction: t });
-                                            ticketpromises.push(ticketpromise);
-                                        }
+                                        return models.Schedule.findOne({ include: [{ model: models.Bus, include: [{ model: models.Bustype }] }, { model: models.Travel, include: [{ model: models.Course }] }], where: { id: request.body.idschedule } }, { transaction: t }).then(function(schedule) {
 
-                                        return Promise.all(ticketpromises).then(function (tickets) {
-                                            var salesdetailpromises = [];
-                                            for (var i = 0; i < tickets.length; i++) {
+                                            return models.Destination.findOne({ where: { id: schedule.Travel.Course.dataValues.iddestination } }, { transaction: t }).then(function(destination) {
+                                                return models.Destination.findOne({ where: { id: schedule.Travel.Course.dataValues.idorigin } }, { transaction: t }).then(function(origin) {
 
-                                                var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
-                                                salesdetailpromises.push(salesdetailpromise, { transaction: t });
-                                            }
-                                            return Promise.all(salesdetailpromises);
+                                                    var bus = {};
+                                                    bus.origin = origin.dataValues.title;
+                                                    bus.destination = destination.dataValues.title;
+                                                    bus.bustype = schedule.Bus.Bustype.dataValues.title;
+                                                    var ticketpromises = [];
+
+                                                    for (var i = 0; i < request.body.details.length; i++) {
+                                                        var ticketpromise = models.Ticket.create(createticket(request, i, sale, bus), { transaction: t });
+                                                        ticketpromises.push(ticketpromise);
+                                                    }
+
+                                                    return Promise.all(ticketpromises).then(function(tickets) {
+                                                        var salesdetailpromises = [];
+                                                        for (var i = 0; i < tickets.length; i++) {
+
+                                                            var salesdetailpromise = models.Salesdetail.create(createdetailsales(request, i, tickets[i].dataValues, sale), { transaction: t });
+                                                            salesdetailpromises.push(salesdetailpromise, { transaction: t });
+                                                        }
+                                                        return Promise.all(salesdetailpromises);
+                                                    });
+
+                                                });
+                                            });
                                         });
                                     });
                                 });
@@ -130,54 +147,54 @@ router.post('/create', common.isAuthenticate, function (request, response) {
             }
         });
 
-    }).then(function (result) {
+    }).then(function(result) {
         response.send(common.response(null, "Se guardo correctamente"));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.get('/', common.isAuthenticate, function (request, response) {
+router.get('/', common.isAuthenticate, function(request, response) {
     models.Sale.findAll({
         where: { status: 1 }
-    }).then(function (res) {
+    }).then(function(res) {
         response.send(common.response(res));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.post('/invalidate', common.isAuthenticate, function (request, response) {
+router.post('/invalidate', common.isAuthenticate, function(request, response) {
 
-    return models.sequelize.transaction(function (t) {
+    return models.sequelize.transaction(function(t) {
 
         var nro = request.body.id;
 
-        return models.Salesbook.update({ status: 0 }, { where: { id: request.body.id } }, { transaction: t }).then(function (salebook) {
-            return models.Sale.findOne({ where: { idsalesbook: request.body.id } }, { transaction: t }).then(function (sale) {
-                return models.Sale.update({ status: 0 }, { where: { idsalesbook: request.body.id } }, { transaction: t }).then(function () {
-                    return models.Salesdetail.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function () {
-                        return models.Ticket.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function () {
+        return models.Salesbook.update({ status: 0 }, { where: { id: request.body.id } }, { transaction: t }).then(function(salebook) {
+            return models.Sale.findOne({ where: { idsalesbook: request.body.id } }, { transaction: t }).then(function(sale) {
+                return models.Sale.update({ status: 0 }, { where: { idsalesbook: request.body.id } }, { transaction: t }).then(function() {
+                    return models.Salesdetail.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function() {
+                        return models.Ticket.update({ status: 0 }, { where: { idsale: sale.id } }, { transaction: t }).then(function() {
                         });
                     });
                 });
             });
         });
 
-    }).then(function (result) {
+    }).then(function(result) {
         response.send(common.response(null, "Se anulo correctamente"));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });
 
-router.post('/formanifest', common.isAuthenticate, function (request, response) {
+router.post('/formanifest', common.isAuthenticate, function(request, response) {
     models.Ticket.findAll({
         include: [{ model: models.Bus }, { model: models.Schedule }], where: { idschedule: request.body.id, status: 1 },
         order: 'number ASC'
-    }).then(function (res) {
+    }).then(function(res) {
         response.send(common.response(res));
-    }).catch(function (err) {
+    }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });
 });

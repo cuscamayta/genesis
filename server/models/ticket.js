@@ -18,7 +18,10 @@ module.exports = function (sequelize, DataTypes) {
         number: { type: DataTypes.INTEGER, allowNull: false },
         numberbaggage: { type: DataTypes.INTEGER, allowNull: true },
         weightbaggage: { type: DataTypes.DECIMAL, allowNull: true },
-        status: { type: DataTypes.INTEGER(4), allowNull: false }
+        status: { type: DataTypes.INTEGER(4), allowNull: false },
+        origin: { type: DataTypes.STRING, allowNull: false },
+        destination: { type: DataTypes.STRING, allowNull: false },
+        typebus: { type: DataTypes.STRING, allowNull: false },
     },
         {
             classMethods: {
