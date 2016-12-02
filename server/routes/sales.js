@@ -51,7 +51,7 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
         return models.Setting.findOne({ attributes: ["title", "numberid", "note"] }, { transaction: t }).then(function(setting) {
             if (setting) {
                 return models.Orderbook.findOne({
-                    attributes: ["numberorder", "idoffice"],
+                    attributes: ["numberorder", "idoffice", "deadline"],
                     where: { idoffice: request.body.idoffice, status: 2, type: 1 }
                 }, { transaction: t }).then(function(orderbook) {
                     if (orderbook) {
@@ -76,7 +76,7 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
                             }],
                             where: { status: 1, numberinvoice: request.body.numberinvoice, numberorder: orderbook.dataValues.numberorder }
                         }, { transaction: t }).then(function(invoice) {
-                            var data = { invoice: invoice, setting: setting };
+                            var data = { invoice: invoice, setting: setting, orderbook: orderbook };
                             response.send(common.response(data));
                         });
                     } else {

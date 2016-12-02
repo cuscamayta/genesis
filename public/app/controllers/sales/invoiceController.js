@@ -31,14 +31,10 @@ app.controller('InvoiceController', function ($scope, SaleService, $rootScope) {
                 $scope.datainvoice.numbernitInvoice = res.data.invoice.numberid;
                 $scope.datainvoice.codecontrolInvoice = res.data.invoice.numbercontrol;
                 $scope.datainvoice.totalInvoice = res.data.invoice.amountinvoice;
+                $scope.datainvoice.deadlineOrder = res.data.orderbook.deadline;
 
-                
-
-                //printcodeqr("qrinvoice", "1234", "Buses Genesis",
-                //$scope.editinvoice.numberinvoice,
-                //$scope.editinvoice.numberorder,
-                //$scope.editinvoice.date,
-                //$scope.editinvoice.amount, response, $scope.editinvoice.limit);
+                printcodeqr("qrinvoice",  $scope.datainvoice.numberidCompany, $scope.datainvoice.titleCompany,                $scope.datainvoice.numberInvoice,                $scope.datainvoice.numberorder,                $scope.datainvoice.date,
+                $scope.datainvoice.amount, $scope.datainvoice.codecontrolInvoice, $scope.datainvoice.limit);
             }
         });
     };

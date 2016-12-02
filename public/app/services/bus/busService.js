@@ -23,7 +23,7 @@
 
     this.getbuses = function () {
         var defer = $q.defer();
-        $http.get('/buses').success(function (response) {
+        $http.get('/buses?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

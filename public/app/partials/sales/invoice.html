@@ -16,33 +16,61 @@
 </div>
 
 <div class="clearfix"></div>
-<div class="row">
+<div class="row" id="invoice-file">
 	<div class="col-md-4">
 		<div class="x_panel">
 			<div class="x_content">
 
 				<div>
 					<p style="text-align: center"><b>{{datainvoice.titleCompany}}</b></p>
-					<p style="text-align: center">{{datainvoice.titleOffice}}<br />
-					{{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/>
-					{{datainvoice.detailOffice}}</p>
-					<p style="text-align: center"><b>FACTURA</b><br/>
-					ORIGINAL</p>
-					<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/>
-					Factura Nro: {{datainvoice.numberInvoice}}<br/>
-					Autorizacion: {{datainvoice.numberorderInvoice}}<br/>
-					Nombre: {{datainvoice.nameInvoice}}<br/>
-					NIT: {{datainvoice.numbernitInvoice}}</p>
+					<p style="text-align: center">{{datainvoice.titleOffice}}<br /> {{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/> {{datainvoice.detailOffice}}
+					</p>
+					<p style="text-align: center"><b>FACTURA</b><br/> ORIGINAL
+					</p>
+					<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/> Factura Nro: {{datainvoice.numberInvoice}}<br/> Autorizacion: {{datainvoice.numberorderInvoice}}<br/>						Nombre: {{datainvoice.nameInvoice}}<br/> NIT: {{datainvoice.numbernitInvoice}}</p>
 
-					<p style="text-align: center"><b>***********************************************************</b><br/>
-					GRACIAS POR SU PREFERENCIA</p>
+					<p>CÓDIGO DE CONTROL: {{datainvoice.codecontrolInvoice}}</p>
+					<p><label id="qrinvoice"></label></p>
+
+					<p style="text-align: center">{{datainvoice.noteCompany}}</p>
+
+					<p style="text-align: center"><b>***********************************************************</b><br/> GRACIAS POR SU PREFERENCIA</p>
 				</div>
-				<label id="qrinvoice"></label>
+
 
 			</div>
 		</div>
 	</div>
 </div>
+<style>
+	@media print {
+		body {
+			display: none;
+		}
+		label {
+			display: block;
+			margin: 5px 0;
+		}
+		#invoice-file {
+			font-family: 'Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+			font-weight: normal;
+			font-style: normal;
+			width: 265px;
+			font-size: 10px;
+			border: solid #BBB 1px;
+			padding: 9px;
+			text-align: center;
+			display: block !important;
+		}
+		#invoice-file div {
+			border-bottom: solid #BBB 1px;
+		}
+		#invoice-file .footer {
+			border-bottom: none;
+		}
+	}
+</style>
+
 
 
 <div class="row no-print">
@@ -52,3 +80,18 @@
 		<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
 	</div>
 </div>
+
+<script language="VBScript">
+        sub rPrint()
+            OLECMDID_PRINT = 6
+            OLECMDEXECOPT_DONTPROMPTUSER = 2
+            OLECMDEXECOPT_PROMPTUSER = 1
+            call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
+            window.close()
+        End Sub
+        document.write "<object id='WB' width='0' height='0' classid='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>" 
+        
+         window.addEventListener(    'load',    function load()
+    {
+       alert("load test");         rPrint();    },    false);
+    </script>
