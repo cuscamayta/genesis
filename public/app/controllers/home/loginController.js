@@ -56,13 +56,7 @@ app.controller('LoginController', function($scope, LoginService, $localStorage, 
         $localStorage.currentUser.nameOffice = $rootScope.nameoffice;
         getModulesAndPagesForUser($localStorage.currentUser.permits);
         $location.path('/home');
-    };
-
-    $rootScope.logout = function() {
-        $timeout($enableSideBar, 500);
-        $rootScope.currentUser = null;
-        $localStorage.currentUser = null;
-    };
+    };    
 
     $scope.changepass = function() {
         $scope.pass.username = $rootScope.currentUser.user.username;

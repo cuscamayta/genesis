@@ -79,7 +79,7 @@
 								</a>
 								<ul class="dropdown-menu dropdown-usermenu pull-right">
 									<li><a href="#password">Cambiar contraseña</a></li>
-									<li><a href="#/login" data-ng-click="logout()"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+									<li><a href="#!" data-ng-click="logout($event)"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -89,7 +89,7 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main" data-ng-style="isLoginPage()" style="background-image: url(/app/images/fondo.jpg); border: 1px solid transparent">
+			<div class="right_col" role="main" data-ng-style="isLoginPage()" style="background-size: 100% 100%; background-image: url(/app/images/fondo.jpg); border: 1px solid transparent">
 				<div style="clear: both"></div>
 				<div data-ng-view>
 					Content here

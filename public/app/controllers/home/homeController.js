@@ -1,4 +1,4 @@
-app.controller('HomeController', function ($scope, SaleService, $rootScope) {
+app.controller('HomeController', function ($scope, SaleService, $location, $rootScope, $timeout, $localStorage) {
 
     init();
 
@@ -21,8 +21,8 @@ app.controller('HomeController', function ($scope, SaleService, $rootScope) {
     }
 
     function getcountpassengercurrent() {
-        $scope.filters = {};       
-        $scope.filters.currentdate =  moment();
+        $scope.filters = {};
+        $scope.filters.currentdate = moment();
         var response = SaleService.getcountpassengercurrent($scope.filters);
         response.then(function (res) {
             if (!res.isSuccess) {
@@ -45,4 +45,12 @@ app.controller('HomeController', function ($scope, SaleService, $rootScope) {
             }
         });
     }
+
+    $rootScope.logout = function (e) {
+        e.preventDefault();
+        $timeout($enableSideBar, 500);
+        $rootScope.currentUser = null;
+        $localStorage.currentUser = null;
+        $location.path('/login');
+    };
 });
