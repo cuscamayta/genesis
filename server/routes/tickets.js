@@ -87,7 +87,7 @@ function getdatesinvoice(orderbook, request) {
 }
 
 router.post('/create', common.isAuthenticate, function(request, response) {
-
+var numberinvoice = 0;
     return models.sequelize.transaction(function(t) {
 
         return models.Setting.findOne({ transaction: t }).then(function(setting) {
@@ -100,7 +100,7 @@ router.post('/create', common.isAuthenticate, function(request, response) {
                         } else {
                             return models.Salesbook.max('numberinvoice', { where: { numberorder: orderbook.numberorder } }, { transaction: t }).then(function(nroinvoice) {
                                 if (!nroinvoice) nroinvoice = 0
-                                var numberinvoice = (nroinvoice + 1), controlcode = getcodecontrol(request, orderbook.numberorder, numberinvoice, setting.numberid, orderbook.controlkey);
+                                numberinvoice = (nroinvoice + 1), controlcode = getcodecontrol(request, orderbook.numberorder, numberinvoice, setting.numberid, orderbook.controlkey);
 
                                 return models.Salesbook.create(createsalesbook(request, controlcode, numberinvoice, orderbook.numberorder, orderbook.type, orderbook.id), { transaction: t }).then(function(salebook) {
                                     return models.Sale.create(createsale(request, salebook), { transaction: t }).then(function(sale) {
@@ -147,8 +147,8 @@ router.post('/create', common.isAuthenticate, function(request, response) {
             }
         });
 
-    }).then(function(result) {
-        response.send(common.response(null, "Se guardo correctamente"));
+    }).then(function() {
+        response.send(common.response(numberinvoice, "Se guardo correctamente"));
     }).catch(function(err) {
         response.send(common.response(err.code, err.message, false));
     });

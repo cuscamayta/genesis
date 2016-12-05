@@ -7,7 +7,7 @@ app.controller('InvoiceController', function ($scope, SaleService, $rootScope) {
     $scope.generateprintinvoice = function () {
         $scope.filters = {};
         $scope.filters.idoffice = $rootScope.idoffice;
-        $scope.filters.numberinvoice = 1;
+        $scope.filters.numberinvoice = $scope.nroinvoiceprint;
 
         var response = SaleService.getinvoice($scope.filters);
         response.then(function (res) {

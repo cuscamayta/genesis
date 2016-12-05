@@ -1,3 +1,5 @@
+
+
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
@@ -181,3 +183,44 @@
 			</div>
 		</div>
 	</div>
+
+	<div style="width: 265px; font-size: 11px; display: none" id="invoice-file">
+		<p style="text-align: center"><b>{{datainvoice.titleCompany}}</b></p>
+		<p style="text-align: center">{{datainvoice.titleOffice}}<br /> {{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/> {{datainvoice.detailOffice}}
+		</p>
+		<p style="text-align: center"><b>FACTURA</b><br/> ORIGINAL
+		</p>
+		<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/> Factura Nro: {{datainvoice.numberInvoice}}<br/> Autorizacion: {{datainvoice.numberorderInvoice}}<br/>			Nombre: {{datainvoice.nameInvoice}}<br/> NIT: {{datainvoice.numbernitInvoice}}</p>
+
+		<p>CÓDIGO DE CONTROL: {{datainvoice.codecontrolInvoice}}</p>
+		<p><label id="qrinvoice"></label></p>
+
+		<p style="text-align: center">{{datainvoice.noteCompany}}</p>
+
+		<p style="text-align: center"><b>******************************</b><br/> GRACIAS POR SU PREFERENCIA</p>
+	</div>
+	<style>
+		@media print {
+			label {
+				display: block;
+				margin: 5px 0;
+			}
+			#invoice-file {
+				display: block;
+				font-family: 'Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+				font-weight: normal;
+				font-style: normal;
+				width: 265px;
+				font-size: 10px;
+				padding: 9px;
+				text-align: center;
+				display: block !important;
+			}
+			#invoice-file div {
+				border-bottom: solid #BBB 1px;
+			}
+			#invoice-file .footer {
+				border-bottom: none;
+			}
+		}
+	</style>
