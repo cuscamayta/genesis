@@ -15,7 +15,6 @@ app.controller('InvoiceController', function ($scope, SaleService, $rootScope) {
                 toastr.error(res.message);
             }
             else {
-                debugger;
                 $scope.datainvoice = {};
                 $scope.datainvoice.titleCompany = res.data.setting.title;
                 $scope.datainvoice.numberidCompany = res.data.setting.numberid;
