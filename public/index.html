@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Bus Ticket System</title>
+	<title class="hidden-print">Bus Ticket System</title>
 
 	<link rel="icon" type="image/png" href="/app/images/icono.png" />
 
@@ -64,7 +64,7 @@
 			</div>
 
 			<!-- top navigation -->
-			<div class="top_nav" ng-hide="!currentUser">
+			<div class="top_nav hidden-print" ng-hide="!currentUser">
 				<div class="nav_menu">
 					<nav>
 						<div class="nav toggle">
@@ -98,7 +98,7 @@
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer data-ng-style="isLoginPage()">
+			<footer data-ng-style="isLoginPage()" class="hidden-print">
 				<div class="pull-right">
 					Ticket Bus System - by <a href="www.emgineersworking.com">EngineersWorking</a>
 				</div>

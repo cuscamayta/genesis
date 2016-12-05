@@ -32,14 +32,14 @@ app.controller('InvoiceController', function ($scope, SaleService, $rootScope) {
                 $scope.datainvoice.totalInvoice = res.data.invoice.amountinvoice;
                 $scope.datainvoice.deadlineOrder = res.data.orderbook.deadline;
 
-                printcodeqr("qrinvoice",  $scope.datainvoice.numberidCompany, $scope.datainvoice.titleCompany,                $scope.datainvoice.numberInvoice,                $scope.datainvoice.numberorder,                $scope.datainvoice.date,
-                $scope.datainvoice.amount, $scope.datainvoice.codecontrolInvoice, $scope.datainvoice.limit);
+                printcodeqr("qrinvoice", $scope.datainvoice.numberidCompany, $scope.datainvoice.titleCompany, $scope.datainvoice.numberInvoice, $scope.datainvoice.numberorder, $scope.datainvoice.date,
+                    $scope.datainvoice.amount, $scope.datainvoice.codecontrolInvoice, $scope.datainvoice.limit);
             }
         });
     };
 
-    function printcodeqr(element, numberid, businessname, numberinvoice, numberorder, dateinvoice,
-        amountinvoice, codecontrol, datelimit) {
+    function printcodeqr(element, numberid, businessname, numberinvoice,
+        numberorder, dateinvoice, amountinvoice, codecontrol, datelimit) {
         $('#qrinvoice').qrcode({
             width: 100,
             height: 100,

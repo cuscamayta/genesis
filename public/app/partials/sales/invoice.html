@@ -1,9 +1,9 @@
-<div class="page-title">
+<div class="page-title hidden-print">
 	<div class="title_left">
 		<h3>Invoice <small>Some examples to get you started</small></h3>
 	</div>
 
-	<div class="title_right">
+	<div class="title_right ">
 		<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Search for...">
@@ -15,49 +15,36 @@
 	</div>
 </div>
 
-<div class="clearfix"></div>
-<div class="row" id="invoice-file">
-	<div class="col-md-4">
-		<div class="x_panel">
-			<div class="x_content">
+<div style="width: 265px; font-size: 11px;" id="invoice-file">
+	<p style="text-align: center"><b>{{datainvoice.titleCompany}}</b></p>
+	<p style="text-align: center">{{datainvoice.titleOffice}}<br /> {{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/> {{datainvoice.detailOffice}}
+	</p>
+	<p style="text-align: center"><b>FACTURA</b><br/> ORIGINAL
+	</p>
+	<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/> Factura Nro: {{datainvoice.numberInvoice}}<br/> Autorizacion: {{datainvoice.numberorderInvoice}}<br/>		Nombre: {{datainvoice.nameInvoice}}<br/> NIT: {{datainvoice.numbernitInvoice}}</p>
 
-				<div>
-					<p style="text-align: center"><b>{{datainvoice.titleCompany}}</b></p>
-					<p style="text-align: center">{{datainvoice.titleOffice}}<br /> {{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/> {{datainvoice.detailOffice}}
-					</p>
-					<p style="text-align: center"><b>FACTURA</b><br/> ORIGINAL
-					</p>
-					<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/> Factura Nro: {{datainvoice.numberInvoice}}<br/> Autorizacion: {{datainvoice.numberorderInvoice}}<br/>						Nombre: {{datainvoice.nameInvoice}}<br/> NIT: {{datainvoice.numbernitInvoice}}</p>
+	<p>CÓDIGO DE CONTROL: {{datainvoice.codecontrolInvoice}}</p>
+	<p><label id="qrinvoice"></label></p>
 
-					<p>CÓDIGO DE CONTROL: {{datainvoice.codecontrolInvoice}}</p>
-					<p><label id="qrinvoice"></label></p>
+	<p style="text-align: center">{{datainvoice.noteCompany}}</p>
 
-					<p style="text-align: center">{{datainvoice.noteCompany}}</p>
-
-					<p style="text-align: center"><b>***********************************************************</b><br/> GRACIAS POR SU PREFERENCIA</p>
-				</div>
-
-
-			</div>
-		</div>
-	</div>
+	<p style="text-align: center"><b>******************************</b><br/> GRACIAS POR SU PREFERENCIA</p>
 </div>
 <style>
 	@media print {
-		body {
-			display: none;
-		}
 		label {
 			display: block;
 			margin: 5px 0;
+		}
+		a[href]:after {
+			content: none !important;
 		}
 		#invoice-file {
 			font-family: 'Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
 			font-weight: normal;
 			font-style: normal;
 			width: 265px;
-			font-size: 10px;
-			border: solid #BBB 1px;
+			font-size: 10px;		
 			padding: 9px;
 			text-align: center;
 			display: block !important;
@@ -73,25 +60,10 @@
 
 
 
-<div class="row no-print">
+<div class="row hidden-print">
 	<div class="col-xs-12">
 		<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
 		<button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
 		<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
 	</div>
 </div>
-
-<script language="VBScript">
-        sub rPrint()
-            OLECMDID_PRINT = 6
-            OLECMDEXECOPT_DONTPROMPTUSER = 2
-            OLECMDEXECOPT_PROMPTUSER = 1
-            call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
-            window.close()
-        End Sub
-        document.write "<object id='WB' width='0' height='0' classid='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>" 
-        
-         window.addEventListener(    'load',    function load()
-    {
-       alert("load test");         rPrint();    },    false);
-    </script>
