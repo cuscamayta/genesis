@@ -226,7 +226,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
                 printcodeqr("qrinvoice", $scope.datainvoice.numberidCompany, $scope.datainvoice.titleCompany, $scope.datainvoice.numberInvoice, $scope.datainvoice.numberorder, $scope.datainvoice.date,
                     $scope.datainvoice.amount, $scope.datainvoice.codecontrolInvoice, $scope.datainvoice.limit);
 
-                    rPrint();
+                  Print();
             }
         });
     };
