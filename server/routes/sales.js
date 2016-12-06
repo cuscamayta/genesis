@@ -63,15 +63,14 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
                             },
                             {
                                 model: models.Sale,
-                                attributes: ["arrival", "departure", "idoffice"],
+                                attributes: ["total"],
                                 include: [{
-                                    model: models.Salesdetail,
-                                    attributes: ["id", "detail"],
-                                    include: [{
-                                        model: models.Ticket,
-                                        where: { status: 1 },
-                                        attributes: ["numberid", "fullname", "price", "number", "numberbaggage", "weightbaggage", "origin", "destination", "typebus"]
-                                    }]
+                                    model: models.Schedule,
+                                    attributes: ["arrival", "departure", "dateregister"]
+                                }, {
+                                    model: models.Ticket,
+                                    where: { status: 1 },
+                                    attributes: ["numberid", "fullname", "price", "number", "numberbaggage", "weightbaggage", "origin", "destination", "typebus"]
                                 }]
                             }],
                             where: { status: 1, numberinvoice: request.body.numberinvoice, numberorder: orderbook.dataValues.numberorder }

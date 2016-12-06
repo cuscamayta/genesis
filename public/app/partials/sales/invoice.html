@@ -15,18 +15,66 @@
 
 <div style="width: 265px; font-size: 11px;" id="invoice-file">
 	<p style="text-align: center"><b>{{datainvoice.titleCompany}}</b></p>
-	<p style="text-align: center">{{datainvoice.titleOffice}}<br /> {{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br/> {{datainvoice.detailOffice}}
-	</p>
-	<p style="text-align: center"><b>FACTURA</b><br/> ORIGINAL
-	</p>
-	<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br/> Factura Nro: {{datainvoice.numberInvoice}}<br/> Autorizacion: {{datainvoice.numberorderInvoice}}<br/>		Nombre: {{datainvoice.nameInvoice}}<br/> NIT: {{datainvoice.numbernitInvoice}}</p>
+	<p style="text-align: center">{{datainvoice.titleOffice}}<br /> 
+	{{datainvoice.addressOffice}} Telf: {{datainvoice.phoneOffice}}<br /> {{datainvoice.detailOffice}}</p>
+	<p style="text-align: center">-----------------------------------------</p> 
+	<p style="text-align: center">FACTURA ORIGINAL</p>
+	<p style="text-align: center">-----------------------------------------</p>
+	<p style="text-align: center">NIT: {{datainvoice.numberidCompany}}<br /> 
+	FACTURA Nro: {{datainvoice.numberInvoice}}<br /> 
+	AUTORIZACION: {{datainvoice.numberorderInvoice}}</p> 
+	<p style="text-align: center">-----------------------------------------</p>
+	<p style="text-align: center">FECHA: {{datainvoice.dateInvoice}}<br />
+	SENOR(es): {{datainvoice.nameInvoice}}<br />
+	NIT/CI: {{datainvoice.numbernitInvoice}}</p>
 
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="text-align: center">CANT.</th>
+					<th style="text-align: center">DESCRIPCION</th>
+					<th style="text-align: center">PRECIO</th>
+					<th style="text-align: center">TOTAL</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="detail in detailinvoice">
+					<td>1</td>
+					<td>PASAJE</td>
+					<td>{{detail.price}}</td>
+					<td>{{detail.price}}</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<td></td>
+				<td></td>
+				<td>TOTAL Bs</td>
+				<td>{{datainvoice.total}}</td>
+			</tfoot>
+		</table>
+	<p>Son: {{datainvoice.totalliteral}}</p>
+	<p style="text-align: center">-----------------------------------------</p>
 	<p>CÓDIGO DE CONTROL: {{datainvoice.codecontrolInvoice}}</p>
+	<p>FECHA LIMITE DE EMISION {{datainvoice.deadline}}</p>
+	<p style="text-align: center">Salida {{datainvoice.date}} Hrs. {{datainvoice.arrival}}</p>
 	<p><label id="qrinvoice"></label></p>
 
 	<p style="text-align: center">{{datainvoice.noteCompany}}</p>
 
-	<p style="text-align: center"><b>******************************</b><br/> GRACIAS POR SU PREFERENCIA</p>
+	<p style="text-align: center">*****************************************<br /> 
+	GRACIAS POR SU PREFERENCIA</p>
+	<p style="text-align: center">-----------------------------------------</p>
+
+	<span>m</span>
+	<div ng-repeat="detail in detailinvoice">
+		<p>ASIENTO: <b>{{detail.number}}</b></p>
+		<p>Origen: {{detail.origin}} Destino: {{detail.destination}}</p>
+		<p>Bus: {{detail.typebus}}</p>
+		<p>Salida: {{datainvoice.date}} Hrs: {{datainvoice.arrival}}</p>
+		<p>Nombre: {{detail.fullname}} CI: {{detail.numberid}}</p>
+		<p style="text-align: center">Bs {{detail.price}}</p>
+	</div>
+	<span>i</span>
 </div>
 <style>
 	@media print {
@@ -42,7 +90,7 @@
 			font-weight: normal;
 			font-style: normal;
 			width: 265px;
-			font-size: 10px;		
+			font-size: 10px;
 			padding: 9px;
 			text-align: center;
 			display: block !important;
@@ -56,10 +104,8 @@
 	}
 </style>
 
-
-
 <div class="row hidden-print">
 	<div class="col-xs-12">
-		<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>		
+		<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
 	</div>
 </div>

@@ -38,7 +38,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-var port = normalizePort(process.env.PORT || '3005');
+var port = normalizePort(process.env.PORT || '3002');
 app.set('port', port);
 var server = http.createServer(app);
 

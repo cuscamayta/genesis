@@ -16,21 +16,6 @@
 //---------------------------------------------------------------------
 // QR8bitByte
 //---------------------------------------------------------------------
-function GenerarQR(Element, NITEmpresa, Empresa, NroFactura, NroAutorizacion, FechaEmision, Importe, CodControl, FechaLimite) {    
-    jQuery('#' + Element).qrcode({
-			width		: 80,
-			height		: 80,
-        text: NITEmpresa + " | " +
-              Empresa + " | " +
-              NroFactura + " | " +
-              NroAutorizacion + " | " +
-              FechaEmision + " | " +
-              Importe + "Bs | " +
-              CodControl + " | " +
-              FechaLimite
-    });
-}
-
 function QR8bitByte(data) {
 	this.mode = QRMode.MODE_8BIT_BYTE;
 	this.data = data;
