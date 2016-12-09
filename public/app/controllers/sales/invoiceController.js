@@ -42,8 +42,9 @@ app.controller('InvoiceController', function ($scope, SaleService, $rootScope) {
                     var totalformat = parseFloat(Math.round(res.data.invoice.Sales.first().total * 100) / 100).toFixed(2);
                     $scope.datainvoice.totalliteral = Convertir(totalformat);
 
-                    printcodeqr("qrinvoice", $scope.datainvoice.numberidCompany, $scope.datainvoice.titleCompany, $scope.datainvoice.numberInvoice, $scope.datainvoice.numberorder, $scope.datainvoice.date,
-                        $scope.datainvoice.amount, $scope.datainvoice.codecontrolInvoice, $scope.datainvoice.limit);
+                    printcodeqr("qrinvoice", $scope.datainvoice.numberidCompany, $scope.datainvoice.titleCompany,
+                        $scope.datainvoice.numberInvoice, $scope.datainvoice.numberorderInvoice, $scope.datainvoice.date,
+                        $scope.datainvoice.totalInvoice, $scope.datainvoice.codecontrolInvoice, $scope.datainvoice.deadlineOrder);
                 }
             }
         });
@@ -51,10 +52,10 @@ app.controller('InvoiceController', function ($scope, SaleService, $rootScope) {
 
     function printcodeqr(element, numberid, businessname, numberinvoice,
         numberorder, dateinvoice, amountinvoice, codecontrol, datelimit) {
-        $('#qrinvoice').html("");   
+        $('#qrinvoice').html("");
         $('#qrinvoice').qrcode({
-            width: 100,
-            height: 100,
+            width: 150,
+            height: 150,
             text: numberid + " | " +
             businessname + " | " +
             numberinvoice + " | " +
