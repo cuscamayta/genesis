@@ -5,6 +5,13 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         gettravels();
         dataticket();
 
+        //  var image = $('#imgTest');
+        //     image.mapster(
+        //     {
+        //         fillOpacity: 0.4,
+        //         fillColor: "050101"
+        //     }
+        //     );
         $('#dateregister').daterangepicker({
             locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
