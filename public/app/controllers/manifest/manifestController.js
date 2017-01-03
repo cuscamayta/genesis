@@ -1,4 +1,4 @@
-app.controller('ManifestController', function ($scope, TicketService, ScheduleService, TravelService, $rootScope) {
+app.controller('ManifestController', function ($scope, ScheduleService, TravelService, $rootScope) {
     init();
 
     function init() {
@@ -37,7 +37,7 @@ app.controller('ManifestController', function ($scope, TicketService, ScheduleSe
     $scope.scheduleselected = function (schedule) {
         $scope.selectedschedule = schedule;
 
-        var response = TicketService.getticketsformanifest($scope.selectedschedule);
+        var response = ScheduleService.getticketsformanifest($scope.selectedschedule);
         response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
@@ -45,6 +45,9 @@ app.controller('ManifestController', function ($scope, TicketService, ScheduleSe
             else {
                 $scope.showblack = false;
                 $scope.listticket = res.data;
+                if ($scope.listticket.length > 0) {
+                    $scope.listdriver = res.data.first().Schedule.Scheduledetails;
+                }
                 $("#step-2").css("display", "block");
                 $("#step-1").css("display", "none");
             }

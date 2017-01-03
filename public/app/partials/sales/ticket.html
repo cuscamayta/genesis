@@ -6,14 +6,21 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-
-				<div id="step-1" class="content" style="display: block;">
+				<div id="step-0" class="content" style="display: block;">
 					<form class="form-horizontal form-label-left">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12" for="idtravel">Itinerario</label>
-						<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-							<select id="idtravel" class="form-control" ng-options="travel.numberid for travel in listtravel" ng-model="selectedtravel"
-								ng-change="selectedtravelchange()" required></select>
+						<div class="bs-glyphicons">
+							<ul class="bs-glyphicons-list">
+								<li data-ng-repeat="travel in listtravel" ng-click="selectedtravelchange(travel)">
+									<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+									<span class="glyphicon-class">{{travel.numberid}}</span>
+								</li>
+							</ul>
 						</div>
+					</form>
+				</div>
+
+				<div id="step-1" class="content" style="display: none;">
+					<form class="form-horizontal form-label-left">
 						<div class="col-md-12">
 							<div class="x_panel">
 								<div class="x_content">
@@ -240,7 +247,7 @@
 		<p style="text-align: center">Bs {{detail.price}}</p><br /><br />
 		<i>i</i>
 	</div>
-	
+
 </div>
 <style>
 	@media print {
@@ -248,7 +255,7 @@
 			display: block;
 			margin: 5px 0;
 		}
-		.ticket{
+		.ticket {
 			padding-top: 10px;
 		}
 		#invoice-file {
@@ -257,7 +264,6 @@
 			font-style: normal;
 			width: 100% !important;
 			font-size: 14px !important;
-			
 			text-align: center;
 			display: block !important;
 		}

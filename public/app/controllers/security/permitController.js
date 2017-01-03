@@ -1,10 +1,21 @@
-app.controller('PermitController', function($scope, PermitService, RoleService, PageService) {
+app.controller('PermitController', function ($scope, PermitService, RoleService, PageService) {
     init();
     function init() {
         getroles();
         getpages();
         getpermits();
         datapermit();
+
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-pink',
+            radioClass: 'iradio_flat-pink'
+        });
+
+        $('input.all').on('ifToggled', function (event) {
+            var chkToggle;
+            $(this).is(':checked') ? chkToggle = "check" : chkToggle = "uncheck";
+            $('input.selector:not(.all)').iCheck(chkToggle);
+        });
     }
 
     function datapermit() {
@@ -17,7 +28,7 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
 
     function getpermits() {
         var response = PermitService.getpermits();
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -27,7 +38,7 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
 
     function getroles() {
         var response = RoleService.getroles();
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -39,7 +50,7 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
 
     function getpages() {
         var response = PageService.getpages();
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -49,10 +60,10 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
         });
     }
 
-    $scope.savepermit = function() {
+    $scope.savepermit = function () {
         $scope.editpermit;
 
-        var n = $scope.permits.where(function(item) {
+        var n = $scope.permits.where(function (item) {
             return item.idrole == $scope.selectedrole.id && item.idpage == $scope.selectedpage.id;
         });
 
@@ -61,7 +72,7 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
             $scope.editpermit.idpage = $scope.selectedpage.id;
             if ($scope.editpermit.id == 0) {
                 var response = PermitService.savepermit($scope.editpermit);
-                response.then(function(res) {
+                response.then(function (res) {
                     if (!res.isSuccess) { toastr.error(res.message); }
                     else {
                         getpermits();
@@ -77,9 +88,9 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
         }
     };
 
-    $scope.deletepermit = function() {
+    $scope.deletepermit = function () {
         var response = PermitService.deletepermit($scope.editpermit);
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) { toastr.error(res.message); }
             else {
                 $("#modaldeletepermit").modal("hide");
@@ -90,18 +101,18 @@ app.controller('PermitController', function($scope, PermitService, RoleService, 
         });
     };
 
-    $scope.selectedpermit = function(permit, option) {
+    $scope.selectedpermit = function (permit, option) {
         $scope.permitselected = permit;
         $scope.editpermit = angular.copy($scope.permitselected);
         $scope.editpermit.state = 2;
     };
 
-    $scope.validatecontrols = function() {
+    $scope.validatecontrols = function () {
         return $scope.editpermit == null
             || $scope.selectedrole == null || $scope.selectedpage == null;
     };
 
-    $scope.newpermit = function() {
+    $scope.newpermit = function () {
         datapermit();
     };
 });

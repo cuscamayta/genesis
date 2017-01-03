@@ -1,8 +1,8 @@
-app.controller('DailysaleController', function($scope, SalesbookService, OfficeService, $rootScope) {
+app.controller('DailybusController', function ($scope, SaleService, BusService, $rootScope) {
     init();
 
     function init() {
-        getoffices();
+        getbuses();
         $scope.selectedschedule = null;
         $scope.lissales = [];
 
@@ -13,7 +13,7 @@ app.controller('DailysaleController', function($scope, SalesbookService, OfficeS
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function(ev, picker) {
+        }).on('apply.daterangepicker', function (ev, picker) {
             $scope.filters.dateinit = picker.startDate.format('DD/MM/YYYY');
         });
 
@@ -22,41 +22,41 @@ app.controller('DailysaleController', function($scope, SalesbookService, OfficeS
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function(ev, picker) {
+        }).on('apply.daterangepicker', function (ev, picker) {
             $scope.filters.dateend = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
-    function getoffices() {
-        var response = OfficeService.getofficesforselect();
-        response.then(function(res) {
+    function getbuses() {
+        var response = BusService.getbusesforselect();
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
-                $scope.listoffice = res.data;
+                $scope.listbus = res.data;
             }
         });
     }
 
-    $scope.generatedailysale = function() {
-        $scope.filters.idoffice = $scope.selectedoffice.id;
-        var response = SalesbookService.getsalesbooksforselect($scope.filters);
-        response.then(function(res) {
+    $scope.generatedailybus = function () {
+        $scope.filters.idbus = $scope.selectedbus.id;
+        var response = SaleService.getdailybus($scope.filters);
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
             else {
                 $scope.listsales = res.data;
-                $scope.sumTotal = $scope.listsales.sum(function(item) {
-                    return parseInt(item.amountinvoice);
+                $scope.sumTotal = $scope.listsales.sum(function (item) {
+                    return parseInt(item.total);
                 });
             }
         });
     };
 
-    $scope.validatecontrols = function() {
+    $scope.validatecontrols = function () {
         return $scope.filters == null || $scope.filters.dateinit == null
-            || $scope.filters.dateend == null || $scope.selectedoffice == null;
+            || $scope.filters.dateend == null || $scope.selectedbus == null;
     };
 });

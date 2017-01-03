@@ -55,6 +55,22 @@
                         <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_content">
+                                    <table class="table table-striped jambo_table bulk_action">
+                                        <thead class="headings">
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Nro Licencia</th>
+                                                <th>Tipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="even pointer" ng-repeat="item in listdriver">
+                                                <td>{{item.Driver.fullName}}</td>
+                                                <td>{{item.Driver.numberid}}</td>
+                                                <td>{{item.drivertype}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <div class="table-responsive">
                                         <table class="table table-striped jambo_table bulk_action">
                                             <thead class="headings">

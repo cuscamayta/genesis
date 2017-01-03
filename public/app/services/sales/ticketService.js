@@ -11,15 +11,7 @@ app.service('TicketService', function ($http, $q) {
             defer.resolve(response);
         });
         return defer.promise;
-    };
-
-    this.getticketsformanifest = function (schedule) {
-        var defer = $q.defer();
-        $http.post('/tickets/formanifest', schedule).success(function (response) {
-            defer.resolve(response);
-        });
-        return defer.promise;
-    };
+    };   
 
     this.invalidateinvoice = function (invoice) {
         var defer = $q.defer();

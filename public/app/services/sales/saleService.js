@@ -21,6 +21,14 @@ app.service('SaleService', function ($http, $q) {
         return defer.promise;
     };
 
+    this.getdailybus = function (filters) {
+        var defer = $q.defer();
+        $http.post('/sales/dailybus', filters).success(function (response) {
+            defer.resolve(response);
+        });
+        return defer.promise;
+    };
+
     this.getcountuser = function () {
         var defer = $q.defer();
         $http.post('/sales/countuser').success(function (response) {

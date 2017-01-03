@@ -10,9 +10,17 @@
                 <form class="form-horizontal form-label-left">
 
                     <div class="form-group">
-                        <label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateregister">Fecha <span class="required">*</span></label>
-                        <div class="col-md-3 col-sm-3 col-xs-12 form-group has-feedback">
-                            <input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus order="1" ng-model="editschedule.dateregister"
+                        <label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateinit">Desde <span class="required">*</span></label>
+                        <div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+                            <input type="text" id="dateinit" class="form-control has-feedback-left active" ngfocus order="1" ng-model="editschedule.dateinit"
+                                validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                        </div>
+
+                        <label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateend">Hasta <span class="required">*</span></label>
+                        <div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+                            <input type="text" id="dateend" class="form-control has-feedback-left active" ngfocus order="1" ng-model="editschedule.dateend"
                                 validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess2Status" class="sr-only">(success)</span>
@@ -23,7 +31,7 @@
                             <select id="iduser" class="form-control" ng-options="user.fullName for user in listuser" ng-model="selecteduser" required></select>
                         </div>
 
-                        <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-md-1 col-sm-1 col-xs-12">
                             <button type="button" class="btn btn-primary" ng-disabled="validatecontrols()" ng-click="generatedailycash()" title="Generar reporte">Generar</button>
                         </div>
                     </div>
@@ -44,15 +52,25 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="even pointer" ng-repeat="sale in lissales" ng-class="{selectelement:saleselected.id==sale.id}">
+                                            <tr class="even pointer" ng-repeat="sale in listsales" ng-class="{selectelement:saleselected.id==sale.id}">
                                                 <td>{{$index + 1}}</td>
                                                 <td>{{sale.dateregister}}</td>
                                                 <td>{{sale.arrival}}</td>
                                                 <td>{{sale.departure}}</td>
-                                                <td>{{sale.total}}</td>
+                                                <td style="text-align: right;">{{sale.total}}</td>
                                                 <td>{{sale.User.fullName}}</td>
                                             </tr>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="font-weight: bold;">Total</td>
+                                                <td style="text-align: right; font-weight: bold;">{{ sumTotal }}</td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

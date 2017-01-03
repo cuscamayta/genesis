@@ -15,7 +15,8 @@ module.exports = function (sequelize, DataTypes) {
                 return moment(date).format("DD/MM/YYYY");
             }
         },
-        price: { type: DataTypes.DECIMAL, allowNull: false },
+        pricemin: { type: DataTypes.DECIMAL, allowNull: false },
+        pricemax: { type: DataTypes.DECIMAL, allowNull: false },
         arrival: { type: DataTypes.STRING, allowNull: false },
         departure: { type: DataTypes.STRING, allowNull: false },
         detail: { type: DataTypes.STRING, allowNull: true }

@@ -1,3 +1,5 @@
+use database_production;
+
 select * from database_production.roles;
 insert into database_production.roles (title, createdat, updatedat) values('administrador', now(), now());
 
@@ -48,6 +50,7 @@ insert into database_production.pages (title, path, createdat, updatedat, idmodu
 
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Ventas diarias', 'dailysale', now(), now(),6);
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Arqueo de caja', 'dailycash', now(), now(),6);
+insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Ventas por bus', 'dailybus', now(), now(),6);
 insert into database_production.pages (title, path, createdat, updatedat, idmodule) values ('Facturas anuladas', 'voidedinvoice', now(), now(),6);
 
 select * from database_production.useroffices;
@@ -76,3 +79,4 @@ insert into database_production.permits (createdat, updatedat, idpage, idrole) v
 insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 20, 1);
 insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 21, 1);
 insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 22, 1);
+insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 23, 1);

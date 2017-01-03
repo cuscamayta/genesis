@@ -6,7 +6,29 @@ var common = require('./common');
 router.post('/dailycash', common.isAuthenticate, function(request, response) {
     models.Sale.findAll({
         include: [{ model: models.User }],
-        where: { dateregister: common.formatDate(request.body.dateregister), iduser: request.body.iduser, status: 1 },
+        where: {
+            dateregister: {
+                $between: [common.formatDate(request.body.dateinit), common.formatDate(request.body.dateend)]
+            },
+            iduser: request.body.iduser, status: 1
+        },
+        order: 'idschedule ASC'
+    }).then(function(res) {
+        response.send(common.response(res));
+    }).catch(function(err) {
+        response.send(common.response(err.code, err.message, false));
+    });
+});
+
+router.post('/dailybus', common.isAuthenticate, function(request, response) {
+    models.Sale.findAll({
+        include: [{ model: models.Schedule, where: { idbus: request.body.idbus } }],
+        where: {
+            dateregister: {
+                $between: [common.formatDate(request.body.dateinit), common.formatDate(request.body.dateend)]
+            },
+            status: 1
+        },
         order: 'idschedule ASC'
     }).then(function(res) {
         response.send(common.response(res));
@@ -47,7 +69,6 @@ router.post('/countuser', common.isAuthenticate, function(request, response) {
 router.post('/invoice', common.isAuthenticate, function(request, response) {
 
     return models.sequelize.transaction(function(t) {
-
         return models.Setting.findOne({ attributes: ["title", "numberid", "note"] }, { transaction: t }).then(function(setting) {
             if (setting) {
                 return models.Orderbook.findOne({

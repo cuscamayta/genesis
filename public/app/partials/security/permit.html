@@ -44,6 +44,35 @@
                         </select>
                     </p>
 
+
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <thead class="headings">
+                                    <tr>
+                                        <th>
+                                            <label class="checkbox checkbox-inline">
+                                                <input type="checkbox" value="0" class="selector all">
+                                            </label>                                            
+                                        </th>
+                                        <th>Página</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr scope="row" ng-repeat="page in listpage" class="even pointer">
+                                        <td>
+                                            <label class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="{{page.id}}" class="selector">
+                                            </label>
+                                        </td>
+                                        <td>{{page.title}}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                    </div>
+
+
                     <p>
                         <label for="idpage">Página <span class="required">*</span></label>
                         <select id="idpage" class="form-control" ng-options="page.title for page in listpage" ng-model="selectedpage" required ng-enter="savepermit()">                            

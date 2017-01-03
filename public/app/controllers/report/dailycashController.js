@@ -4,17 +4,26 @@ app.controller('DailycashController', function ($scope, SaleService, UserService
     function init() {
         getusers();
         $scope.selectedschedule = null;
-        $scope.lissales = [];
+        $scope.listsales = [];
 
         $scope.filters = {};
 
-        $('#dateregister').daterangepicker({
-            locale: { format: 'DD/MM/YYYY' },
+        $('#dateinit').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
         }).on('apply.daterangepicker', function (ev, picker) {
-            $scope.filters.dateregister = picker.startDate.format('DD/MM/YYYY');
+            $scope.filters.dateinit = picker.startDate.format('DD/MM/YYYY');
+        });
+
+        $('#dateend').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
+            singleDatePicker: true,
+            showDropdowns: true,
+            calender_style: "picker_4"
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.filters.dateend = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
@@ -39,13 +48,16 @@ app.controller('DailycashController', function ($scope, SaleService, UserService
                 toastr.error(res.message);
             }
             else {
-                $scope.lissales = res.data;
+                $scope.listsales = res.data;
+                $scope.sumTotal = $scope.listsales.sum(function (item) {
+                    return parseInt(item.total);
+                });
             }
         });
     };
 
     $scope.validatecontrols = function () {
-        return $scope.filters == null || $scope.filters.dateregister == null
-            || $scope.selecteduser == null;
+        return $scope.filters == null || $scope.filters.dateinit == null
+            || $scope.filters.dateend == null || $scope.selecteduser == null;
     };
 });

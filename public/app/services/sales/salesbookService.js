@@ -18,5 +18,5 @@
             defer.resolve(response);
         });
         return defer.promise;
-    };   
+    };
 });
