@@ -6,16 +6,8 @@ app.controller('PermitController', function ($scope, PermitService, RoleService,
         getpermits();
         datapermit();
 
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_flat-pink',
-            radioClass: 'iradio_flat-pink'
-        });
-
-        $('input.all').on('ifToggled', function (event) {
-            var chkToggle;
-            $(this).is(':checked') ? chkToggle = "check" : chkToggle = "uncheck";
-            $('input.selector:not(.all)').iCheck(chkToggle);
-        });
+        $scope.AllSelectedItems = false;
+        $scope.NoSelectedItems = false;
     }
 
     function datapermit() {
@@ -61,31 +53,43 @@ app.controller('PermitController', function ($scope, PermitService, RoleService,
     }
 
     $scope.savepermit = function () {
-        $scope.editpermit;
 
-        var n = $scope.permits.where(function (item) {
-            return item.idrole == $scope.selectedrole.id && item.idpage == $scope.selectedpage.id;
+        $scope.newpermits = {};
+        $scope.newdetails = [];
+
+        angular.forEach($scope.listpage, function (value) {
+            if (value.isSelected) {
+                var n = $scope.permits.where(function (item) {
+                    return item.idrole == $scope.selectedrole.id && item.idpage == value.id;
+                });
+
+                if (n.length == 0) {
+                    $scope.valuepermit = {};
+                    $scope.valuepermit.idrole = $scope.selectedrole.id;
+                    $scope.valuepermit.idpage = value.id;
+                    $scope.newdetails.push($scope.valuepermit);
+                }
+                else {
+                    toastr.warning("Página ya fue asignada al rol");
+                }
+            }
         });
 
-        if (n.length == 0) {
-            $scope.editpermit.idrole = $scope.selectedrole.id;
-            $scope.editpermit.idpage = $scope.selectedpage.id;
-            if ($scope.editpermit.id == 0) {
-                var response = PermitService.savepermit($scope.editpermit);
-                response.then(function (res) {
-                    if (!res.isSuccess) { toastr.error(res.message); }
-                    else {
-                        getpermits();
-                        datapermit();
-                        toastr.success(res.message);
-                    }
-                });
-            }
-            datapermit();
+        if ($scope.newdetails.length > 0) {
+            $scope.newpermits.details = $scope.newdetails;
+            var response = PermitService.savepermit($scope.newpermits);
+            response.then(function (res) {
+                if (!res.isSuccess) { toastr.error(res.message); }
+                else {
+                    getpermits();
+                    datapermit();
+                    getroles();
+                    getpages();
+                    toastr.success(res.message);
+                }
+            });
         }
-        else {
-            toastr.warning("Página ya fue asignada al rol");
-        }
+
     };
 
     $scope.deletepermit = function () {
@@ -108,8 +112,7 @@ app.controller('PermitController', function ($scope, PermitService, RoleService,
     };
 
     $scope.validatecontrols = function () {
-        return $scope.editpermit == null
-            || $scope.selectedrole == null || $scope.selectedpage == null;
+        return $scope.editpermit == null || $scope.selectedrole == null || $scope.NoSelectedItems == true;
     };
 
     $scope.newpermit = function () {

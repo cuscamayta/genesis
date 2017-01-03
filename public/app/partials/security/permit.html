@@ -44,41 +44,15 @@
                         </select>
                     </p>
 
-
-
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <thead class="headings">
-                                    <tr>
-                                        <th>
-                                            <label class="checkbox checkbox-inline">
-                                                <input type="checkbox" value="0" class="selector all">
-                                            </label>                                            
-                                        </th>
-                                        <th>Página</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr scope="row" ng-repeat="page in listpage" class="even pointer">
-                                        <td>
-                                            <label class="checkbox checkbox-inline">
-                                                <input type="checkbox" id="{{page.id}}" class="selector">
-                                            </label>
-                                        </td>
-                                        <td>{{page.title}}</td>
-                                    </tr>
-                                </tbody>
-                        </table>
-                    </div>
-
-
                     <p>
-                        <label for="idpage">Página <span class="required">*</span></label>
-                        <select id="idpage" class="form-control" ng-options="page.title for page in listpage" ng-model="selectedpage" required ng-enter="savepermit()">                            
-                        </select>
+                       <div>
+                            <select-all-checkbox checkboxes="listpage" all-selected="AllSelectedItems" all-clear="NoSelectedItems"></select-all-checkbox> Todos
+                            <div class="form-inline">
+                            <div ng-repeat="item in listpage" class="form-group" style="width: 50%">
+                                &nbsp;&nbsp;<input type="checkbox" ng-model="item.isSelected" />{{item.title}}</div>
+                            </div>
+                        </div>
                     </p>
-
                     <div class="ln_solid"></div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <button type="button" class="btn btn-default" ng-click="newpermit()" title="Limpiar controles">Cancelar</button>
