@@ -23,7 +23,7 @@ app.service('BustypeService', function ($http, $q) {
 
     this.getbustypes = function () {
         var defer = $q.defer();
-        $http.get('/bustypes').success(function (response) {
+        $http.get('/bustypes?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

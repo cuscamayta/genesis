@@ -5,7 +5,7 @@ app.service('UserofficeService', function ($http, $q) {
     function init() {
     }
 
-    this.saveuseroffice = function (useroffice) {        
+    this.saveuseroffice = function (useroffice) {
         var defer = $q.defer();
         $http.post('/useroffices/create', useroffice).success(function (response) {
             defer.resolve(response);
@@ -15,12 +15,12 @@ app.service('UserofficeService', function ($http, $q) {
 
     this.getuseroffices = function () {
         var defer = $q.defer();
-        $http.get('/useroffices').success(function (response) {
+        $http.get('/useroffices?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;
     };
-    
+
     this.deleteuseroffice = function (useroffice) {
         var defer = $q.defer();
         $http.post('/useroffices/destroy', useroffice).success(function (response) {

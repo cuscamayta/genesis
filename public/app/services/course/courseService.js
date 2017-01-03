@@ -23,7 +23,7 @@
 
     this.getcourses = function () {
         var defer = $q.defer();
-        $http.get('/courses').success(function (response) {
+        $http.get('/courses?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

@@ -23,7 +23,7 @@ app.service('DrivertypeService', function ($http, $q) {
 
     this.getdrivertypes = function () {
         var defer = $q.defer();
-        $http.get('/drivertypes').success(function (response) {
+        $http.get('/drivertypes?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

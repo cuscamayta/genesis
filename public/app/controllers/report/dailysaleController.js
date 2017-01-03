@@ -13,7 +13,7 @@ app.controller('DailysaleController', function($scope, SalesbookService, OfficeS
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function(ev, picker) {
+        }).on('apply.daterangepicker', function (ev, picker) {
             $scope.filters.dateinit = picker.startDate.format('DD/MM/YYYY');
         });
 
@@ -22,7 +22,7 @@ app.controller('DailysaleController', function($scope, SalesbookService, OfficeS
             singleDatePicker: true,
             showDropdowns: true,
             calender_style: "picker_4"
-        }).on('apply.daterangepicker', function(ev, picker) {
+        }).on('apply.daterangepicker', function (ev, picker) {
             $scope.filters.dateend = picker.startDate.format('DD/MM/YYYY');
         });
     }

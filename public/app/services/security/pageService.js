@@ -23,7 +23,7 @@ app.service('PageService', function ($http, $q) {
 
     this.getpages = function () {
         var defer = $q.defer();
-        $http.get('/pages').success(function (response) {
+        $http.get('/pages?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

@@ -116,6 +116,9 @@ app.controller('PermitController', function ($scope, PermitService, RoleService,
     };
 
     $scope.newpermit = function () {
+        getpermits();
         datapermit();
+        getroles();
+        getpages();
     };
 });

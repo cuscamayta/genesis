@@ -45,11 +45,11 @@
                     </p>
 
                     <p>
-                       <div>
+                        <div>
                             <select-all-checkbox checkboxes="listpage" all-selected="AllSelectedItems" all-clear="NoSelectedItems"></select-all-checkbox> Todos
                             <div class="form-inline">
-                            <div ng-repeat="item in listpage" class="form-group" style="width: 50%">
-                                &nbsp;&nbsp;<input type="checkbox" ng-model="item.isSelected" />{{item.title}}</div>
+                                <div ng-repeat="item in listpage" class="form-group" style="width: 50%">
+                                    &nbsp;<input type="checkbox" ng-model="item.isSelected" />{{item.title}}</div>
                             </div>
                         </div>
                     </p>

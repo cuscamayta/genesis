@@ -23,7 +23,7 @@
 
     this.getdrivers = function () {
         var defer = $q.defer();
-        $http.get('/drivers').success(function (response) {
+        $http.get('/drivers?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

@@ -15,7 +15,7 @@ app.service('PermitService', function ($http, $q) {
 
     this.getpermits = function () {
         var defer = $q.defer();
-        $http.get('/permits').success(function (response) {
+        $http.get('/permits?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

@@ -23,7 +23,7 @@ app.service('TravelService', function ($http, $q) {
 
     this.gettravels = function () {
         var defer = $q.defer();
-        $http.get('/travels').success(function (response) {
+        $http.get('/travels?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

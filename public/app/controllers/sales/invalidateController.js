@@ -7,12 +7,22 @@ app.controller('InvalidateController', function ($scope, SalesbookService, Offic
         $scope.listsalebook = [];
         $scope.filters = {};
 
-        $('#dateregister').daterangepicker({
-            locale: { format: 'DD/MM/YYYY' },
+        $('#dateinit').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
             singleDatePicker: true,
+            showDropdowns: true,
             calender_style: "picker_4"
         }).on('apply.daterangepicker', function (ev, picker) {
-            $scope.filters.dateregister = picker.startDate.format('DD/MM/YYYY');
+            $scope.filters.dateinit = picker.startDate.format('DD/MM/YYYY');
+        });
+
+        $('#dateend').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
+            singleDatePicker: true,
+            showDropdowns: true,
+            calender_style: "picker_4"
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.filters.dateend = picker.startDate.format('DD/MM/YYYY');
         });
     }
 
@@ -43,8 +53,8 @@ app.controller('InvalidateController', function ($scope, SalesbookService, Offic
     };
 
     $scope.validatecontrols = function () {
-        return $scope.filters == null || $scope.filters.dateregister == null
-            || $scope.selectedoffice == null;
+        return $scope.filters == null || $scope.filters.dateinit == null
+            || $scope.filters.dateend == null || $scope.selectedoffice == null;
     };
 
     $scope.salebookselected = function (salebook) {

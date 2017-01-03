@@ -23,7 +23,7 @@ app.service('OfficeService', function ($http, $q) {
 
     this.getoffices = function () {
         var defer = $q.defer();
-        $http.get('/offices').success(function (response) {
+        $http.get('/offices?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

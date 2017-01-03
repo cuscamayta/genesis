@@ -23,7 +23,7 @@
 
     this.getusers = function () {
         var defer = $q.defer();
-        $http.get('/users').success(function (response) {
+        $http.get('/users?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

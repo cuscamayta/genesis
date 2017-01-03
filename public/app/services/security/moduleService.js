@@ -23,7 +23,7 @@ app.service('ModuleService', function ($http, $q) {
 
     this.getmodules = function () {
         var defer = $q.defer();
-        $http.get('/modules').success(function (response) {
+        $http.get('/modules?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

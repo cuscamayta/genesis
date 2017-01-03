@@ -23,7 +23,7 @@ app.service('SettingService', function ($http, $q) {
 
     this.getsettings = function () {
         var defer = $q.defer();
-        $http.get('/settings').success(function (response) {
+        $http.get('/settings?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

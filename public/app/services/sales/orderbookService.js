@@ -23,7 +23,7 @@ app.service('OrderbookService', function ($http, $q) {
 
     this.getorderbooks = function () {
         var defer = $q.defer();
-        $http.get('/orderbooks').success(function (response) {
+        $http.get('/orderbooks?' + new Date().getMilliseconds).success(function (response) {
             defer.resolve(response);
         });
         return defer.promise;

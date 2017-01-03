@@ -1,4 +1,4 @@
-app.directive('selectAllCheckbox', function () {
+app.directive('selectAllCheckbox', function() {
     return {
         replace: true,
         restrict: 'E',
@@ -8,24 +8,24 @@ app.directive('selectAllCheckbox', function () {
             allclear: '=allClear'
         },
         template: '<input type="checkbox" ng-model="master" ng-change="masterChange()">',
-        controller: function ($scope, $element) {
+        controller: function($scope, $element) {
 
-            $scope.masterChange = function () {
+            $scope.masterChange = function() {
                 if ($scope.master) {
-                    angular.forEach($scope.checkboxes, function (cb, index) {
+                    angular.forEach($scope.checkboxes, function(cb, index) {
                         cb.isSelected = true;
                     });
                 } else {
-                    angular.forEach($scope.checkboxes, function (cb, index) {
+                    angular.forEach($scope.checkboxes, function(cb, index) {
                         cb.isSelected = false;
                     });
                 }
             };
 
-            $scope.$watch('checkboxes', function () {
+            $scope.$watch('checkboxes', function() {
                 var allSet = true,
                     allClear = true;
-                angular.forEach($scope.checkboxes, function (cb, index) {
+                angular.forEach($scope.checkboxes, function(cb, index) {
                     if (cb.isSelected) {
                         allClear = false;
                     } else {
