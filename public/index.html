@@ -35,7 +35,7 @@
 	<!-- Custom Theme Style -->
 	<link href="../resources/custom/css/custom.min.css" rel="stylesheet">
 	<link href="../resources/site.css" rel="stylesheet">
-	 <script language="VBScript">
+	<script language="VBScript">
         sub Print()
             OLECMDID_PRINT = 6
             OLECMDEXECOPT_DONTPROMPTUSER = 2
@@ -47,7 +47,7 @@
 </head>
 
 <body class="nav-md">
-	   
+
 	<div class="container body">
 		<div class="main_container">
 			<div class="col-md-3 left_col" ng-hide="!currentUser">
@@ -116,9 +116,16 @@
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
-		</div>		   
+		</div>
 	</div>
+  <div  class="loader" >
+        <div>
+            <span>
+                <img src="/app/images/loader.gif" /><i data-i18n="_TITLELOADER"></i></span>
+        </div>
+    </div>
 
+	
 	<!-- jQuery -->
 	<script src="../app/libs/jquery.min.js"></script>
 	<script src="../app/libs/jquery-ui-1.11.4.js"></script>

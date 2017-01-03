@@ -34,7 +34,7 @@ angular.module('uitls.paginate', [])
 
     .service('Paginator', function ($rootScope) {
         this.page = 0;
-        this.rowsPerPage = 5;
+        this.rowsPerPage = 8;
         this.itemCount = 0;
 
         this.setPage = function (page) {

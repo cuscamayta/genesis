@@ -144,13 +144,21 @@ app.config(function ($routeProvider, $httpProvider) {
     $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
         return {
             'request': function (config) {
+                $(".loader").show();
                 config.headers = config.headers || {};
                 if ($localStorage.currentUser) {
                     config.headers.Authorization = 'Bearer ' + $localStorage.currentUser.user.token;
                 }
                 return config;
             },
+            'response': function (response) {
+
+               $(".loader").hide();
+                return response || $q.when(response);
+
+            },
             'responseError': function (response) {
+                 $(".loader").hide();
                 if (response.status === 401 || response.status === 403) {
                     $location.path('/login');
                 }

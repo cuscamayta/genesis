@@ -46,3 +46,41 @@
 .table-responsive{
   min-height: 400px;
 }
+
+.alert-no-data{
+    font-weight: bold;
+    border: #1abb9c 1px solid;
+    padding: 6px 3px 8px 10px;
+    width: 76%;
+}
+
+.loader {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+    .loader div {
+        display: block;
+        left: 45%;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+    }
+
+        .loader div > span {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            /*background-color: #525252;*/
+            /*border: 1px solid #ffffff;*/
+            color: #ffffff;
+            padding: 15px 20px 15px 20px;
+        }
+
+            .loader div > span img {
+                padding-right: 15px;
+            }

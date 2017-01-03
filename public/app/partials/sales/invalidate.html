@@ -39,7 +39,8 @@
                         <div class="x_panel">
                             <div class="x_content">
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table bulk_action">
+                                    <div ng-show="listsalebook.length <= 0" class="alert-no-data">No existen datos para mostrar</div>
+                                    <table ng-show="listsalebook.length > 0" class="table table-striped jambo_table bulk_action">
                                         <thead class="headings">
                                             <tr>
                                                 <th>Fecha</th>
