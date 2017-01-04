@@ -162,7 +162,7 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<button type="button" class="close" data-dismiss="modal" ng-click="cancelSeat()" aria-label="Close"><span aria-hidden="true">×</span></button>
 				<h4 class="modal-title">Asignar pasajero</h4>
 			</div>
 			<div class="modal-body">
@@ -187,7 +187,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar">Cancelar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" title="Cerrar" ng-click="cancelSeat()">Cancelar</button>
 				<button type="button" class="btn btn-primary" ng-disabled="validatecontrolsdetail()" ng-click="newticketdetail()" title="Asignar">Asignar</button>
 			</div>
 		</div>

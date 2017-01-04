@@ -50,7 +50,6 @@ app.controller('BusController', function ($scope, BusService, BustypeService, Co
 
     $scope.savebus = function () {
         $scope.editbus;
-        debugger;
         $scope.editbus.idbustype = $scope.selectedbustype.id;
 
         if ($scope.editbus.id == 0) {

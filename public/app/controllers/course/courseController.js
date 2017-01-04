@@ -113,6 +113,7 @@ app.controller('CourseController', function ($scope, CourseService, DestinationS
     };
 
     $scope.selecteddestinationchange = function () {
-        $scope.editcourse.numberid = ($scope.selectedorigin.short + " - " + $scope.selecteddestination.short);
+        if ($scope.selectedorigin && $scope.selecteddestination)
+            $scope.editcourse.numberid = ($scope.selectedorigin.short + " - " + $scope.selecteddestination.short);
     };
 });
