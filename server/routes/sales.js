@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var common = require('./common');
 
-router.post('/dailycash', common.isAuthenticate, function(request, response) {
+router.post('/dailycash', common.isAuthenticate, function (request, response) {
     models.Sale.findAll({
         include: [{ model: models.User }],
         where: {
@@ -13,14 +13,14 @@ router.post('/dailycash', common.isAuthenticate, function(request, response) {
             iduser: request.body.iduser, status: 1
         },
         order: 'idschedule ASC'
-    }).then(function(res) {
+    }).then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
+    }).catch(function (err) {
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
-router.post('/dailybus', common.isAuthenticate, function(request, response) {
+router.post('/dailybus', common.isAuthenticate, function (request, response) {
     models.Sale.findAll({
         include: [{ model: models.Schedule, where: { idbus: request.body.idbus } }],
         where: {
@@ -30,51 +30,51 @@ router.post('/dailybus', common.isAuthenticate, function(request, response) {
             status: 1
         },
         order: 'idschedule ASC'
-    }).then(function(res) {
+    }).then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
+    }).catch(function (err) {
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
-router.post('/countpassenger', common.isAuthenticate, function(request, response) {
+router.post('/countpassenger', common.isAuthenticate, function (request, response) {
     models.Ticket.count({
         where: { status: 1 }
-    }).then(function(res) {
+    }).then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
+    }).catch(function (err) {
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
-router.post('/countpassengercuerrent', common.isAuthenticate, function(request, response) {
+router.post('/countpassengercuerrent', common.isAuthenticate, function (request, response) {
     models.Ticket.count({
         include: [{ model: models.Salesdetail, include: [{ model: models.Sale, where: { dateregister: common.formatDate(request.body.currentdate) } }] }],
         where: { status: 1 }
-    }).then(function(res) {
+    }).then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
+    }).catch(function (err) {
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
-router.post('/countuser', common.isAuthenticate, function(request, response) {
-    models.User.count().then(function(res) {
+router.post('/countuser', common.isAuthenticate, function (request, response) {
+    models.User.count().then(function (res) {
         response.send(common.response(res));
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
+    }).catch(function (err) {
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
-router.post('/invoice', common.isAuthenticate, function(request, response) {
+router.post('/invoice', common.isAuthenticate, function (request, response) {
 
-    return models.sequelize.transaction(function(t) {
-        return models.Setting.findOne({ attributes: ["title", "numberid", "note"] }, { transaction: t }).then(function(setting) {
+    return models.sequelize.transaction(function (t) {
+        return models.Setting.findOne({ attributes: ["title", "numberid", "note"] }, { transaction: t }).then(function (setting) {
             if (setting) {
                 return models.Orderbook.findOne({
                     attributes: ["numberorder", "idoffice", "deadline"],
                     where: { idoffice: request.body.idoffice, status: 2, type: 1 }
-                }, { transaction: t }).then(function(orderbook) {
+                }, { transaction: t }).then(function (orderbook) {
                     if (orderbook) {
                         return models.Salesbook.findOne({
                             attributes: ["numberorder", "numbercontrol", "numberid", "fullname", "numberinvoice", "dateregister", "amountinvoice", "idoffice"],
@@ -95,7 +95,7 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
                                 }]
                             }],
                             where: { status: 1, numberinvoice: request.body.numberinvoice, numberorder: orderbook.dataValues.numberorder }
-                        }, { transaction: t }).then(function(invoice) {
+                        }, { transaction: t }).then(function (invoice) {
                             var data = { invoice: invoice, setting: setting, orderbook: orderbook };
                             response.send(common.response(data));
                         });
@@ -108,8 +108,8 @@ router.post('/invoice', common.isAuthenticate, function(request, response) {
             }
         });
 
-    }).catch(function(err) {
-        response.send(common.response(err.code, err.message, false));
+    }).catch(function (err) {
+        response.send(common.response(err.name, err.message, false));
     });
 });
 

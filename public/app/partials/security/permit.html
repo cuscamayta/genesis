@@ -40,7 +40,8 @@
                 <form class="form-horizontal form-label-left">
                     <p>
                         <label for="idrole">Rol <span class="required">*</span></label>
-                        <select id="idrole" class="form-control" ng-options="role.title for role in listrole" ng-model="selectedrole" required ng-enter="saveuser()">                            
+                        <select id="idrole" class="form-control" ng-options="role.title for role in listrole" ng-model="selectedrole" required ng-enter="saveuser()"
+                            ng-change="clearListPage()">                            
                         </select>
                     </p>
 

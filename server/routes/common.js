@@ -1,5 +1,11 @@
 exports.response = function (data, message, isSuccess) {
     isSuccess = isSuccess == undefined ? true : false;
+
+    if (!isSuccess) {
+        if (data == "SequelizeUniqueConstraintError") {
+            message = "No se puede guardar, nombre o descripcion duplicado";
+        }
+    }
     return { isSuccess: isSuccess, message: message, data: data };
 };
 

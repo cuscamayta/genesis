@@ -150,7 +150,7 @@ router.post('/create', common.isAuthenticate, function (request, response) {
     }).then(function () {
         response.send(common.response(numberinvoice, "Se guardo correctamente"));
     }).catch(function (err) {
-        response.send(common.response(err.code, err.message, false));
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
@@ -160,7 +160,7 @@ router.get('/', common.isAuthenticate, function (request, response) {
     }).then(function (res) {
         response.send(common.response(res));
     }).catch(function (err) {
-        response.send(common.response(err.code, err.message, false));
+        response.send(common.response(err.name, err.message, false));
     });
 });
 
@@ -182,7 +182,7 @@ router.post('/invalidate', common.isAuthenticate, function (request, response) {
     }).then(function (result) {
         response.send(common.response(null, "Se anulo correctamente"));
     }).catch(function (err) {
-        response.send(common.response(err.code, err.message, false));
+        response.send(common.response(err.name, err.message, false));
     });
 });
 

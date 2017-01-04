@@ -9,7 +9,7 @@ router.post('/create', common.isAuthenticate, function (request, response) {
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
+    response.send(common.response(err.name, err.message, false));
   });
 });
 
@@ -21,7 +21,7 @@ router.post('/update', common.isAuthenticate, function (request, response) {
     }).then(function (res) {
       response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(common.response(err.code, err.message, false));
+      response.send(common.response(err.name, err.message, false));
     });
 });
 
@@ -29,7 +29,7 @@ router.get('/', common.isAuthenticate, function (request, response) {
   models.Drivertype.findAll().then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
+    response.send(common.response(err.name, err.message, false));
   });
 });
 
@@ -39,7 +39,7 @@ router.post('/destroy', common.isAuthenticate, function (request, response) {
   }).then(function () {
     response.send(common.response("", "Se elimino correctamente"));
   }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
+    response.send(common.response(err.name, err.message, false));
   });
 });
 

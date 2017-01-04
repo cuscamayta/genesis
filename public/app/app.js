@@ -153,12 +153,12 @@ app.config(function ($routeProvider, $httpProvider) {
             },
             'response': function (response) {
 
-               $(".loader").hide();
+                $(".loader").hide();
                 return response || $q.when(response);
 
             },
             'responseError': function (response) {
-                 $(".loader").hide();
+                $(".loader").hide();
                 if (response.status === 401 || response.status === 403) {
                     $location.path('/login');
                 }

@@ -80,3 +80,8 @@ insert into database_production.permits (createdat, updatedat, idpage, idrole) v
 insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 21, 1);
 insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 22, 1);
 insert into database_production.permits (createdat, updatedat, idpage, idrole) values(now(), now(), 23, 1);
+
+select * from database_production.bustypes;
+insert into database_production.bustypes (title, path, createdat, updatedat) values ('Tipo Uno', '/app/map/tipoUno.html', now(), now());
+insert into database_production.bustypes (title, path, createdat, updatedat) values ('Tipo Dos', '/app/map/tipoDos.html', now(), now());
+insert into database_production.bustypes (title, path, createdat, updatedat) values ('Tipo Tres', '/app/map/tipoTres.html', now(), now());

@@ -26,7 +26,7 @@ app.controller('BustypeController', function ($scope, BustypeService) {
     $scope.savebustype = function () {
         $scope.editbustype;
         if ($scope.editbustype.id == 0) {
-            var response = BustypeService.savebustype($scope.editbustype);
+            /*var response = BustypeService.savebustype($scope.editbustype);
             response.then(function (res) {
                 if (!res.isSuccess) {
                     toastr.error(res.message);
@@ -36,7 +36,7 @@ app.controller('BustypeController', function ($scope, BustypeService) {
                     databustype();
                     toastr.success(res.message);
                 }
-            });
+            });*/
         } else {
             var response = BustypeService.updatebustype($scope.editbustype);
             response.then(function (res) {
