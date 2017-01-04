@@ -135,6 +135,20 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
         });
     };
 
+    function loadInfoForAreas(seats) {
+        console.log(seats);
+        var areas = $('#tipoUno').find('area');
+        for (var i = 0; i < areas.length; i++) {
+            console.log(i);
+            var currentArea = seats.where(function (item) {
+                return item.number == areas[i].attributes.name.nodeValue;
+            });
+            
+            var state = currentArea.first() && currentArea.first().available == 1 ? 'occupied' : 'free';
+            $(areas[i]).attr('state', state);
+        }
+    }
+
     $scope.scheduleselected = function (schedule) {
         $scope.selectedschedule = schedule;
         $scope.price = schedule.price;
@@ -155,24 +169,59 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             $scope.listseats.push($scope.seatlist);
         }
 
+
+
         $scope.bustypepath = schedule.Bus.Bustype.path;
         $("#step-0").css("display", "none");
         $("#step-2").css("display", "block");
         $("#step-1").css("display", "none");
 
+
+
         setTimeout(function () {
-            $("area").unbind('click').click(function (e) {
-                e.preventDefault();
-                var numberseatselected = e.currentTarget.attributes.name.nodeValue;
+            loadInfoForAreas($scope.listseats);
 
-                var seatselected = $scope.listseats.where(function (item) {
-                    return item.number == numberseatselected;
-                });
-                if (seatselected && seatselected.length > 0) {
-                    selectedticketseat(seatselected.first());
+            $('#imgMapUno').mapster(
+                {
+                    onClick: function (e) {
+                        var numberseatselected = e.key;// e.currentTarget.attributes.name.nodeValue;
+
+                        var seatselected = $scope.listseats.where(function (item) {
+                            return item.number == numberseatselected;
+                        });
+                        if (seatselected && seatselected.length > 0) {
+                            selectedticketseat(seatselected.first());
+                        }
+                    },
+                    key: 'state',
+                    listkey: 'state',
+                    fillOpacity: 0.4,
+                    fillColor: "C52020",
+                    areas: [
+                        {
+                            key: 'ocuppied',
+                            fillColor: '01DF3A'
+                        },
+                        {
+                            key: 'free',
+                            fillColor: 'CEF6EC'
+                        }
+                    ]
+
                 }
+            );
+            // $("area").unbind('click').click(function (e) {
+            //     e.preventDefault();
+            //     var numberseatselected = e.currentTarget.attributes.name.nodeValue;
 
-            });
+            //     var seatselected = $scope.listseats.where(function (item) {
+            //         return item.number == numberseatselected;
+            //     });
+            //     if (seatselected && seatselected.length > 0) {
+            //         selectedticketseat(seatselected.first());
+            //     }
+
+            // });
         }, 500);
     };
 
