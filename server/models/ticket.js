@@ -26,12 +26,12 @@ module.exports = function (sequelize, DataTypes) {
         {
             classMethods: {
                 associate: function (models) {
-                    Ticket.belongsTo(models.Bus, { foreignKey: "idbus" });
-                    Ticket.belongsTo(models.Schedule, { foreignKey: "idschedule" });
-                    Ticket.belongsTo(models.User, { foreignKey: "iduser" });
-                    Ticket.belongsTo(models.Office, { foreignKey: "idoffice" });
-                    Ticket.belongsTo(models.Sale, { foreignKey: "idsale" });                    
-                    Ticket.hasMany(models.Salesdetail, { foreignKey: "idticket" });
+                    Ticket.belongsTo(models.Bus, { foreignKey: "idbus", allowNull: false });
+                    Ticket.belongsTo(models.Schedule, { foreignKey: "idschedule", allowNull: false });
+                    Ticket.belongsTo(models.User, { foreignKey: "iduser", allowNull: false });
+                    Ticket.belongsTo(models.Office, { foreignKey: "idoffice", allowNull: false });
+                    Ticket.belongsTo(models.Sale, { foreignKey: "idsale", allowNull: false });
+                    Ticket.hasMany(models.Salesdetail, { foreignKey: "idticket", allowNull: false });
                 }
             }
         }

@@ -19,9 +19,9 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Bus.belongsTo(models.Bustype, { foreignKey: "idbustype" });
-          Bus.hasMany(models.Schedule, { foreignKey: 'idbus' });
-          Bus.hasMany(models.Ticket, { foreignKey: 'idbus' });
+          Bus.belongsTo(models.Bustype, { foreignKey: "idbustype", allowNull: false });
+          Bus.hasMany(models.Schedule, { foreignKey: "idbus", allowNull: false });
+          Bus.hasMany(models.Ticket, { foreignKey: "idbus", allowNull: false });
         }
       }
     }

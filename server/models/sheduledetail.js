@@ -7,8 +7,8 @@ module.exports = function (sequelize, DataTypes) {
         {
             classMethods: {
                 associate: function (models) {                    
-                    Scheduledetail.belongsTo(models.Driver, { foreignKey: "iddriver" });
-                    Scheduledetail.belongsTo(models.Schedule, { foreignKey: "idschedule" });
+                    Scheduledetail.belongsTo(models.Driver, { foreignKey: "iddriver", allowNull: false });
+                    Scheduledetail.belongsTo(models.Schedule, { foreignKey: "idschedule", allowNull: false });
                 }
             }
         }

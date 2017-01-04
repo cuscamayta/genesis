@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
   }, {
       classMethods: {
         associate: function (models) {
-          Bustype.hasMany(models.Bus, { foreignKey: 'idbustype' });
+          Bustype.hasMany(models.Bus, { foreignKey: "idbustype", allowNull: false });
         }
       }
     });

@@ -23,12 +23,12 @@ module.exports = function (sequelize, DataTypes) {
         {
             classMethods: {
                 associate: function (models) {
-                    Sale.belongsTo(models.Salesbook, { foreignKey: "idsalesbook" });
-                    Sale.belongsTo(models.Schedule, { foreignKey: "idschedule" });
-                    Sale.belongsTo(models.User, { foreignKey: "iduser" });
-                    Sale.belongsTo(models.Office, { foreignKey: "idoffice" });
-                    Sale.hasMany(models.Ticket, { foreignKey: "idsale" });
-                    Sale.hasMany(models.Salesdetail, { foreignKey: "idsale" });
+                    Sale.belongsTo(models.Salesbook, { foreignKey: "idsalesbook", allowNull: false });
+                    Sale.belongsTo(models.Schedule, { foreignKey: "idschedule", allowNull: false });
+                    Sale.belongsTo(models.User, { foreignKey: "iduser", allowNull: false });
+                    Sale.belongsTo(models.Office, { foreignKey: "idoffice", allowNull: false });
+                    Sale.hasMany(models.Ticket, { foreignKey: "idsale", allowNull: false });
+                    Sale.hasMany(models.Salesdetail, { foreignKey: "idsale", allowNull: false });
                 }
             }
         }

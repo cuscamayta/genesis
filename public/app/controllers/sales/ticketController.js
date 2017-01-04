@@ -74,6 +74,8 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
                     defaultvalue();
 
                     generateprintinvoice(res.data);
+
+                    $('area[state = "occupied"]').mapster('set', true);
                 }
             });
         }
@@ -178,7 +180,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
             $('#imgMapUno').mapster(
                 {
                     onClick: function (e) {
-                        var numberseatselected = e.key;// e.currentTarget.attributes.name.nodeValue;
+                        var numberseatselected = e.e.currentTarget.attributes.name.nodeValue;
 
                         var seatselected = $scope.listseats.where(function (item) {
                             return item.number == numberseatselected;
@@ -193,7 +195,7 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
                     fillColor: "C52020",
                     areas: [
                         {
-                            key: 'ocuppied',
+                            key: 'occupied',
                             fillColor: '01DF3A'
                         },
                         {
@@ -203,19 +205,8 @@ app.controller('TicketController', function ($scope, TicketService, ScheduleServ
                     ]
                 });
 
+            $('area[state = "occupied"]').mapster('set', true);
 
-            // $("area").unbind('click').click(function (e) {
-            //     e.preventDefault();
-            //     var numberseatselected = e.currentTarget.attributes.name.nodeValue;
-
-            //     var seatselected = $scope.listseats.where(function (item) {
-            //         return item.number == numberseatselected;
-            //     });
-            //     if (seatselected && seatselected.length > 0) {
-            //         selectedticketseat(seatselected.first());
-            //     }
-
-            // });
         }, 500);
     };
 

@@ -13,9 +13,9 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Course.belongsTo(models.Destination, { foreignKey: "iddestination" });
-          Course.belongsTo(models.Destination, { foreignKey: "idorigin" });
-          Course.hasMany(models.Travel, { foreignKey: 'idcourse' });
+          Course.belongsTo(models.Destination, { foreignKey: "iddestination", allowNull: false });
+          Course.belongsTo(models.Destination, { foreignKey: "idorigin", allowNull: false });
+          Course.hasMany(models.Travel, { foreignKey: "idcourse", allowNull: false });
         }
       }
     }

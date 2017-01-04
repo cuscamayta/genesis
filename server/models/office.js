@@ -10,12 +10,12 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Office.belongsTo(models.Destination, { foreignKey: "idorigin" });
-          Office.hasMany(models.Useroffice, { foreignKey: 'idoffice' });
-          Office.hasMany(models.Orderbook, { foreignKey: 'idoffice' });
-          Office.hasMany(models.Sale, { foreignKey: 'idoffice' });
-          Office.hasMany(models.Salesbook, { foreignKey: 'idoffice' });
-          Office.hasMany(models.Ticket, { foreignKey: 'idoffice' });
+          Office.belongsTo(models.Destination, { foreignKey: "idorigin", allowNull: false });
+          Office.hasMany(models.Useroffice, { foreignKey: "idoffice", allowNull: false });
+          Office.hasMany(models.Orderbook, { foreignKey: "idoffice", allowNull: false });
+          Office.hasMany(models.Sale, { foreignKey: "idoffice", allowNull: false });
+          Office.hasMany(models.Salesbook, { foreignKey: "idoffice", allowNull: false });
+          Office.hasMany(models.Ticket, { foreignKey: "idoffice", allowNull: false });
         }
       }
     }

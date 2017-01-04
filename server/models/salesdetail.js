@@ -10,8 +10,8 @@ module.exports = function (sequelize, DataTypes) {
         {
             classMethods: {
                 associate: function (models) {
-                    Salesdetail.belongsTo(models.Ticket, { foreignKey: "idticket" });
-                    Salesdetail.belongsTo(models.Sale, { foreignKey: "idsale" });
+                    Salesdetail.belongsTo(models.Ticket, { foreignKey: "idticket", allowNull: false });
+                    Salesdetail.belongsTo(models.Sale, { foreignKey: "idsale", allowNull: false });
                 }
             }
         }

@@ -24,11 +24,11 @@ module.exports = function (sequelize, DataTypes) {
         {
             classMethods: {
                 associate: function (models) {
-                    Schedule.belongsTo(models.Bus, { foreignKey: "idbus" });
-                    Schedule.belongsTo(models.Travel, { foreignKey: "idtravel" });
-                    Schedule.hasMany(models.Scheduledetail, { foreignKey: "idschedule" });
-                    Schedule.hasMany(models.Ticket, { foreignKey: "idschedule" });
-                    Schedule.hasMany(models.Sale, { foreignKey: "idschedule" });
+                    Schedule.belongsTo(models.Bus, { foreignKey: "idbus", allowNull: false });
+                    Schedule.belongsTo(models.Travel, { foreignKey: "idtravel", allowNull: false });
+                    Schedule.hasMany(models.Scheduledetail, { foreignKey: "idschedule", allowNull: false });
+                    Schedule.hasMany(models.Ticket, { foreignKey: "idschedule", allowNull: false });
+                    Schedule.hasMany(models.Sale, { foreignKey: "idschedule", allowNull: false });
                 }
             }
         }

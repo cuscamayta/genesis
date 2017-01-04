@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
   }, {
       classMethods: {
         associate: function (models) {
-          Drivertype.hasMany(models.Driver, { foreignKey: 'iddrivertype' });
+          Drivertype.hasMany(models.Driver, { foreignKey: "iddrivertype", allowNull: false });
         }
       }
     });
