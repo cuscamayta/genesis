@@ -1,4 +1,4 @@
-app.controller('TicketController', function($scope, TicketService, ScheduleService, TravelService, $rootScope, SaleService) {
+app.controller('TicketController', function ($scope, TicketService, ScheduleService, TravelService, $rootScope, SaleService) {
     init();
 
     function init() {
@@ -11,7 +11,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
             singleDatePicker: true,
             showDropdowns: false,
             calender_style: "picker_4",
-        }).on('apply.daterangepicker', function(ev, picker) {
+        }).on('apply.daterangepicker', function (ev, picker) {
             $scope.headerticket.dateregister = picker.startDate.format('DD/MM/YYYY');
         });
 
@@ -38,7 +38,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
 
     function gettravels() {
         var response = TravelService.gettravels();
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -48,7 +48,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         });
     }
 
-    $scope.saveticket = function() {
+    $scope.saveticket = function () {
         $scope.headerticket;
         $scope.headerticket.idschedule = $scope.selectedschedule.id;
         $scope.headerticket.arrival = $scope.selectedschedule.arrival;
@@ -62,7 +62,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
 
         if ($scope.headerticket.id == 0) {
             var response = TicketService.saveticket($scope.headerticket);
-            response.then(function(res) {
+            response.then(function (res) {
                 if (!res.isSuccess) { toastr.error(res.message); }
                 else {
                     toastr.success(res.message);
@@ -80,21 +80,21 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         $("#modaleditticket").modal("hide");
     };
 
-    $scope.validatecontrols = function() {
+    $scope.validatecontrols = function () {
         return $scope.headerticket == null || $scope.headerticket.dateregister == null
             || $scope.headerticket.nameinvoice == null || $scope.headerticket.numbernitinvoice == null
             || $scope.listtickets == null
             || ($scope.listtickets != null && $scope.listtickets.length < 1);
     };
 
-    $scope.validatecontrolsdetail = function() {
+    $scope.validatecontrolsdetail = function () {
         return $scope.namecustomer == null || $scope.selectedseat == null || $scope.numberidcustomer == null
             || $scope.numberbaggage == null || $scope.weightbaggage == null
             || $scope.price == null
             || ($scope.price < $scope.selectedschedule.pricemin || $scope.price > $scope.selectedschedule.pricemax);
     };
 
-    $scope.newticketdetail = function() {
+    $scope.newticketdetail = function () {
         $scope.detailticket = {};
         $scope.selectedseat.available = 1;
         $scope.detailticket.numberseat = $scope.selectedseat.number;
@@ -107,23 +107,23 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         $scope.detailticket.idschedule = $scope.selectedschedule.id;
         $scope.detailticket.iduser = $rootScope.currentUser.iduser;
         $scope.listtickets.push($scope.detailticket);
-        $scope.sumTotal = $scope.listtickets.sum(function(item) {
+        $scope.sumTotal = $scope.listtickets.sum(function (item) {
             return parseInt(item.price);
         });
         $("#modaleditcustomer").modal("hide");
     };
 
-    $scope.deleteticketdetail = function(item) {
+    $scope.deleteticketdetail = function (item) {
         $scope.selectedseat.available = 0;
         $scope.listtickets.remove(item);
-        $scope.sumTotal = $scope.listtickets.sum(function(item) {
+        $scope.sumTotal = $scope.listtickets.sum(function (item) {
             return item.price;
         });
     };
 
-    $scope.selectedtravelchange = function(travel) {
+    $scope.selectedtravelchange = function (travel) {
         var response = ScheduleService.getschedulesforselect(travel);
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -137,32 +137,25 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         });
     };
 
-<<<<<<< HEAD
     function loadInfoForAreas(seats) {
-        console.log(seats);
         var areas = $('#tipoUno').find('area');
         for (var i = 0; i < areas.length; i++) {
-            console.log(i);
             var currentArea = seats.where(function (item) {
                 return item.number == areas[i].attributes.name.nodeValue;
             });
-            
             var state = currentArea.first() && currentArea.first().available == 1 ? 'occupied' : 'free';
             $(areas[i]).attr('state', state);
         }
     }
 
     $scope.scheduleselected = function (schedule) {
-=======
-    $scope.scheduleselected = function(schedule) {
->>>>>>> be69e89a0a78b1d5dd0dc61f8393e905e12bf93a
         $scope.selectedschedule = schedule;
         $scope.price = schedule.price;
         $scope.headerticket.dateregister = schedule.dateregister;
 
         for (var i = 0; i < schedule.Bus.numberseats; i++) {
             $scope.seatlist = {};
-            var n = schedule.Tickets.where(function(item) {
+            var n = schedule.Tickets.where(function (item) {
                 return item.number == i + 1;
             });
 
@@ -175,19 +168,13 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
             $scope.listseats.push($scope.seatlist);
         }
 
-
-
         $scope.bustypepath = schedule.Bus.Bustype.path;
         $("#step-0").css("display", "none");
         $("#step-2").css("display", "block");
         $("#step-1").css("display", "none");
 
-<<<<<<< HEAD
-
-
         setTimeout(function () {
             loadInfoForAreas($scope.listseats);
-
             $('#imgMapUno').mapster(
                 {
                     onClick: function (e) {
@@ -214,22 +201,9 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
                             fillColor: 'CEF6EC'
                         }
                     ]
-=======
-        setTimeout(function() {
-            $("area").unbind('click').click(function(e) {
-                e.preventDefault();
-                var numberseatselected = e.currentTarget.attributes.name.nodeValue;
-
-                var seatselected = $scope.listseats.where(function(item) {
-                    return item.number == numberseatselected;
                 });
-                if (seatselected && seatselected.length > 0) {
-                    selectedticketseat(seatselected.first());
-                }
->>>>>>> be69e89a0a78b1d5dd0dc61f8393e905e12bf93a
 
-                }
-            );
+
             // $("area").unbind('click').click(function (e) {
             //     e.preventDefault();
             //     var numberseatselected = e.currentTarget.attributes.name.nodeValue;
@@ -260,7 +234,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         }
     }
 
-    $scope.copyticketdetail = function(item) {
+    $scope.copyticketdetail = function (item) {
         $scope.headerticket.nameinvoice = item.fullName;
         $scope.headerticket.numbernitinvoice = parseInt(item.numberid);
     };
@@ -277,7 +251,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         $scope.filters.numberinvoice = nroinvoiceprint;
 
         var response = SaleService.getinvoice($scope.filters);
-        response.then(function(res) {
+        response.then(function (res) {
             if (!res.isSuccess) {
                 toastr.error(res.message);
             }
@@ -334,7 +308,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         });
     }
 
-    $scope.back = function() {
+    $scope.back = function () {
         $scope.showblack = true;
         $("#step-2").css("display", "none");
         $("#step-1").css("display", "none");
