@@ -45,14 +45,14 @@
 					<p>
 						<label for="idorigin">Origen <span class="required">*</span></label>
 						<select id="idorigin" class="form-control" ng-options="destination.title for destination in listdestination" ng-model="selectedorigin"
-							required>                            
+							ng-change="selecteddestinationchange()" required>                            
                         </select>
 					</p>
 
 					<p>
 						<label for="iddestination">Destino <span class="required">*</span></label>
-						<select id="iddestination" class="form-control" ng-options="destination.title for destination in listdestination | filterSelected :selectedorigin" ng-model="selecteddestination"
-							ng-change="selecteddestinationchange()" required ng-enter="savecourse()">                            
+						<select id="iddestination" class="form-control" ng-options="destination.title for destination in listdestination | filterSelected :selectedorigin"
+							ng-model="selecteddestination" ng-change="selecteddestinationchange()" required ng-enter="savecourse()">                            
                         </select>
 					</p>
 

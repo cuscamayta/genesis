@@ -8,11 +8,11 @@ router.post('/create', common.isAuthenticate, function (request, response) {
     numberid: request.body.numberid,
     detail: request.body.detail,
     iddestination: request.body.iddestination,
-    idorigin: request.body.idorigin    
+    idorigin: request.body.idorigin
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
+    response.send(common.response(err.name, err.message, false));
   });
 });
 
@@ -27,7 +27,7 @@ router.post('/update', common.isAuthenticate, function (request, response) {
     }).then(function (res) {
       response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(common.response(err.code, err.message, false));
+      response.send(common.response(err.name, err.message, false));
     });
 });
 
@@ -35,7 +35,7 @@ router.get('/', common.isAuthenticate, function (request, response) {
   models.Course.findAll().then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
+    response.send(common.response(err.name, err.message, false));
   });
 });
 
@@ -45,7 +45,7 @@ router.post('/destroy', common.isAuthenticate, function (request, response) {
   }).then(function () {
     response.send(common.response("", "Se elimino correctamente"));
   }).catch(function (err) {
-    response.send(common.response(err.code, err.message, false));
+    response.send(common.response(err.name, err.message, false));
   });
 });
 
