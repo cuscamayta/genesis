@@ -33,6 +33,10 @@
 												<tr>
 													<th>#</th>
 													<th>Fecha</th>
+													<th>Tipo Bus</th>
+													<th>Marca/Modelo</th>
+													<th>Nro Placa</th>
+													<th>Nro de asientos</th>
 													<th>Hora salida</th>
 													<th>Hora llegada</th>
 													<th>Detalle</th>
@@ -41,8 +45,12 @@
 											</thead>
 											<tbody>
 												<tr class="even pointer" ng-repeat="schedule in listschedule" ng-class="{selectelement:scheduleselected.id==schedule.id}">
-													<td>{{$index}}</td>
+													<td>{{$index + 1 }}</td>
 													<td>{{schedule.dateregister}}</td>
+													<td>{{schedule.Bus.Bustype.title}}</td>
+													<td>{{schedule.Bus.make}}/{{schedule.Bus.model}}</td>
+													<td>{{schedule.Bus.numberid}}</td>
+													<td>{{schedule.Bus.numberseats}}</td>
 													<td>{{schedule.arrival}}</td>
 													<td>{{schedule.departure}}</td>
 													<td>{{schedule.detail}}</td>

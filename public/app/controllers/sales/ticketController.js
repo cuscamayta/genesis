@@ -163,6 +163,7 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
     }
 
     $scope.scheduleselected = function(schedule) {
+        $scope.listseats = [];
         $scope.selectedschedule = schedule;
         $scope.price = schedule.price;
         $scope.headerticket.dateregister = schedule.dateregister;
