@@ -6,6 +6,10 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
         gettravels();
         dataticket();
 
+        $scope.filtertravel = {};
+        $scope.filtertravel.dateinit = moment().format('DD/MM/YYYY');
+        $scope.filtertravel.dateend = moment().format('DD/MM/YYYY');
+
         $('#dateregister').daterangepicker({
             locale: { format: 'DD/MM/YYYY' },
             singleDatePicker: true,
@@ -13,6 +17,24 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
             calender_style: "picker_4",
         }).on('apply.daterangepicker', function(ev, picker) {
             $scope.headerticket.dateregister = picker.startDate.format('DD/MM/YYYY');
+        });
+
+        $('#dateinit').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
+            singleDatePicker: true,
+            showDropdowns: true,
+            calender_style: "picker_4"
+        }).on('apply.daterangepicker', function(ev, picker) {
+            $scope.filtertravel.dateinit = picker.startDate.format('DD/MM/YYYY');
+        });
+
+        $('#dateend').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
+            singleDatePicker: true,
+            showDropdowns: true,
+            calender_style: "picker_4"
+        }).on('apply.daterangepicker', function(ev, picker) {
+            $scope.filtertravel.dateend = picker.startDate.format('DD/MM/YYYY');
         });
 
         $("#invoice-file").hide();
@@ -136,19 +158,26 @@ app.controller('TicketController', function($scope, TicketService, ScheduleServi
     };
 
     $scope.selectedtravelchange = function(travel) {
-        var response = ScheduleService.getschedulesforselect(travel);
-        response.then(function(res) {
-            if (!res.isSuccess) {
-                toastr.error(res.message);
-            }
-            else {
-                $scope.showblack = false;
-                $scope.listschedule = res.data;
-                $("#step-0").css("display", "none");
-                $("#step-1").css("display", "block");
-                $("#step-2").css("display", "none");
-            }
-        });
+        if ($scope.filtertravel.dateinit && $scope.filtertravel.dateend) {
+            travel.dateinit = $scope.filtertravel.dateinit;
+            travel.dateend = $scope.filtertravel.dateend;
+            var response = ScheduleService.getschedulesforselect(travel);
+            response.then(function(res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
+                }
+                else {
+                    $scope.showblack = false;
+                    $scope.listschedule = res.data;
+                    $("#step-0").css("display", "none");
+                    $("#step-1").css("display", "block");
+                    $("#step-2").css("display", "none");
+                }
+            });
+        }
+        else {
+            toastr.warning("Seleccione fechas para el filtro");
+        }
     };
 
     function loadInfoForAreas(seats) {

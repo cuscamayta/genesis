@@ -6,6 +6,28 @@ app.controller('ManifestController', function ($scope, ScheduleService, TravelSe
         gettravels();
         $scope.selectedschedule = null;
         $scope.listtickets = [];
+
+        $scope.filter = {};
+        $scope.filter.dateinit = moment().format('DD/MM/YYYY');
+        $scope.filter.dateend = moment().format('DD/MM/YYYY');
+
+        $('#dateinit').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
+            singleDatePicker: true,
+            showDropdowns: true,
+            calender_style: "picker_4"
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.filter.dateinit = picker.startDate.format('DD/MM/YYYY');
+        });
+
+        $('#dateend').daterangepicker({
+            locale: { format: 'DD/MM/YY' },
+            singleDatePicker: true,
+            showDropdowns: true,
+            calender_style: "picker_4"
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $scope.filter.dateend = picker.startDate.format('DD/MM/YYYY');
+        });
     }
 
     function gettravels() {
@@ -21,13 +43,19 @@ app.controller('ManifestController', function ($scope, ScheduleService, TravelSe
     }
 
     function getschedules() {
-        var response = ScheduleService.getschedulesforselect($scope.selectedtravel);
-        response.then(function (res) {
-            if (!res.isSuccess) {
-                toastr.error(res.message);
-            }
-            else { $scope.listschedule = res.data; }
-        });
+        if ($scope.filter.dateinit && $scope.filter.dateend) {
+            $scope.selectedtravel.dateinit = $scope.filter.dateinit;
+            $scope.selectedtravel.dateend = $scope.filter.dateend;
+            var response = ScheduleService.getschedulesforselect($scope.selectedtravel);
+            response.then(function (res) {
+                if (!res.isSuccess) {
+                    toastr.error(res.message);
+                }
+                else { $scope.listschedule = res.data; }
+            });
+        } else {
+            toastr.warning("Seleccione fechas para el filtro");
+        }
     }
 
     $scope.selectedtravelchange = function () {

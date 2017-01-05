@@ -11,6 +11,22 @@
 			<div class="x_content">
 				<div id="step-0" class="content" style="display: block;">
 					<form class="form-horizontal form-label-left">
+						<div class="form-group">
+							<label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateinit">Fecha <span class="required">*</span></label>
+							<div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+								<input type="text" id="dateinit" class="form-control has-feedback-left active" ngfocus order="1" ng-model="filtertravel.dateinit"
+									validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+								<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+								<span id="inputSuccess2Status" class="sr-only">(success)</span>
+							</div>
+							<label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateend">Hasta <span class="required">*</span></label>
+							<div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+								<input type="text" id="dateend" class="form-control has-feedback-left active" ngfocus order="1" ng-model="filtertravel.dateend"
+									validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+								<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+								<span id="inputSuccess2Status" class="sr-only">(success)</span>
+							</div>
+						</div>
 						<div class="bs-glyphicons">
 							<ul class="bs-glyphicons-list">
 								<li data-ng-repeat="travel in listtravel" ng-click="selectedtravelchange(travel)">
@@ -134,7 +150,7 @@
 
 									<form class="form-horizontal form-label-left">
 
-										<label for="dateregisteredit">Fecha <span class="required">*</span></label>
+										<label for="dateregister">Fecha <span class="required">*</span></label>
 										<div class="form-group has-feedback">
 											<input type="text" id="dateregister" class="form-control has-feedback-left active" ngfocus ng-model="headerticket.dateregister"
 												validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">

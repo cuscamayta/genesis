@@ -5,7 +5,7 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone" : "+08:00"
+    "timezone": "+08:00"
   },
   "test": {
     "username": "root",
@@ -15,11 +15,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "9ffd4f_bolet",
+    "username": "root",
     "password": "P@ssw0rd",
-    "database": "db_9ffd4f_bolet",
-    "host": "mysql5014.smarterasp.net",
+    "database": "database_production",
+    "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone" : "-04:00"
+    "timezone": "-04:00"
   }
 }

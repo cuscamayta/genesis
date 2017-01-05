@@ -12,10 +12,31 @@
 
                 <div id="step-1" class="content" style="display: block;">
                     <form class="form-horizontal form-label-left">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="idtravel">Itinerario</label>
-                        <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                            <select id="idtravel" class="form-control" ng-options="travel.numberid for travel in listtravel" ng-model="selectedtravel"
-                                ng-change="selectedtravelchange()" required></select>
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateinit">Fecha <span class="required">*</span></label>
+                            <div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+                                <input type="text" id="dateinit" class="form-control has-feedback-left active" ngfocus order="1" ng-model="filter.dateinit"
+                                    validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                            </div>
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="dateend">Hasta <span class="required">*</span></label>
+                            <div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+                                <input type="text" id="dateend" class="form-control has-feedback-left active" ngfocus order="1" ng-model="filter.dateend"
+                                    validate="date" required data-inputmask="'mask': '99/99/9999'" aria-describedby="inputSuccess2Status">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                            </div>
+
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="idtravel">Itinerario</label>
+                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                                <select id="idtravel" class="form-control" ng-options="travel.numberid for travel in listtravel" ng-model="selectedtravel"
+                                    required></select>
+                            </div>
+
+                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                <button type="button" class="btn btn-primary" ng-click="selectedtravelchange()" title="Generar manifiesto">Generar</button>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <div class="x_panel">
