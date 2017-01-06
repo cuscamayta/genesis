@@ -7,6 +7,8 @@ app.controller('DailybusController', function ($scope, SaleService, BusService, 
         $scope.lissales = [];
 
         $scope.filters = {};
+        $scope.filters.dateinit = moment().format('DD/MM/YYYY');
+        $scope.filters.dateend = moment().format('DD/MM/YYYY');
 
         $('#dateinit').daterangepicker({
             locale: { format: 'DD/MM/YY' },

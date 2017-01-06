@@ -7,6 +7,8 @@ app.controller('DailycashController', function ($scope, SaleService, UserService
         $scope.listsales = [];
 
         $scope.filters = {};
+        $scope.filters.dateinit = moment().format('DD/MM/YYYY');
+        $scope.filters.dateend = moment().format('DD/MM/YYYY');
 
         $('#dateinit').daterangepicker({
             locale: { format: 'DD/MM/YY' },

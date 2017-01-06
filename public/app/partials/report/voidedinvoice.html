@@ -32,11 +32,12 @@
                         <div class="x_panel">
                             <div class="x_content">
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table bulk_action">
+                                    <div ng-show="listsales.length <= 0" class="alert-no-data">No existen datos para mostrar</div>
+                                    <table ng-show="listsales.length > 0" class="table table-striped jambo_table bulk_action">
                                         <thead class="headings">
                                             <tr>
                                                 <th>#</th>
-                                                 <th>Fecha</th>
+                                                <th>Fecha</th>
                                                 <th>Nro orden</th>
                                                 <th>Código control</th>
                                                 <th>Nro factura</th>
@@ -56,7 +57,7 @@
                                                 <td>{{sale.numberid}}</td>
                                                 <td>{{sale.fullname}}</td>
                                                 <td>{{sale.amountinvoice}}</td>
-                                                <td>{{sale.Office.title}}</td>                                            
+                                                <td>{{sale.Office.title}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

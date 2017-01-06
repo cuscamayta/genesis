@@ -5,7 +5,10 @@ app.controller('InvalidateController', function ($scope, SalesbookService, Offic
         getoffices();
         $scope.selectedsalebook = null;
         $scope.listsalebook = [];
+
         $scope.filters = {};
+        $scope.filters.dateinit = moment().format('DD/MM/YYYY');
+        $scope.filters.dateend = moment().format('DD/MM/YYYY');
 
         $('#dateinit').daterangepicker({
             locale: { format: 'DD/MM/YY' },
