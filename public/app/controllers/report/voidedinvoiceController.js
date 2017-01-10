@@ -7,6 +7,7 @@ app.controller('VoidedinvoiceController', function ($scope, SalesbookService, Of
         $scope.lissales = [];
 
         $scope.filters = {};
+        $scope.filters.dateregister = moment().format('DD/MM/YYYY');
 
         $('#dateregister').daterangepicker({
             locale: { format: 'DD/MM/YYYY' },
