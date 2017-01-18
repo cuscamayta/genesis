@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     numberorder: { type: DataTypes.STRING, allowNull: false },
     numbercontrol: { type: DataTypes.STRING, allowNull: false, unique: true },
     numberid: {
-      type: DataTypes.BIGINT, allowNull: false
+      type: DataTypes.INTEGER, allowNull: false
     },
     fullname: {
       type: DataTypes.STRING,

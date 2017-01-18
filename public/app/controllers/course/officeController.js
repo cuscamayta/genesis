@@ -1,4 +1,4 @@
-app.controller('OfficeController', function ($scope, OfficeService, DestinationService) {
+app.controller('OfficeController', function ($scope, OfficeService) {
     init();
     function init() {
         getdestinations();
@@ -25,18 +25,16 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
     }
 
     function getdestinations() {
-        var response = DestinationService.getdestinations();
-        response.then(function (res) {
-            if (!res.isSuccess) {
-                toastr.error(res.message);
-            }
-            else { $scope.listdestination = res.data; }
-        });
+        $scope.listdestination = [];
+        var obj = {};
+        obj.id = "Santa Cruz";
+        obj.title = "Santa Cruz";
+        $scope.listdestination.push(obj);
     }
 
     $scope.saveoffice = function () {
         $scope.editoffice;
-        $scope.editoffice.idorigin = $scope.selecteddestination.id;
+        $scope.editoffice.city = $scope.selecteddestination.id;
         if ($scope.editoffice.id == 0) {
             var response = OfficeService.saveoffice($scope.editoffice);
             response.then(function (res) {
@@ -84,7 +82,7 @@ app.controller('OfficeController', function ($scope, OfficeService, DestinationS
 
         if ($scope.listdestination) {
             for (var i = 0; i < $scope.listdestination.length; i++) {
-                if ($scope.listdestination[i].id == $scope.editoffice.idorigin) {
+                if ($scope.listdestination[i].id == $scope.editoffice.city) {
                     $scope.selecteddestination = $scope.listdestination[i];
                 }
             }

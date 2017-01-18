@@ -10,7 +10,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title class="hidden-print">Bus Ticket System</title>
+	<title class="hidden-print">Sistema de ventas</title>
 
 	<link rel="icon" type="image/png" href="/app/images/icono.png" />
 
@@ -53,7 +53,7 @@
 			<div class="col-md-3 left_col" ng-hide="!currentUser">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="#" class="site_title"><i class="fa fa-bus"></i> <span>Ticket System</span></a>
+						<a href="#" class="site_title"><i class="fa fa-windows"></i> <span>Ventas</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -111,7 +111,7 @@
 			<!-- footer content -->
 			<footer data-ng-style="isLoginPage()" class="hidden-print">
 				<div class="pull-right">
-					Ticket Bus System - by <a href="www.emgineersworking.com">EngineersWorking</a>
+					Sistema de ventas - <a href="www.emgineersworking.com">EngineersWorking</a>
 				</div>
 				<div class="clearfix"></div>
 			</footer>
@@ -195,18 +195,6 @@
 	<script src="app/controllers/security/permitController.js"></script>
 	<script src="app/services/security/userofficeService.js"></script>
 	<script src="app/controllers/security/userofficeController.js"></script>
-	<script src="app/services/driver/drivertypeService.js"></script>
-	<script src="app/controllers/driver/drivertypeController.js"></script>
-	<script src="app/services/driver/driverService.js"></script>
-	<script src="app/controllers/driver/driverController.js"></script>
-	<script src="app/services/bus/bustypeService.js"></script>
-	<script src="app/controllers/bus/bustypeController.js"></script>
-	<script src="app/services/bus/busService.js"></script>
-	<script src="app/controllers/bus/busController.js"></script>
-	<script src="app/services/course/destinationService.js"></script>
-	<script src="app/controllers/course/destinationController.js"></script>
-	<script src="app/services/course/courseService.js"></script>
-	<script src="app/controllers/course/courseController.js"></script>
 	<script src="app/services/course/officeService.js"></script>
 	<script src="app/controllers/course/officeController.js"></script>
 	<script src="app/services/sales/orderbookService.js"></script>
@@ -215,18 +203,12 @@
 	<script src="app/controllers/sales/invalidateController.js"></script>
 	<script src="app/controllers/sales/invoiceController.js"></script>
 	<script src="app/services/sales/invoiceService.js"></script>
-	<script src="app/controllers/schedule/travelController.js"></script>
-	<script src="app/services/schedule/travelService.js"></script>
-	<script src="app/controllers/schedule/scheduleController.js"></script>
-	<script src="app/services/schedule/scheduleService.js"></script>
-	<script src="app/controllers/sales/ticketController.js"></script>
-	<script src="app/services/sales/ticketService.js"></script>
-	<script src="app/controllers/manifest/manifestController.js"></script>
 	<script src="app/controllers/report/dailycashController.js"></script>
-	<script src="app/controllers/report/dailybusController.js"></script>
 	<script src="app/controllers/report/dailysaleController.js"></script>
 	<script src="app/controllers/report/voidedinvoiceController.js"></script>
 	<script src="app/services/sales/saleService.js"></script>
+	<script src="app/services/inventory/warehouseService.js"></script>
+	<script src="app/controllers/inventory/warehouseController.js"></script>
 	<script src="app/services/common/commonService.js"></script>
 
 	<!-- Select2 -->

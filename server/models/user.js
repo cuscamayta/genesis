@@ -14,7 +14,9 @@ module.exports = function (sequelize, DataTypes) {
           User.belongsTo(models.Role, { foreignKey: "idrole", allowNull: false });
           User.hasMany(models.Useroffice, { foreignKey: "iduser", allowNull: false });
           User.hasMany(models.Sale, { foreignKey: "iduser", allowNull: false });
-          User.hasMany(models.Ticket, { foreignKey: "iduser", allowNull: false });
+          User.hasMany(models.Transfer, { foreignKey: "iduser", allowNull: false });
+          User.hasMany(models.Inventorytransaction, { foreignKey: "iduser", allowNull: false });
+          User.hasMany(models.Warehouse, { foreignKey: "iduser", allowNull: false });
         }
       },
       getterMethods: {

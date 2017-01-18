@@ -4,10 +4,9 @@ var router = express.Router();
 var common = require('./common');
 
 router.post('/create', common.isAuthenticate, function (request, response) {
-  models.Office.create({
+  models.Warehouse.create({
     title: request.body.title,
     address: request.body.address,
-    phone: request.body.phone,
     detail: request.body.detail,
     city: request.body.city
   }).then(function (res) {
@@ -18,10 +17,9 @@ router.post('/create', common.isAuthenticate, function (request, response) {
 });
 
 router.post('/update', common.isAuthenticate, function (request, response) {
-  models.Office.update({
+  models.Warehouse.update({
     title: request.body.title,
     address: request.body.address,
-    phone: request.body.phone,
     detail: request.body.detail,
     city: request.body.city
   }, {
@@ -34,7 +32,7 @@ router.post('/update', common.isAuthenticate, function (request, response) {
 });
 
 router.get('/', common.isAuthenticate, function (request, response) {
-  models.Office.findAll().then(function (res) {
+  models.Warehouse.findAll().then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
     response.send(common.response(err.code, err.message, false));
@@ -42,7 +40,7 @@ router.get('/', common.isAuthenticate, function (request, response) {
 });
 
 router.post('/forid', common.isAuthenticate, function (request, response) {
-  models.Office.findOne({
+  models.Warehouse.findOne({
     where: { id: request.body.id }
   }).then(function (res) {
     response.send(common.response(res));
@@ -52,7 +50,7 @@ router.post('/forid', common.isAuthenticate, function (request, response) {
 });
 
 router.get('/forselect', common.isAuthenticate, function (request, response) {
-  models.Office.findAll({
+  models.Warehouse.findAll({
     attributes: ["id", "title"]
   }).then(function (res) {
     response.send(common.response(res));
@@ -62,7 +60,7 @@ router.get('/forselect', common.isAuthenticate, function (request, response) {
 });
 
 router.post('/destroy', common.isAuthenticate, function (request, response) {
-  models.Office.destroy({
+  models.Warehouse.destroy({
     where: { id: request.body.id }
   }).then(function () {
     response.send(common.response("", "Se elimino correctamente"));

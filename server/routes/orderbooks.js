@@ -5,7 +5,7 @@ var common = require('./common');
 
 router.post('/create', common.isAuthenticate, function (request, response) {
   models.Orderbook.create({
-    type: request.body.type,
+    type: 1,
     status: request.body.status,
     numberorder: request.body.numberorder,
     controlkey: request.body.controlkey,
@@ -15,13 +15,13 @@ router.post('/create', common.isAuthenticate, function (request, response) {
   }).then(function (res) {
     response.send(common.response(res, "Se guardo correctamente"));
   }).catch(function (err) {
-    response.send(common.response(err.name, err.message, false));
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
 router.post('/update', common.isAuthenticate, function (request, response) {
   models.Orderbook.update({
-    type: request.body.type,
+    type: 1,
     status: request.body.status,
     numberorder: request.body.numberorder,
     controlkey: request.body.controlkey,
@@ -33,7 +33,7 @@ router.post('/update', common.isAuthenticate, function (request, response) {
     }).then(function (res) {
       response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(common.response(err.name, err.message, false));
+      response.send(common.response(err.code, err.message, false));
     });
 });
 
@@ -45,7 +45,7 @@ router.post('/updatestatus', common.isAuthenticate, function (request, response)
     }).then(function (res) {
       response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(common.response(err.name, err.message, false));
+      response.send(common.response(err.code, err.message, false));
     });
 });
 
@@ -57,7 +57,7 @@ router.post('/updatenumberinvoice', common.isAuthenticate, function (request, re
     }).then(function (res) {
       response.send(common.response(res, "Se guardo correctamente"));
     }).catch(function (err) {
-      response.send(common.response(err.name, err.message, false));
+      response.send(common.response(err.code, err.message, false));
     });
 });
 
@@ -67,17 +67,17 @@ router.get('/', common.isAuthenticate, function (request, response) {
   }).then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
-    response.send(common.response(err.name, err.message, false));
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
-router.post('/getbyid', common.isAuthenticate, function (request, response) {
+router.post('/forid', common.isAuthenticate, function (request, response) {
   models.Orderbook.findOne({
     where: { id: request.body.id }
   }).then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
-    response.send(common.response(err.name, err.message, false));
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
@@ -87,7 +87,7 @@ router.post('/getbystatusandtype', common.isAuthenticate, function (request, res
   }).then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
-    response.send(common.response(err.name, err.message, false));
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
@@ -97,7 +97,7 @@ router.post('/getbynumberinvoiceandnumberorder', common.isAuthenticate, function
   }).then(function (res) {
     response.send(common.response(res));
   }).catch(function (err) {
-    response.send(common.response(err.name, err.message, false));
+    response.send(common.response(err.code, err.message, false));
   });
 });
 
@@ -107,7 +107,7 @@ router.post('/destroy', common.isAuthenticate, function (request, response) {
   }).then(function () {
     response.send(common.response("", "Se elimino correctamente"));
   }).catch(function (err) {
-    response.send(common.response(err.name, err.message, false));
+    response.send(common.response(err.code, err.message, false));
   });
 });
 

@@ -48,29 +48,13 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'UserofficeController',
             templateUrl: 'app/partials/security/useroffice.html'
         })
-        .when('/drivertype', {
-            controller: 'DrivertypeController',
-            templateUrl: 'app/partials/driver/drivertype.html'
+        .when('/warehouse', {
+            controller: 'WarehouseController',
+            templateUrl: 'app/partials/inventory/warehouse.html'
         })
-        .when('/driver', {
-            controller: 'DriverController',
-            templateUrl: 'app/partials/driver/driver.html'
-        })
-        .when('/bustype', {
-            controller: 'BustypeController',
-            templateUrl: 'app/partials/bus/bustype.html'
-        })
-        .when('/bus', {
-            controller: 'BusController',
-            templateUrl: 'app/partials/bus/bus.html'
-        })
-        .when('/destination', {
-            controller: 'DestinationController',
-            templateUrl: 'app/partials/course/destination.html'
-        })
-        .when('/course', {
-            controller: 'CourseController',
-            templateUrl: 'app/partials/course/course.html'
+        .when('/item', {
+            controller: 'ItemController',
+            templateUrl: 'app/partials/inventory/item.html'
         })
         .when('/office', {
             controller: 'OfficeController',
@@ -84,29 +68,9 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'InvoiceController',
             templateUrl: 'app/partials/sales/invoice.html'
         })
-        .when('/travel', {
-            controller: 'TravelController',
-            templateUrl: 'app/partials/schedule/travel.html'
-        })
-        .when('/schedule', {
-            controller: 'ScheduleController',
-            templateUrl: 'app/partials/schedule/schedule.html'
-        })
-        .when('/ticket', {
-            controller: 'TicketController',
-            templateUrl: 'app/partials/sales/ticket.html'
-        })
         .when('/invalidate', {
             controller: 'InvalidateController',
             templateUrl: 'app/partials/sales/invalidate.html'
-        })
-        .when('/manifest', {
-            controller: 'ManifestController',
-            templateUrl: 'app/partials/manifest/manifest.html'
-        })
-        .when('/baggage', {
-            controller: 'ManifestController',
-            templateUrl: 'app/partials/manifest/baggage.html'
         })
         .when('/dailycash', {
             controller: 'DailycashController',
@@ -115,10 +79,6 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/dailysale', {
             controller: 'DailysaleController',
             templateUrl: 'app/partials/report/dailysale.html'
-        })
-        .when('/dailybus', {
-            controller: 'DailybusController',
-            templateUrl: 'app/partials/report/dailybus.html'
         })
         .when('/voidedinvoice', {
             controller: 'VoidedinvoiceController',
